@@ -1,10 +1,10 @@
 const firebaseConfig = {
-  apiKey: 'AIzaSyDl7zWB82tW34Vs5yQ8On2uFRL9j1JyUVY',
-  authDomain: 'taxify.firebaseapp.com',
-  projectId: 'taxify',
-  storageBucket: 'taxify.appspot.com',
-  messagingSenderId: '825992944489',
-  appId: '1:825992944489:web:970dfd65d38770c4afbbf8',
-  measurementId: 'G-CBHWG9DXFY',
-}
+  apiKey: "AIzaSyAB5IvKmGEHdxcneVI_RbPHydhhIbmqvXU",
+  authDomain: "taxifyio.firebaseapp.com",
+  projectId: "taxifyio",
+  storageBucket: "taxifyio.firebasestorage.app",
+  messagingSenderId: "923664427725",
+  appId: "1:923664427725:web:059a47037eb410fcdd1784",
+  measurementId: "G-GEJB7NF9LX"
+};
 export default firebaseConfig
