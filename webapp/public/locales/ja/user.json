@@ -1,0 +1,11 @@
+{
+  "menuNav": {
+    "chat": "オープンAIチャット",
+    "vertexAi": "Vertex AI チャット",
+    "solana-nft": "SOLANA NFT",
+    "settings": "設定"
+  },
+  "headerNav": {
+    "settings": "設定"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@assets/*": ["./assets/*"],
+      "@lib/*": ["lib/*"],
+      "@root/*": ["./*"],
+      "@common/*": ["./common/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "src/**/*",
+    "lib/**/*",
+    "common/**/*",
+    "custom.d.ts",
+    "App.tsx",
+    "tests/**/*",
+    "metro.config.js",
+    "babel.config.js",
+    "jest.config.js",
+    "tsconfig.json"
+  ],
+  "exclude": ["node_modules", ".expo", "dist", "webapp", "functions"]
+}

@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "taxify",
+    "slug": "taxify",
+    "scheme": "taxifysolanamobilestack",
+    "owner": "elsoul-labo",
+    "platforms": ["ios", "android"],
+    "githubUrl": "https://github.com/elsoul/taxify",
+    "version": "0.1.1",
+    "orientation": "portrait",
+    "primaryColor": "#111827",
+    "icon": "./assets/favicon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.elsoullabo.taxifysolanamobilestack"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/favicon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "versionCode": 1,
+      "package": "com.elsoullabo.taxifysolanamobilestack",
+      "permissions": ["android.permission.RECORD_AUDIO"]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ]
+  }
+}
