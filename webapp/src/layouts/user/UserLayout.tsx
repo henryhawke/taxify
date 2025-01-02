@@ -13,7 +13,7 @@ import { auth, db } from '@/lib/firebase'
 import LogoHorizontal from '@/components/common/atoms/LogoHorizontal'
 import Image from 'next/image'
 import { User as UserModel, genUserPath } from '@common/models/userModels'
-import { get } from '@/lib/taxify/firestore'
+import { get } from '@/lib/taxfy/firestore'
 import useI18nRouter from '@/hooks/useI18nRouter'
 
 type Props = {

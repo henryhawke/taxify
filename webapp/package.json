@@ -1,14 +1,14 @@
 {
   "name": "webapp",
   "version": "1.0.0",
-  "description": "Taxify Framework Boilerplate with Next.js and Solana",
-  "author": "ELSOUL LABO B.V.",
+  "description": "Taxfy Framework Boilerplate with Next.js and Solana",
+  "author": "Taxfy",
   "license": "Apache-2.0",
   "private": false,
   "engines": {
     "pnpm": ">=8",
     "npm": "please_use_pnpm_instead",
-    "node": "20",
+    "node": "23.5.0",
     "version": "0.0.1"
   },
   "scripts": {
@@ -35,7 +35,7 @@
     "@metaplex-foundation/umi": "0.8.9",
     "@metaplex-foundation/umi-bundle-defaults": "0.8.9",
     "@metaplex-foundation/umi-web3js-adapters": "0.8.9",
-    "@taxify-framework/firestore": "2.4.2",
+    "@skeet-framework/firestore": "2.4.2",
     "@solana/wallet-adapter-base": "0.9.23",
     "@solana/wallet-adapter-react": "0.15.35",
     "@solana/wallet-adapter-react-ui": "0.9.34",
@@ -126,5 +126,9 @@
     "tsconfig-paths": "4.2.0",
     "typescript": "5.2.2",
     "unified": "10.1.2"
-  }
+  },
+  "files": [
+    "src",
+    "taxfy-cloud.config.json"
+  ]
 }

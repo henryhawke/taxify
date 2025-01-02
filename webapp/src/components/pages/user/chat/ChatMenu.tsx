@@ -44,7 +44,7 @@ import { z } from 'zod'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { UserChatRoom, genUserChatRoomPath } from '@common/models'
-import { add, query } from '@/lib/taxify/firestore'
+import { add, query } from '@/lib/taxfy/firestore'
 
 export type ChatRoom = {
   id: string

@@ -1,12 +1,12 @@
 import { publicKey } from '@metaplex-foundation/umi'
 import { format } from 'date-fns'
 
-export const COLLECTION_NAME = 'Taxify The Epics Dev'
+export const COLLECTION_NAME = 'Taxfy The Epics Dev'
 export const COLLECTION_SYMBOL = 'STED'
 export const COLLECTION_DESCRIPTION =
-  'Epics using Taxify. Welcome early adoptooooooooooooors!'
+  'Epics using Taxfy. Welcome early adoptooooooooooooors!'
 export const FEE_PERCENT = 5.5
-export const EXTERNAL_URL = 'https://taxify.dev/'
+export const EXTERNAL_URL = 'https://taxfy.dev/'
 export const COLLECTION_IMAGE_PATH = 'scripts/solana/cNFT/example/TheDev.png'
 export const CREATORS = [
   {

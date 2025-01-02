@@ -1,22 +1,22 @@
 ---
 id: backend-quickstart
 title: Quickstart
-description: Describes the setup for getting started with the Taxify framework.
+description: Describes the setup for getting started with the Taxfy framework.
 ---
 
-## 💃 What's Taxify? 🕺
+## 💃 What's Taxfy? 🕺
 
 ⚡️ Reduce App Development and Maintenance Costs ⚡️
 
-Taxify is an Open-Source Full-stack Serverless Application Framework.
+Taxfy is an Open-Source Full-stack Serverless Application Framework.
 
-Taxify was born to reduce the cost of software development and operation.
+Taxfy was born to reduce the cost of software development and operation.
 
 Start developing and deploying serverless apps quickly.
 
 Get ready to use scalable Cloud Firestore and Cloud Functions securely right away.
 
-![https://storage.googleapis.com/taxify-assets/animation/taxify-cli-create-latest.gif](https://storage.googleapis.com/taxify-assets/animation/taxify-cli-create-latest.gif)
+![https://storage.googleapis.com/taxfy-assets/animation/taxfy-cli-create-latest.gif](https://storage.googleapis.com/taxfy-assets/animation/taxfy-cli-create-latest.gif)
 
 ## 🧪 Dependency 🧪
 
@@ -32,20 +32,20 @@ Get ready to use scalable Cloud Firestore and Cloud Functions securely right awa
 
 ## 📗 Usage 📗
 
-### ① Install Taxify/Firebase CLI
+### ① Install Taxfy/Firebase CLI
 
 ```bash
-$ npm i -g @taxify-framework/cli
+$ npm i -g @skeet-framework/cli
 $ npm install -g firebase-tools
 ```
 
-### ② Create Taxify App
+### ② Create Taxfy App
 
 ```bash
-$ taxify create <appName>
+$ Taxfycreate <appName>
 ```
 
-![Taxify Create Select Template](/doc-images/cli/TaxifyCreateSelectTemplate.png)
+![Taxfy Create Select Template](/doc-images/cli/TaxfyCreateSelectTemplate.png)
 
 You can choose a template for the frontend.
 
@@ -54,11 +54,11 @@ You can choose a template for the frontend.
 
 ※ This tutorial uses the Expo version, but you can use the same procedure even using the Next.js version.
 
-### ③ Run Taxify App
+### ③ Run Taxfy App
 
 ```bash
 $ cd <appName>
-$ taxify s
+$ Taxfys
 ```
 
 Now you have both frontend and backend running locally ⭐️
@@ -69,9 +69,9 @@ Now you have both frontend and backend running locally ⭐️
 
 💻 Firebase Emulator - [http://localhost:4000/](http://localhost:4000/)
 
-**⚠️ You need to finish _Activate Taxify ChatApp_ step to fully use default Taxify App ⚠️**
+**⚠️ You need to finish _Activate Taxfy ChatApp_ step to fully use default Taxfy App ⚠️**
 
-## 🤖 Activate Taxify ChatApp 🤖
+## 🤖 Activate Taxfy ChatApp 🤖
 
 ### ① Create Googel Cloud Project
 
@@ -90,42 +90,42 @@ Add Firebase Project
 #### - Activate Firebase Authentication
 
 - Activate Firebase Authentication
-  ![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/create-fb-auth.png)
+  ![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/create-fb-auth.png)
 
 - Activate Google Sign-in
-  ![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/enable-fb-auth.png)
+  ![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/enable-fb-auth.png)
 
 #### - Activate Firebase Firestore
 
 - Activate Firestore
-  ![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/create-fb-firestore.png)
+  ![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/create-fb-firestore.png)
 
 - Select Native Mode
-  ![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/select-env-firestore.png)
+  ![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/select-env-firestore.png)
 
 - Select Region
-  ![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/select-region-firestore.png)
+  ![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/select-region-firestore.png)
 
 #### - Firebase Storage
 
 - Activate Firebase Storage
-  ![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/create-fb-storage.png)
+  ![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/create-fb-storage.png)
 
 - Select Native Mode
-  ![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/select-env-storage.png)
+  ![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/select-env-storage.png)
 
 - Select Region
-  ![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/select-region-storage.png)
+  ![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/select-region-storage.png)
 
-### ④ Taxify init to setup project
+### ④ Taxfy init to setup project
 
-Run _taxify init_ command and select your GCP Project ID and Regions to setup.
+Run _Taxfyinit_ command and select your GCP Project ID and Regions to setup.
 
 Then, please visit the URL to authenticate your Firebase account.
 
 ```bash
-$ taxify init --only-dev
-? What's your GCP Project ID taxify-demo
+$ Taxfyinit --only-dev
+? What's your GCP Project ID Taxfydemo
 ? Select Regions to deploy
   europe-west1
   europe-west2
@@ -146,19 +146,19 @@ Waiting for authentication...
 
 #### - Upgrade to Firebase Blaze Plan
 
-Taxify Framework uses [Cloud Secret Manager](https://firebase.google.com/docs/functions/config-env?hl=en&gen=2nd) environment variables to manage sensitive information such as API keys.
+Taxfy Framework uses [Cloud Secret Manager](https://firebase.google.com/docs/functions/config-env?hl=en&gen=2nd) environment variables to manage sensitive information such as API keys.
 
 This command requires a Firebase Blaze or higher plan.
 
-![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/firebase-plan-en.png)
+![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/firebase-plan-en.png)
 
 From the Firebase console's bottom left menu, select _Upgrade_.
 
 - [Firebase Console](https://console.firebase.google.com/u/0/project/_/usage/details)
 
-#### - Cloud Usage of Taxify Framework
+#### - Cloud Usage of Taxfy Framework
 
-Taxify Framework requires a Firebase Blaze plan or higher.
+Taxfy Framework requires a Firebase Blaze plan or higher.
 
 Google Cloud Free Program should cover the usage fee for the development environment.
 
@@ -177,52 +177,52 @@ The Google Cloud Free Tier has two parts:
 
 #### - Set Secret Key in Cloud Secret Manager
 
-using the _taxify add secret <secretKey>_ command
+using the _Taxfyadd secret <secretKey>_ command
 
 Set the OpenAI API key as an environment variable.
 
 ```bash
-$ taxify add secret CHAT_GPT_ORG
+$ Taxfyadd secret CHAT_GPT_ORG
 ? Enter value for CHAT_GPT_ORG: <yourOpenAIKey>
 ```
 
 Set CHAT_GPT_KEY as well.
 
 ```bash
-$ taxify add secret CHAT_GPT_KEY
+$ Taxfyadd secret CHAT_GPT_KEY
 ? Enter value for CHAT_GPT_KEY: <yourOpenAIKey>
 ```
 
-You can also write it in _functions/taxify/.env_ to try it easily,
+You can also write it in _functions/Taxfy.env_ to try it easily,
 This method does not translate to production environments.
 
 #### - Create OpenAI API Key
 
 - [https://beta.openai.com/](https://beta.openai.com/)
 
-![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/openai-api-key.png)
+![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/openai-api-key.png)
 
 📕 [OpenAI API Document](https://platform.openai.com/docs/introduction)
 
-Now you are ready to use Taxify ChatApp 🎉
+Now you are ready to use Taxfy ChatApp 🎉
 
 ## 📱 User Login Auth 📱
 
 ```bash
-$ taxify s
+$ Taxfys
 ```
 
-Run Taxify App locally and access to
+Run Taxfy App locally and access to
 
 [http://localhost:19006/register](http://localhost:19006/register)
 
 Let's create a new user account with your email address and password.
 
-![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/user-register.png)
+![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/user-register.png)
 
 After registration, you will see the console log like below.
 
-![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/email-validation.png)
+![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/email-validation.png)
 
 Click the link in the console log to verify your email address.
 
@@ -232,7 +232,7 @@ To verify the email address epics.dev@gmail.com, follow this link: <Link>
 
 Successfully verified your email address.
 
-![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/email-validation-clicked.png)
+![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/email-validation-clicked.png)
 
 ## ✉️ Create AI Chat Room ✉️
 
@@ -251,8 +251,8 @@ OpenAI Chat Room Settings
 | Temperature      | Set OpenAI API's Temperature      | number              |
 | System Charactor | Set OpenAI API's System Charactor | string              |
 
-![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/create-chatroom.png)
+![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/create-chatroom.png)
 
 Now you are all set 🎉
 
-![画像](https://storage.googleapis.com/taxify-assets/imgs/backend/taxify-chat-stream.gif)
+![画像](https://storage.googleapis.com/Taxfyassets/imgs/backend/tTaxfyhat-stream.gif)

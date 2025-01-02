@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "taxify"
+    "default": "taxfy"
   },
   "targets": {
-    "taxify": {
+    "taxfy": {
       "hosting": {
-        "taxify": [
-          "taxify"
+        "taxfy": [
+          "taxfy"
         ]
       }
     }

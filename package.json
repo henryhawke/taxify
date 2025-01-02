@@ -1,14 +1,14 @@
 {
-  "name": "taxify",
+  "name": "taxfy",
   "version": "1.7.2",
-  "description": "🧪 Taxify Framework Boilerplate for Solana Mobile Stack 🌊",
-  "author": "ELSOUL LABO B.V.",
+  "description": "🧪 Taxfy Framework Boilerplate for Solana Mobile Stack 🌊",
+  "author": "Taxfy",
   "license": "Apache-2.0",
-  "private": false,
+  "private": true,
   "engines": {
     "pnpm": ">=8",
     "npm": "please_use_pnpm_instead",
-    "node": "20",
+    "node": "23.5.0",
     "version": "0.0.1"
   },
   "scripts": {
@@ -16,13 +16,13 @@
     "lint": "eslint --ext .ts,.tsx --fix .",
     "test": "jest --coverage=false --detectOpenHandles --maxWorkers=1",
     "typecheck": "tsc --noEmit",
-    "taxify": "run-p taxify:*",
-    "taxify:taxify": "pnpm -F taxify-func dev",
-    "taxify-func": "pnpm -F taxify-func",
+    "taxfy": "run-p taxfy:*",
+    "taxfy:taxfy": "pnpm -F taxfy-func dev",
+    "taxfy-func": "pnpm -F taxfy-func",
     "webapp": "pnpm -F webapp",
-    "taxify:dev": "firebase emulators:start --import=./tmp/data --export-on-exit",
-    "taxify:solanamobile": "pnpm android",
-    "taxify:webapp": "pnpm -F webapp dev",
+    "taxfy:dev": "firebase emulators:start --import=./tmp/data --export-on-exit",
+    "taxfy:solanamobile": "pnpm android",
+    "taxfy:webapp": "pnpm -F webapp dev",
     "dev": "EXPO_USE_PATH_ALIASES=1 expo start -c",
     "android": "ANDROID_HOME=~/Library/Android/sdk npx expo run:android",
     "update:packages": "ncu -x 'react-native-reanimated,react-native-svg' && pnpm",
@@ -60,7 +60,8 @@
     "@react-navigation/native": "6.1.6",
     "@react-navigation/native-stack": "6.9.12",
     "@rivascva/react-native-code-editor": "1.2.2",
-    "@taxify-framework/firestore": "2.3.2",
+    "@react-native-firebase/app": "21.6.2",
+    "@react-native-firebase/firestore": "21.6.2",
     "@solana-mobile/mobile-wallet-adapter-protocol": "2.0.1",
     "@solana-mobile/mobile-wallet-adapter-protocol-web3js": "2.0.1",
     "@solana/wallet-standard-features": "1.1.0",
@@ -113,8 +114,8 @@
     "@babel/core": "7.21.0",
     "@expo/metro-config": "0.7.1",
     "@expo/webpack-config": "18.0.1",
-    "@taxify-framework/discord-utils": "^0.2.4",
-    "@taxify-framework/utils": "^1.2.3",
+    "@skeet-framework/discord-utils": "^0.2.4",
+    "@skeet-framework/utils": "^1.2.3",
     "@svgr/webpack": "6.5.1",
     "@types/jest": "29.5.0",
     "@types/node": "20.11.0",
@@ -154,5 +155,6 @@
   },
   "resolutions": {
     "@types/react": "~17.0.21"
-  }
+  },
+  "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321"
 }

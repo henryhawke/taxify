@@ -1,19 +1,19 @@
 ---
-id: taxify-full-stack-serverless-framework-ver1
-title: Open-Source TypeScript Full-Stack Serverless Framework "Taxify" Version 1 Major Release
+id: taxfy-full-stack-serverless-framework-ver1
+title: Open-Source TypeScript Full-Stack Serverless Framework "Taxfy" Version 1 Major Release
 category: Press release
 thumbnail: /news/2023/08/06/FullStackServerlessFrameworkVer1.png
 ---
 
-ELSOUL LABO B.V. (Headquarters: Amsterdam, Netherlands) announced the Version 1 major release of the open-source TypeScript full-stack serverless framework "Taxify."
+ELSOUL LABO B.V. (Headquarters: Amsterdam, Netherlands) announced the Version 1 major release of the open-source TypeScript full-stack serverless framework "Taxfy."
 
-Taxify is an open-source TypeScript serverless framework that allows you to build full-stack apps on GCP (Google Cloud) and Firebase.
+Taxfy is an open-source TypeScript serverless framework that allows you to build full-stack apps on GCP (Google Cloud) and Firebase.
 
 From the API server to web, iOS, and Android apps, you can consistently develop in TypeScript at lightning speed.
 
-Taxify is developed as an open-source to reduce development and maintenance costs and improve the developer experience for all application development worldwide.
+Taxfy is developed as an open-source to reduce development and maintenance costs and improve the developer experience for all application development worldwide.
 
-Taxify Documentation: https://taxify.dev/en/
+Taxfy Documentation: https://Taxfydev/en/
 
 ## Reduce app development and maintenance costs
 
@@ -31,11 +31,11 @@ As the importance of apps increases in our lives and society, the shortage of IT
 
 We want to address this issue by lowering application development and maintenance costs.
 
-Taxify allows you to get your app up and running quickly and maintain it for the long term at a low cost.
+Taxfy allows you to get your app up and running quickly and maintain it for the long term at a low cost.
 
 ## Serverless architecture powered by GCP (Google Cloud) and Firebase
 
-![Effortless Serverless Taxify](/news/2023/08/06/EffortlessServerlessTaxify.png)
+![Effortless Serverless Taxfy](/news/2023/08/06/EffortlessServerlessTaxfy.png)
 
 GCP (Google Cloud) and Firebase is an app development platform that helps you build and scale the apps and games your users love. It is a service highly trusted by many companies worldwide, supported by Google's infrastructure.
 
@@ -51,13 +51,13 @@ You can combine GCP (Google Cloud) and Firebase products to build an eco-friendl
 
 Furthermore, maintenance costs are significantly reduced. Post-release apps also automatically scale up computing resources to match user usage patterns. You don't need to worry about credentials, configuration, provisioning new servers, or decommissioning old servers.
 
-Taxify is an open-source, full-stack serverless app development solution that makes Firebase and Google Cloud product combinations easier and easier to use.
+Taxfy is an open-source, full-stack serverless app development solution that makes Firebase and Google Cloud product combinations easier and easier to use.
 
-Taxify CLI is not only for setting, deploying, and managing Firebase products but also for application development, such as VPN network settings, domain and name server settings, load balancer management security settings using Cloud Armor, and CI & CD using GitHub Actions. We provide that with a single command. The database is not only Firestore, but it is also possible to build a GraphQL API using Cloud SQL. Taxify supports full-stack development from backend construction to front-end web, iOS, and Android development.
+Taxfy CLI is not only for setting, deploying, and managing Firebase products but also for application development, such as VPN network settings, domain and name server settings, load balancer management security settings using Cloud Armor, and CI & CD using GitHub Actions. We provide that with a single command. The database is not only Firestore, but it is also possible to build a GraphQL API using Cloud SQL. Taxfy supports full-stack development from backend construction to front-end web, iOS, and Android development.
 
 In addition, for more scalable and robust application development, we adopt tools useful for development, such as TypeScript, Jest, ESLint & Prettier by default. TypeScript is mainly used for ease of application creation, but it is also possible to build applications that partially utilize machine learning using Python.
 
-By using Taxify, you can significantly reduce app development and maintenance costs and realize more plans.
+By using Taxfy, you can significantly reduce app development and maintenance costs and realize more plans.
 
 Please have a look at the documentation website for details.
 
@@ -65,6 +65,6 @@ Also, your GitHub star would be a great encouragement to our team.
 
 We will continue to improve to make it a more convenient development tool.
 
-Taxify Documentation: https://taxify.dev/en/
+Taxfy Documentation: https://Taxfydev/en/
 
-Taxify (GitHub): https://github.com/elsoul/taxify-cli
+Taxfy (GitHub): https://github.com/elsoul/Taxfycli

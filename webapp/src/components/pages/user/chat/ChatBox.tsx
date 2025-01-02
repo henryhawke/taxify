@@ -14,7 +14,7 @@ import { userState } from '@/store/user'
 import { db } from '@/lib/firebase'
 import { orderBy } from 'firebase/firestore'
 import { chatContentSchema, getGptChatModelName } from '@/utils/form'
-import { fetchTaxifyFunctions } from '@/lib/taxify/functions'
+import { fetchTaxfyFunctions } from '@/lib/taxfy/functions'
 import Image from 'next/image'
 import { ChatRoom } from './ChatMenu'
 import { AddStreamUserChatRoomMessageParams } from '@common/types/http/addStreamUserChatRoomMessageParams'
@@ -37,8 +37,8 @@ import {
   genUserChatRoomMessagePath,
   genUserChatRoomPath,
 } from '@common/models'
-import { Timestamp } from '@taxify-framework/firestore'
-import { get, query } from '@/lib/taxify/firestore'
+import { Timestamp } from '@skeet-framework/firestore'
+import { get, query } from '@/lib/taxfy/firestore'
 import rehypeSlug from 'rehype-slug'
 import rehypeExternalLinks from 'rehype-external-links'
 
@@ -212,8 +212,8 @@ export default function ChatBox({
             ]
           })
           const res =
-            await fetchTaxifyFunctions<AddStreamUserChatRoomMessageParams>(
-              'taxify',
+            await fetchTaxfyFunctions<AddStreamUserChatRoomMessageParams>(
+              'taxfy',
               'addStreamUserChatRoomMessage',
               {
                 userChatRoomId: currentChatRoomId,

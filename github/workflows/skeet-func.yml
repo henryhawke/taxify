@@ -1,11 +1,11 @@
-name: TaxifyFunc
+name: TaxfyFunc
 on:
   push:
     branches:
       - main
     paths:
-      - 'functions/taxify/**'
-      - '.github/workflows/taxify-func.yml'
+      - 'functions/taxfy/**'
+      - '.github/workflows/taxfy-func.yml'
 
 jobs:
   deploy:
@@ -51,8 +51,8 @@ jobs:
       - name: GitHub repository setting
         run: git config --global url."https://github.com".insteadOf ssh://git@github.com
       - name: Install dependencies
-        run: pnpm -F taxify-func install --frozen-lockfile
+        run: pnpm -F taxfy-func install --frozen-lockfile
       - name: Build App
-        run: pnpm -F taxify-func build
+        run: pnpm -F taxfy-func build
       - name: Deploy to Firebase
-        run: firebase deploy --only functions:taxify
+        run: firebase deploy --only functions:taxfy

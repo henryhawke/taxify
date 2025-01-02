@@ -1,15 +1,15 @@
 ---
-id: taxify-sign-in-with-solana
-title: Open-Source Serverless Framework Taxify Now Supports "Sign In With Solana" (SIWS)
+id: taxfy-sign-in-with-solana
+title: Open-Source Serverless Framework Taxfy Now Supports "Sign In With Solana" (SIWS)
 category: Press Release
-thumbnail: /news/2023/10/16/TaxifySignInWithSolana.png
+thumbnail: /news/2023/10/16/TaxfySignInWithSolana.png
 ---
 
-ELSOUL LABO B.V. (Headquarters: Amsterdam, Netherlands, CEO: Fumitake Kawasaki) is pleased to announce that its open-source serverless framework, Taxify, now supports "Sign In With Solana" (SIWS) on the Solana blockchain.
+ELSOUL LABO B.V. (Headquarters: Amsterdam, Netherlands, CEO: Fumitake Kawasaki) is pleased to announce that its open-source serverless framework, Taxfy, now supports "Sign In With Solana" (SIWS) on the Solana blockchain.
 
-By integrating with "Sign In With Solana," Taxify enhances its security features, offering a more robust Web3 infrastructure for dApp development. The standardization of message formats allows wallets to issue warnings to users, thereby creating a safer user experience.
+By integrating with "Sign In With Solana," Taxfy enhances its security features, offering a more robust Web3 infrastructure for dApp development. The standardization of message formats allows wallets to issue warnings to users, thereby creating a safer user experience.
 
-As the Solana ecosystem moves towards further standardization, Taxify continues to grow as a comprehensive development infrastructure that adapts to these evolving needs.
+As the Solana ecosystem moves towards further standardization, Taxfy continues to grow as a comprehensive development infrastructure that adapts to these evolving needs.
 
 ## What is Sign In With Solana (SIWS)?
 
@@ -40,36 +40,36 @@ Implementing Sign In With Solana (SIWS) - Medium
 
 https://medium.com/@KishiTheMechanic/implementing-sign-in-with-solana-siws-ce35dadeda31
 
-## What is Taxify?
+## What is Taxfy?
 
-![Taxify AI Auto Coding](/news/2023/09/15/TaxifyEN.png)
+![Taxfy AI Auto Coding](/news/2023/09/15/TaxfyEN.png)
 
-Taxify is an open-source TypeScript serverless framework that allows you to build full-stack apps on GCP (Google Cloud) and Firebase.
+Taxfy is an open-source TypeScript serverless framework that allows you to build full-stack apps on GCP (Google Cloud) and Firebase.
 
-With Taxify, you can rapidly develop everything from API servers to Web, iOS, and Android apps using TypeScript. It actively adopts technologies with good developer experience, such as GraphQL and Firestore.
+With Taxfy, you can rapidly develop everything from API servers to Web, iOS, and Android apps using TypeScript. It actively adopts technologies with good developer experience, such as GraphQL and Firestore.
 
-Taxify is a modern application framework that makes it easy to develop applications using AI technologies like ChatGPT and Vertex AI, as well as blockchain-based Web3 dApps like Solana.
+Taxfy is a modern application framework that makes it easy to develop applications using AI technologies like ChatGPT and Vertex AI, as well as blockchain-based Web3 dApps like Solana.
 
 You can try the demo from the link below. You can also try PaLM2, Vertex AI, and OpenAI's ChatGPT (GPT-3.5, GPT-4) to compare their features.
 
-Taxify Demo App:
+Taxfy Demo App:
 
-https://taxifyer.dev/en/
+https://Taxfyr.dev/en/
 
-Furthermore, you can run this demo app on your own PC or cloud environment in just 5 minutes using the Taxify CLI.
+Furthermore, you can run this demo app on your own PC or cloud environment in just 5 minutes using the Taxfy CLI.
 
-First, get an idea of what you can do with the demo, and then you can start app development right away using the Taxify CLI.
+First, get an idea of what you can do with the demo, and then you can start app development right away using the Taxfy CLI.
 
-The Taxify CLI also comes with AI, offering powerful support like automatic code generation through chat, significantly boosting developer productivity.
+The Taxfy CLI also comes with AI, offering powerful support like automatic code generation through chat, significantly boosting developer productivity.
 
-Taxify CLI (GitHub):
+Taxfy CLI (GitHub):
 
-https://github.com/elsoul/taxify-cli
+https://github.com/elsoul/Taxfycli
 
-Taxify is being developed as an open-source project to reduce development and maintenance costs across all application development settings worldwide.
+Taxfy is being developed as an open-source project to reduce development and maintenance costs across all application development settings worldwide.
 
 For more details, please refer to the official documentation.
 
-Taxify Documentation:
+Taxfy Documentation:
 
-https://taxify.dev/en/
+https://Taxfydev/en/

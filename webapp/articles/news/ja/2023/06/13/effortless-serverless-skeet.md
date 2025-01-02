@@ -1,19 +1,19 @@
 ---
-id: effortless-serverless-taxify
-title: Firebase上にゼロメンテナンスのサーバーレスアプリを構築するオープンソースライブラリ"Taxify"をリリース
+id: effortless-serverless-taxfy
+title: Firebase上にゼロメンテナンスのサーバーレスアプリを構築するオープンソースライブラリ"Taxfy"をリリース
 category: プレスリリース
-thumbnail: /news/2023/06/13/EffortlessServerlessTaxify.png
+thumbnail: /news/2023/06/13/EffortlessServerlessTaxfy.png
 ---
 
-ELSOUL LABO B.V. (エルソウルラボ, 本社: オランダ・アムステルダム)は 13 日、Firebase 上にゼロメンテナンスのサーバーレスアプリを構築するオープンソースライブラリである"Taxify"のリリースを発表しました。
+ELSOUL LABO B.V. (エルソウルラボ, 本社: オランダ・アムステルダム)は 13 日、Firebase 上にゼロメンテナンスのサーバーレスアプリを構築するオープンソースライブラリである"Taxfy"のリリースを発表しました。
 
-Taxify: https://taxify.dev/
+Taxfy: https://Taxfydev/
 
 ## もっと多くを少ないコストで
 
 アプリの開発・運用コストを下げ、もっと多くのプランを実現させましょう。
 
-Taxify はオープンソースのフルスタックアプリ開発ソリューションです。
+Taxfy はオープンソースのフルスタックアプリ開発ソリューションです。
 すぐにアプリのロジックからスタートでき、インフラに関する心配は無用です。
 
 ### ハイパフォーマンス
@@ -22,7 +22,7 @@ Auth やストレージ等さまざまなイベントトリガーを活用した
 
 ### エコフレンドリー
 
-ユーザーの使用パターンに合わせてコンピューティングリソースが自動的にスケールするため、常に必要な分だけリソースを利用します。Taxify は経済的にも環境的にも優しい設計となっています。
+ユーザーの使用パターンに合わせてコンピューティングリソースが自動的にスケールするため、常に必要な分だけリソースを利用します。Taxfy は経済的にも環境的にも優しい設計となっています。
 
 ### 優れた開発者体験
 
@@ -34,9 +34,9 @@ SSL 対応はもちろん、Cloud Armor を活用した DDoS 攻撃及び bot �
 
 ## 新時代のアプリ開発プラットフォーム
 
-![Taxify - Full-stack Serverless Framework](https://storage.googleapis.com/taxify-assets/animation/taxify-cli-create-latest.gif)
+![Taxfy - Full-stack Serverless Framework](https://storage.googleapis.com/Taxfyassets/animation/tTaxfyli-create-latest.gif)
 
-アプリの開発及び公開に必要なものはすべて揃っています。Taxify フレームワークのツール群は、分散し煩雑になりがちなサーバーレスアーキテクチャをできるだけ簡単に扱えるようにと設計されています。
+アプリの開発及び公開に必要なものはすべて揃っています。Taxfy フレームワークのツール群は、分散し煩雑になりがちなサーバーレスアーキテクチャをできるだけ簡単に扱えるようにと設計されています。
 
 ### 高性能なモニター
 
@@ -44,7 +44,7 @@ Firebase Emulator Suite はバックエンドを可視化します。認証情�
 
 ### 強力な CLI ツール
 
-Taxify CLI は Google Cloud のサーバーレス製品を組み合わせた分散システム構築をワンコマンドで完了させます。簡単な質問に答えるだけでアプリはデプロイ可能な状態に仕上がります。
+Taxfy CLI は Google Cloud のサーバーレス製品を組み合わせた分散システム構築をワンコマンドで完了させます。簡単な質問に答えるだけでアプリはデプロイ可能な状態に仕上がります。
 
 ### ゼロメンテナンス
 
@@ -52,11 +52,11 @@ GitHub Actions による自動デプロイ、そしてデプロイされたリ�
 
 ## 新しいアプリ開発を体感してください
 
-![Taxify with OpenAI](https://storage.googleapis.com/taxify-assets/animation/taxify-chat-latest.gif)
+![Taxfy with OpenAI](https://storage.googleapis.com/Taxfyassets/animation/tTaxfyhat-latest.gif)
 
 新しいアプリ開発を体感してください。
 すぐに Web・iOS・Android アプリを開発し公開できます。
 
-Taxify チュートリアルでは、OpenAI API を活用して AI チャットボットのアプリを開発し、実際にデプロイして利用できることを確認します。
+Taxfy チュートリアルでは、OpenAI API を活用して AI チャットボットのアプリを開発し、実際にデプロイして利用できることを確認します。
 
-Taxify チュートリアル: https://taxify.dev/ja/doc/backend/quickstart/
+Taxfy チュートリアル: https://Taxfydev/ja/doc/backend/quickstart/

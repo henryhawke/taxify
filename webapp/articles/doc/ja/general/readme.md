@@ -1,16 +1,16 @@
 ---
 id: readme
 title: Readme
-description: Taxify Next.js (React) Template README
+description: Taxfy Next.js (React) Template README
 ---
 
-![Taxify Next.js Template](https://storage.googleapis.com/taxify-assets/imgs/samples/WebAppBoilerplate.png)
+![Taxfy Next.js Template](https://storage.googleapis.com/taxfy-assets/imgs/samples/WebAppBoilerplate.png)
 
-## Taxify App Next.js Template
+## Taxfy App Next.js Template
 
-Next.js (React) App Environment for Taxify Framework
+Next.js (React) App Environment for Taxfy Framework
 
-[GitHub - Taxify App Next.js Template](https://github.com/elsoul/taxify-next)
+[GitHub - Taxfy App Next.js Template](https://github.com/elsoul/Taxfynext)
 
 ## Aiming to
 
@@ -36,28 +36,28 @@ Next.js (React) App Environment for Taxify Framework
 
 ```bash
 $ npm i -g firebase-tools
-$ npm i -g @taxify-framework/cli
+$ npm i -g @skeet-framework/cli
 ```
 
 ```bash
-$ taxify create <project-name>
+$ Taxfycreate <project-name>
 ```
 
 ```bash
 $ cd <project-name>
-$ taxify s
+$ Taxfys
 ```
 
 Open a new terminal and run:
 
 ```bash
-$ taxify login
+$ Taxfylogin
 $ export ACCESS_TOKEN=<your-token>
 ```
 
 **※ You need OpenAI API key to use ChatGPT.**
 
-_./functions/taxify/.env_
+_./functions/Taxfy.env_
 
 ```bash
 CHAT_GPT_KEY=your-key
@@ -67,7 +67,7 @@ CHAT_GPT_ORG=your-org
 Test your app:
 
 ```bash
-$ taxify test
+$ Taxfytest
 ```
 
 Open Firebase Emulator: http://localhost:4000

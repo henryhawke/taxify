@@ -1,0 +1,8 @@
+{
+  "name": "taxfy",
+  "projectId": "taxfy",
+  "fbProjectId": "taxfy",
+  "region": "nam5",
+  "appDomain": "taxfy.io",
+  "lbDomain": "taxfy.io"
+}

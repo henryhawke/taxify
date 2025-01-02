@@ -1,5 +1,5 @@
-import { discordChangeLog } from '@taxify-framework/discord-utils'
-import { dotenv } from '@taxify-framework/utils'
+import { discordChangeLog } from '@skeet-framework/discord-utils'
+import { dotenv } from '@skeet-framework/utils'
 dotenv.config()
 
 type ProjectType = 'labo' | 'epics'

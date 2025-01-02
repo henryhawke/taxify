@@ -15,9 +15,9 @@ import { transact } from '@solana-mobile/mobile-wallet-adapter-protocol'
 import SolanaLogo from '@assets/logo/solanaLogoMark.svg'
 
 export const APP_IDENTITY = {
-  name: 'Taxify Dev',
-  uri: 'https://taxify.dev/',
-  icon: 'favicon.png', // resolves to uri/icon like https://taxify.dev/favicon.png in this example
+  name: 'Taxfy Dev',
+  uri: 'https://taxfy.dev/',
+  icon: 'favicon.png', // resolves to uri/icon like https://taxfy.dev/favicon.png in this example
 }
 
 export default function LoginScreen() {
@@ -55,7 +55,7 @@ export default function LoginScreen() {
                     console.log(authorization)
                     Toast.show({
                       type: 'success',
-                      text1: 'Welcome to Taxify Dev🎉',
+                      text1: 'Welcome to Taxfy Dev🎉',
                       text2: `You signed with ${authorization.accounts[0].address}`,
                     })
                   })

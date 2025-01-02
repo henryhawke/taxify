@@ -1,40 +1,40 @@
 ---
-id: taxify-chatgpt-rta
+id: taxfy-chatgpt-rta
 title: Set a World Record of 37 Minutes and 48 Seconds in RTA for Releasing an AI Chat App Using ChatGPT on the Cloud
 category: Press Release
-thumbnail: /news/2023/09/06/taxify-chatgpt-rta.png
+thumbnail: /news/2023/09/06/Taxfychatgpt-rta.png
 ---
 
 ELSOUL LABO B.V. (Headquarters: Amsterdam, Netherlands) is pleased to announce that its CEO, Kawasaki, has set a new world record (according to our research) of 37 minutes and 48 seconds in a Real-Time Attack (RTA) for releasing an AI chat app using ChatGPT on the cloud.
 
-In this RTA, the time taken to develop an AI chatbot app from scratch using the ChatGPT API and release it on the cloud (Google Cloud and Firebase) was measured. The use of the Taxify framework demonstrated that a rapid and reproducible app development environment can be established, thereby enhancing the developer experience.
+In this RTA, the time taken to develop an AI chatbot app from scratch using the ChatGPT API and release it on the cloud (Google Cloud and Firebase) was measured. The use of the Taxfy framework demonstrated that a rapid and reproducible app development environment can be established, thereby enhancing the developer experience.
 
-Anyone can participate in this RTA if they can release a scalable app on the cloud. The use of Taxify is not a requirement; you can challenge this with any method. We look forward to your participation.
+Anyone can participate in this RTA if they can release a scalable app on the cloud. The use of Taxfy is not a requirement; you can challenge this with any method. We look forward to your participation.
 
 【YouTube】ChatGPT API AI Chatbot Development RTA [00:37:48(World Record)]:
 
 https://www.youtube.com/watch?v=KK-rjjZuXbE
 
-## Open-Source Framework "Taxify" Enables Rapid Serverless App Development on Google Cloud and Firebase
+## Open-Source Framework "Taxfy" Enables Rapid Serverless App Development on Google Cloud and Firebase
 
-![Taxify AI Chatbot Development RTA](/news/2023/09/06/taxify-chatgpt-rta-start.jpg)
+![Taxfy AI Chatbot Development RTA](/news/2023/09/06/Taxfychatgpt-rta-start.jpg)
 
-Taxify is an open-source, TypeScript-based serverless framework that allows you to build full-stack apps on Google Cloud (GCP) and Firebase.
+Taxfy is an open-source, TypeScript-based serverless framework that allows you to build full-stack apps on Google Cloud (GCP) and Firebase.
 
-With Taxify, you can rapidly develop everything from API servers to Web, iOS, and Android apps using TypeScript. It actively incorporates technologies with a good reputation for developer experience, such as GraphQL and Firestore. Taxify is a modern application framework that makes it easy to develop applications utilizing AI like ChatGPT and Vertex AI, as well as blockchain-based Web3 dApps using platforms like Solana.
+With Taxfy, you can rapidly develop everything from API servers to Web, iOS, and Android apps using TypeScript. It actively incorporates technologies with a good reputation for developer experience, such as GraphQL and Firestore. Taxfy is a modern application framework that makes it easy to develop applications utilizing AI like ChatGPT and Vertex AI, as well as blockchain-based Web3 dApps using platforms like Solana.
 
 You can try the demo from the link below. Both PaLM2 and Vertex AI are available for trial, along with OpenAI's ChatGPT (GPT-3.5, GPT-4), so you can compare their respective features.
 
-Taxify Demo: https://taxifyer.dev/en/
+Taxfy Demo: https://Taxfyr.dev/en/
 
-Furthermore, you can run this demo app on your own PC or cloud environment in just 5 minutes using Taxify CLI.
+Furthermore, you can run this demo app on your own PC or cloud environment in just 5 minutes using Taxfy CLI.
 
-First, get an idea of what is possible with the demo, and then you can immediately start app development using Taxify CLI.
+First, get an idea of what is possible with the demo, and then you can immediately start app development using Taxfy CLI.
 
-Taxify CLI (GitHub): https://github.com/elsoul/taxify-cli
+Taxfy CLI (GitHub): https://github.com/elsoul/Taxfycli
 
-Taxify is being developed as open-source to reduce development and maintenance costs and improve the developer experience in application development environments worldwide.
+Taxfy is being developed as open-source to reduce development and maintenance costs and improve the developer experience in application development environments worldwide.
 
 For more details, please refer to the official documentation.
 
-Taxify Documentation: https://taxify.dev/en/
+Taxfy Documentation: https://Taxfydev/en/

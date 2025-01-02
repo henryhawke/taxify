@@ -6,11 +6,11 @@
   "actions": {
     "motivation": {
       "title": "Motivation",
-      "body": "Taxify allows you to get your app up and running quickly and maintain it for the long term at a low cost."
+      "body": "Taxfy allows you to get your app up and running quickly and maintain it for the long term at a low cost."
     },
     "quickstart": {
       "title": "Quickstart",
-      "body": "Describes the setup for getting started with the Taxify framework."
+      "body": "Describes the setup for getting started with the Taxfy framework."
     }
   },
   "menuNav": {

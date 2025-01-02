@@ -1,15 +1,15 @@
 ---
-id: taxify-sign-in-with-solana
-title: オープンソースサーバーレスフレームワークのTaxifyが "Sign In With Solana" (SIWS) に対応
+id: taxfy-sign-in-with-solana
+title: オープンソースサーバーレスフレームワークのTaxfyが "Sign In With Solana" (SIWS) に対応
 category: プレスリリース
-thumbnail: /news/2023/10/16/TaxifySignInWithSolana.png
+thumbnail: /news/2023/10/16/TaxfySignInWithSolana.png
 ---
 
-ELSOUL LABO B.V. (エルソウルラボ、本社: オランダ アムステルダム、代表取締役 CEO: 川崎文武)は、同社の開発するオープンソースサーバーレスフレームワークの Taxify が、Solana ブロックチェーンの "Sign In With Solana" (SIWS) に対応したことを発表しました。
+ELSOUL LABO B.V. (エルソウルラボ、本社: オランダ アムステルダム、代表取締役 CEO: 川崎文武)は、同社の開発するオープンソースサーバーレスフレームワークの Taxfy が、Solana ブロックチェーンの "Sign In With Solana" (SIWS) に対応したことを発表しました。
 
-「Sign In With Solana」（SIWS）に対応することで、Taxify はそのセキュリティ機能を強化し、dApp 開発においてより堅牢な Web3 インフラを提供します。メッセージ形式の標準化により、ウォレットがユーザーに警告を出せるようになり、より安全なユーザーエクスペリエンスが実現します。
+「Sign In With Solana」（SIWS）に対応することで、Taxfy はそのセキュリティ機能を強化し、dApp 開発においてより堅牢な Web3 インフラを提供します。メッセージ形式の標準化により、ウォレットがユーザーに警告を出せるようになり、より安全なユーザーエクスペリエンスが実現します。
 
-Solana のエコシステムが今後、より一層の標準化に向かう中で、Taxify はこれらの進化するニーズに適応する包括的な開発インフラとして成長していきます。
+Solana のエコシステムが今後、より一層の標準化に向かう中で、Taxfy はこれらの進化するニーズに適応する包括的な開発インフラとして成長していきます。
 
 ## Sign In With Solana (SIWS) とは
 
@@ -43,36 +43,36 @@ https://github.com/phantom/sign-in-with-solana
 
 https://zenn.dev/ki4themecha2q/articles/85b8725a142f76
 
-## Taxify とは
+## Taxfy とは
 
-![Taxify AI Auto Coding](/news/2023/09/15/TaxifyJA.png)
+![Taxfy AI Auto Coding](/news/2023/09/15/TaxfyJA.png)
 
-Taxify は GCP (Google Cloud) と Firebase 上にフルスタックアプリを構築できるオープンソースの TypeScript 製サーバーレスフレームワークです。
+Taxfy は GCP (Google Cloud) と Firebase 上にフルスタックアプリを構築できるオープンソースの TypeScript 製サーバーレスフレームワークです。
 
-Taxify を使えば、API サーバーから Web・iOS・Android アプリまですべてを TypeScript で爆速開発することができます。GraphQL や Firestore など、開発者体験の評判が良い技術を積極的に採用しています。
+Taxfy を使えば、API サーバーから Web・iOS・Android アプリまですべてを TypeScript で爆速開発することができます。GraphQL や Firestore など、開発者体験の評判が良い技術を積極的に採用しています。
 
 ChatGPT や Vertex AI などの AI を活用したアプリケーション開発や Solana などのブロックチェーンを活用した Web3 dApp 開発も簡単に行うことができる現代的なアプリケーションフレームワークとなっています。
 
 下記リンクからデモをお試しいただけます。PaLM2・Vertex AI、そして Open AI 社の ChatGPT (GPT-3.5, GPT-4)も同時にお試しいただくことができますので、どちらがどのような特徴を持っているか比較検討していただくことができます。
 
-Taxify デモ:
+Taxfy デモ:
 
-https://taxifyer.dev/ja/
+https://Taxfyr.dev/ja/
 
-また、こちらのデモのアプリは Taxify CLI を使えば 5 分でご自身の PC 環境やクラウド環境で動かすことが可能です。
+また、こちらのデモのアプリは Taxfy CLI を使えば 5 分でご自身の PC 環境やクラウド環境で動かすことが可能です。
 
-まずはどのようなことができるかデモでイメージしていただき、その後は Taxify CLI を使ってすぐにアプリ開発をスタートできます。
+まずはどのようなことができるかデモでイメージしていただき、その後は Taxfy CLI を使ってすぐにアプリ開発をスタートできます。
 
-Taxify CLI にも AI が搭載されており、チャットによる自動コード生成等の強力なサポートにより、開発者の生産性を大幅に向上させます。
+Taxfy CLI にも AI が搭載されており、チャットによる自動コード生成等の強力なサポートにより、開発者の生産性を大幅に向上させます。
 
-Taxify CLI (GitHub):
+Taxfy CLI (GitHub):
 
-https://github.com/elsoul/taxify-cli
+https://github.com/elsoul/Taxfycli
 
-Taxify は世界中すべてのアプリケーション開発現場の開発・メンテナンスコストを削減、開発者体験を向上させるためにオープンソースとして開発されています。
+Taxfy は世界中すべてのアプリケーション開発現場の開発・メンテナンスコストを削減、開発者体験を向上させるためにオープンソースとして開発されています。
 
 詳しくは公式ドキュメントを御覧ください。
 
-Taxify ドキュメント:
+Taxfy ドキュメント:
 
-https://taxify.dev/ja/
+https://Taxfydev/ja/

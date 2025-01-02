@@ -16,26 +16,16 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@lib/*": ["../lib/*"],
-      "@common/*": ["../common/*"],
-      "@root/*": ["../*"]
-    }
-  },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "NodeNext",
-      "moduleResolution": "NodeNext"
+      "@/*": ["src/*"],
+      "@common/*": ["src/common/*"],
+      "@config/*": ["../*"]
     }
   },
   "include": [
-    "**/*.js",
+    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "../common/**/*.ts",
-    "../lib/**/*.ts",
-    "../taxify-cloud.config.json",
-    "./typings.d.ts"
+    "../*.json"
   ],
-  "exclude": ["node_modules", "out", ".next", "build", "dist"]
+  "exclude": ["node_modules"]
 }

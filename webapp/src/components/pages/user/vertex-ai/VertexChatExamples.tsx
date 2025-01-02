@@ -19,7 +19,7 @@ import { db } from '@/lib/firebase'
 import { useRecoilValue } from 'recoil'
 import { userState } from '@/store/user'
 import { VertexChatRoom, genVertexChatRoomPath } from '@common/models'
-import { update } from '@/lib/taxify/firestore'
+import { update } from '@/lib/taxfy/firestore'
 
 type Inputs = z.infer<typeof vertexExampleFormSchema>
 
@@ -54,7 +54,7 @@ export default function VertexChatExamples({
             }))
           : [
               {
-                input: 'What is Taxify?',
+                input: 'What is Taxfy?',
                 output:
                   'Open-Source Serverless Framework for full-stack apps on GCP (Google Cloud) and Firebase.',
               },

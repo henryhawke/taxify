@@ -1,16 +1,16 @@
 ---
 id: readme
 title: Readme
-description: Taxify Next.js (React) テンプレート README
+description: Taxfy Next.js (React) テンプレート README
 ---
 
-![Taxify Next.js Template](https://storage.googleapis.com/taxify-assets/imgs/samples/WebAppBoilerplate.png)
+![Taxfy Next.js Template](https://storage.googleapis.com/taxfy-assets/imgs/samples/WebAppBoilerplate.png)
 
-## Taxify App Next.js テンプレート
+## Taxfy App Next.js テンプレート
 
-Next.js (React) 環境 for Taxify Framework
+Next.js (React) 環境 for Taxfy Framework
 
-[GitHub - Taxify App Next.js Template](https://github.com/elsoul/taxify-next)
+[GitHub - Taxfy App Next.js Template](https://github.com/elsoul/Taxfynext)
 
 ## 心がけ
 
@@ -36,28 +36,28 @@ Next.js (React) 環境 for Taxify Framework
 
 ```bash
 $ npm i -g firebase-tools
-$ npm i -g @taxify-framework/cli
+$ npm i -g @skeet-framework/cli
 ```
 
 ```bash
-$ taxify create <project-name>
+$ Taxfycreate <project-name>
 ```
 
 ```bash
 $ cd <project-name>
-$ taxify s
+$ Taxfys
 ```
 
 開発中コンソールにて Auth を利用した確認も可能です:
 
 ```bash
-$ taxify login
+$ Taxfylogin
 $ export ACCESS_TOKEN=<your-token>
 ```
 
 **※ OpenAI API key が必要です**
 
-_./functions/taxify/.env_
+_./functions/Taxfy.env_
 
 ```bash
 CHAT_GPT_KEY=your-key
@@ -67,7 +67,7 @@ CHAT_GPT_ORG=your-org
 テストコマンド:
 
 ```bash
-$ taxify test
+$ Taxfytest
 ```
 
 Firebase Emulator: http://localhost:4000

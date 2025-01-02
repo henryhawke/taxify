@@ -1,5 +1,5 @@
 const defaultEN = {
-  appTitle: 'Taxify App Template',
+  appTitle: 'Taxfy App Template',
   loginToYourAccount: 'Sign in to your account',
   or: 'Or',
   registerYourAccount: 'Register your account',
@@ -50,12 +50,12 @@ const defaultEN = {
   invalidParamsErrorBody:
     'Sorry, Something went wrong... Please try it again later.',
   verifySuccessTitle: 'Verify Success🎉',
-  verifySuccessBody: 'Welcome to Taxify App Template',
+  verifySuccessBody: 'Welcome to Taxfy App Template',
   verifyErrorTitle: 'Verify Error',
   verifyErrorBody: 'Something went wrong... Please try it again later.',
   confirmDoneTitle: 'Confirmation completed!',
   confirmDoneBody:
-    'Thank you for the confirmation. Welcome to Taxify App Template🙌',
+    'Thank you for the confirmation. Welcome to Taxfy App Template🙌',
   alreadyExistTitle: 'Already exist',
   alreadyExistBody:
     'This email address is already exist. Please try to sign in.',

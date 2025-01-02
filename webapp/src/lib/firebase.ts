@@ -1,69 +1,21 @@
-import firebaseConfig from '@lib/firebaseConfig'
-import { getAnalytics } from 'firebase/analytics'
 import { initializeApp, getApp, getApps } from 'firebase/app'
-import { connectAuthEmulator, getAuth } from 'firebase/auth'
-import { getStorage, connectStorageEmulator } from 'firebase/storage'
-import {
-  connectFirestoreEmulator,
-  initializeFirestore,
-} from 'firebase/firestore'
-import { connectFunctionsEmulator, getFunctions } from 'firebase/functions'
-import taxifyCloudConfig from '@root/taxify-cloud.config.json'
+import { getAuth } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
+import { getFunctions } from 'firebase/functions'
 
-export const firebaseApp = !getApps().length
-  ? initializeApp(firebaseConfig)
-  : getApp()
-
-export const platformDevIP = '127.0.0.1'
-
-const getFirebaseAuth = () => {
-  const firebaseAuth = getAuth(firebaseApp)
-  if (process.env.NODE_ENV !== 'production') {
-    connectAuthEmulator(firebaseAuth, `http://${platformDevIP}:9099`, {
-      disableWarnings: true,
-    })
-  }
-  return firebaseAuth
+const firebaseConfig = {
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 }
 
-export const auth = firebaseApp ? getFirebaseAuth() : undefined
-
-const getFirebaseStorage = () => {
-  const firebaseStorage = getStorage(firebaseApp)
-  if (process.env.NODE_ENV !== 'production') {
-    connectStorageEmulator(firebaseStorage, platformDevIP, 9199)
-  }
-
-  return firebaseStorage
-}
-
-export const storage = firebaseApp ? getFirebaseStorage() : undefined
-
-const getFirebaseFirestore = () => {
-  const firestoreDb = initializeFirestore(firebaseApp, {
-    experimentalForceLongPolling: true,
-  })
-  if (process.env.NODE_ENV !== 'production') {
-    connectFirestoreEmulator(firestoreDb, platformDevIP, 8080)
-  }
-  return firestoreDb
-}
-
-export const db = firebaseApp ? getFirebaseFirestore() : undefined
-
-export const analytics =
-  typeof window !== 'undefined' &&
-    process.env.NODE_ENV === 'production' &&
-    firebaseApp
-    ? getAnalytics(firebaseApp)
-    : undefined
-
-const getFirebaseFunction = () => {
-  const firebaseFunction = getFunctions(firebaseApp)
-  firebaseFunction.region = taxifyCloudConfig.app.region
-  if (process.env.NODE_ENV !== 'production') {
-    connectFunctionsEmulator(firebaseFunction, platformDevIP, 5001)
-  }
-  return firebaseFunction
-}
-export const functions = firebaseApp ? getFirebaseFunction() : undefined
+// Initialize Firebase
+export const app = getApps().length ? getApp() : initializeApp(firebaseConfig)
+export const auth = getAuth(app)
+export const db = getFirestore(app)
+export const functions = getFunctions(app)
+export const platformDevIP = '127.0.0.1' // For web development

@@ -54,7 +54,7 @@ export default function UserSolanaWalletScreen() {
                       })
                       Toast.show({
                         type: 'success',
-                        text1: 'Welcome to Taxify Dev🎉',
+                        text1: 'Welcome to Taxfy Dev🎉',
                         text2: `You signed with ${authorization.accounts[0].address}`,
                       })
                     })

@@ -1,19 +1,19 @@
 ---
-id: effortless-serverless-taxify
-title: Released "Taxify", an open-source library for building zero-maintenance serverless apps on Firebase
+id: effortless-serverless-taxfy
+title: Released "Taxfy", an open-source library for building zero-maintenance serverless apps on Firebase
 category: Press release
-thumbnail: /news/2023/06/13/EffortlessServerlessTaxify.png
+thumbnail: /news/2023/06/13/EffortlessServerlessTaxfy.png
 ---
 
-ELSOUL LABO B.V. (head office: Amsterdam, Netherlands) announced on the 13th the release of "Taxify," an open-source library for building zero-maintenance serverless applications on Firebase.
+Taxfy (head office: Tokyo, Japan) announced on the 13th the release of "Taxfy", an open-source library for building zero-maintenance serverless applications on Firebase.
 
-Taxify: https://taxify.dev/
+Taxfy: https://taxfy.dev/
 
 ## Do more, manage less
 
 Reduce app development and operation costs and realize more plans.
 
-Taxify is an open-source full-stack app development solution.
+Taxfy is an open-source full-stack app development solution.
 You can start writing app logic immediately without worrying about infrastructure.
 
 ### High Performance
@@ -22,7 +22,7 @@ Distributed systems leveraging various event triggers such as Auth and storage w
 
 ### Eco-friendly
 
-Computing resources automatically scale to match your usage patterns, so you always have as much as you need. Taxify is designed to be economically and environmentally friendly.
+Computing resources automatically scale to match your usage patterns, so you always have as much as you need. Taxfy is designed to be economically and environmentally friendly.
 
 ### Developer Experience
 
@@ -34,9 +34,9 @@ In addition to SSL support, DDoS attacks and bot countermeasures using Cloud Arm
 
 ## A new-age app development platform
 
-![Taxify - Full-stack Serverless Framework](https://storage.googleapis.com/taxify-assets/animation/taxify-cli-create-latest.gif)
+![Taxfy - Full-stack Serverless Framework](https://storage.googleapis.com/taxfy-assets/animation/taxfy-cli-create-latest.gif)
 
-Everything you need to develop and publish your app. The Taxify framework tools are designed to make handling serverless architectures, which tend to be distributed and complicated, as easy as possible.
+Everything you need to develop and publish your app. The Taxfy framework tools are designed to make handling serverless architectures, which tend to be distributed and complicated, as easy as possible.
 
 ### High performance monitor
 
@@ -44,7 +44,7 @@ Firebase Emulator Suite makes your backend visible. The development speed will i
 
 ### Powerful CLI Tool
 
-Taxify CLI completes constructing a distributed system that combines Google Cloud's serverless products with a single command. Just answer a few simple questions, and your app is ready to deploy.
+Taxfy CLI completes constructing a distributed system that combines Google Cloud's serverless products with a single command. Just answer a few simple questions, and your app is ready to deploy.
 
 ### Zero-maintenance
 
@@ -52,11 +52,11 @@ Automatic deployment with GitHub Actions and deployed resources automatically sc
 
 ## Experience new app development
 
-![Taxify with OpenAI](https://storage.googleapis.com/taxify-assets/animation/taxify-chat-latest.gif)
+![Taxfy with OpenAI](https://storage.googleapis.com/taxfy-assets/animation/taxfy-chat-latest.gif)
 
 Experience new app development.
 You can immediately develop and publish web, iOS, and Android apps.
 
-In the Taxify tutorial, we will develop an AI chatbot app using the OpenAI API and confirm that it can be deployed and used.
+In the Taxfy tutorial, we will develop an AI chatbot app using the OpenAI API and confirm that it can be deployed and used.
 
-Taxify Tutorial: https://taxify.dev/en/doc/backend/quickstart/
+Taxfy Tutorial: https://taxfy.dev/en/doc/backend/quickstart/

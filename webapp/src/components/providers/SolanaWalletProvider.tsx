@@ -11,7 +11,7 @@ import type {
   SolanaSignInInput,
   SolanaSignInOutput,
 } from '@solana/wallet-standard-features'
-import { fetchTaxifyFunctions } from '@/lib/taxify/functions'
+import { fetchTaxfyFunctions } from '@/lib/taxfy/functions'
 import { CreateSignInDataParams } from '@common/types/http/createSignInDataParams'
 import { VerifySIWSParams } from '@common/types/http/verifySIWSParams'
 import { auth, db } from '@/lib/firebase'
@@ -50,8 +50,8 @@ export default function SolanaWalletProvider({ children }: Props) {
       try {
         if (db && auth) {
           const createResponse =
-            await fetchTaxifyFunctions<CreateSignInDataParams>(
-              'taxify',
+            await fetchTaxfyFunctions<CreateSignInDataParams>(
+              'taxfy',
               'createSignInData',
               {},
             )
@@ -69,8 +69,8 @@ export default function SolanaWalletProvider({ children }: Props) {
               icon: signInResult.account.icon,
             },
           }
-          const verifyResponse = await fetchTaxifyFunctions<VerifySIWSParams>(
-            'taxify',
+          const verifyResponse = await fetchTaxfyFunctions<VerifySIWSParams>(
+            'taxfy',
             'verifySIWS',
             { input, output },
           )

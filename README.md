@@ -1,9 +1,8 @@
-# Taxify Solana Mobile Stack
+# Taxfy Solana Mobile Stack
 
-![TaxifyMobile Stack](https://storage.googleapis.com/taxify-assets/animation/TaxifySolanaMobileStack.gif)
+![TaxfyMobile Stack](https://storage.googleapis.com/taxfy-assets/animation/TaxfySolanaMobileStack.gif)
 
-
-## Taxify Mobile Stack (Expo) + Web (Next.js) - Firestore Template
+## Taxfy Mobile Stack (Expo) + Web (Next.js) - Firestore Template
 
 Solana Mobile Stack: https://docs.solanamobile.com/
 
@@ -31,33 +30,36 @@ Solana Mobile Stack: https://docs.solanamobile.com/
 - [Bubblegum - Solana Compressed NFTs (cNFTs)](https://developers.metaplex.com/bubblegum)
 - [SIWS - Sign In With Solana](https://github.com/phantom/sign-in-with-solana)
 
-## What's Taxify?
+## What's Taxfy?
 
-TypeScript Serverless Framework 'Taxify'.
+TypeScript Serverless Framework 'Taxfy'.
 
-The Taxify project was launched with the goal of reducing software development, operation, and maintenance costs.
+The Taxfy project was launched with the goal of reducing software development, operation, and maintenance costs.
 
 Build Serverless Apps faster.
 
 ## Solana Tax Automation Tool
 
-A comprehensive tax automation solution for Solana blockchain transactions, built on the Taxify Framework.
+A comprehensive tax automation solution for Solana blockchain transactions, built on the Taxfy Framework.
 
 ### Architecture Overview
 
 1. **Transaction Collection Layer**
+
    - Real-time transaction monitoring
    - Historical data import
    - Multi-wallet support
    - NFT transaction tracking
 
 2. **Data Processing Layer**
+
    - Transaction classification
    - Cost basis calculation
    - Tax lot tracking
    - DeFi protocol integration
 
 3. **AI Analysis Layer**
+
    - Transaction pattern recognition
    - Tax optimization suggestions
    - Compliance validation
@@ -72,6 +74,7 @@ A comprehensive tax automation solution for Solana blockchain transactions, buil
 ### Key Features
 
 - **Transaction Monitoring**
+
   - Real-time transaction tracking
   - Historical data import
   - Multi-wallet support
@@ -79,6 +82,7 @@ A comprehensive tax automation solution for Solana blockchain transactions, buil
   - DeFi protocol integration
 
 - **Classification & Calculation**
+
   - AI-powered transaction classification
   - Automated cost basis tracking
   - Multiple accounting methods
@@ -86,6 +90,7 @@ A comprehensive tax automation solution for Solana blockchain transactions, buil
   - Holding period tracking
 
 - **Tax Form Generation**
+
   - Form 8949 automation
   - Schedule D generation
   - Supporting documentation
@@ -130,20 +135,20 @@ OpenJDK 64-Bit Server VM Zulu11.66+15-CA (build 11.0.20+8-LTS, mixed mode)
 
 ```bash
 $ npm i -g firebase-tools
-$ npm i -g @taxify-framework/cli
+$ npm i -g @skeet-framework/cli
 ```
 
 ```bash
-$ taxify create <project-name>
+$ taxfy create <project-name>
 $ cd <project-name>
-$ taxify s
+$ taxfy s
 ```
 
 or if you pulled this repo:
 
 ```bash
-$ taxify yarn i
-$ taxify s
+$ taxfy yarn i
+$ taxfy s
 ```
 
 If you setup the Android Emulator, the mobile app will be launched automatically.
@@ -153,7 +158,7 @@ Firebase Emulator: http://localhost:4000
 
 **※ You need OpenAI API key to use ChatGPT.**
 
-_./functions/taxify/.env_
+_./functions/taxfy/.env_
 
 ```bash
 CHAT_GPT_KEY=your-key
@@ -163,7 +168,7 @@ CHAT_GPT_ORG=your-org
 Test your app:
 
 ```bash
-$ taxify test
+$ taxfy test
 ```
 
 ## EAS Build
@@ -203,7 +208,7 @@ JA: https://zenn.dev/ki4themecha2q/articles/85b8725a142f76
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/elsoul/taxify This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/elsoul/taxfy This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -211,4 +216,4 @@ The package is available as open source under the terms of the [Apache-2.0 Licen
 
 ## Code of Conduct
 
-Everyone interacting in the TAXIFY project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/henryhawke/taxify/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Taxfy project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/henryhawke/taxfy/blob/master/CODE_OF_CONDUCT.md).

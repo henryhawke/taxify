@@ -1,7 +1,7 @@
 ---
 id: general-motivation
 title: Motivation
-description: Motivation for the development of Taxify, an open-source full-stack serverless framework
+description: Motivation for the development of Taxfy, an open-source full-stack serverless framework
 ---
 
 ## Reduce app development and maintenance costs
@@ -18,7 +18,7 @@ As the importance of apps increases in our lives and society, the shortage of IT
 
 We want to address this issue by lowering application development and maintenance costs.
 
-Taxify allows you to get your app up and running quickly and maintain it for the long term at a low cost.
+Taxfy allows you to get your app up and running quickly and maintain it for the long term at a low cost.
 
 ## Serverless architecture powered by Firebase
 
@@ -36,10 +36,10 @@ The design and material costs of "predicting access loads in advance (design cos
 
 Furthermore, maintenance costs are significantly reduced. Post-release apps also automatically scale up computing resources to match user usage patterns. You don't need to worry about credentials, configuration, provisioning new servers, or decommissioning old servers.
 
-Taxify is an open-source, full-stack serverless app development solution that makes Firebase and Google Cloud product combinations easier and easier to use.
+Taxfy is an open-source, full-stack serverless app development solution that makes Firebase and Google Cloud product combinations easier and easier to use.
 
-Taxify CLI is not only for setting, deploying, and managing Firebase products but also for application development, such as VPN network settings, domain and name server settings, load balancer management security settings using Cloud Armor, and CI & CD using GitHub Actions. We provide that with a single command. Taxify supports everything from backend construction to front-end web, iOS, and Android development.
+Taxfy CLI is not only for setting, deploying, and managing Firebase products but also for application development, such as VPN network settings, domain and name server settings, load balancer management security settings using Cloud Armor, and CI & CD using GitHub Actions. We provide that with a single command. Taxfy supports everything from backend construction to front-end web, iOS, and Android development.
 
 In addition, for more scalable and robust application development, we adopt tools useful for development, such as TypeScript, Jest, ESLint & Prettier by default. TypeScript is mainly used for ease of application creation, but it is also possible to build applications that partially utilize machine learning using Python.
 
-By using Taxify, you can significantly reduce app development and maintenance costs and realize more plans.
+By using Taxfy, you can significantly reduce app development and maintenance costs and realize more plans.

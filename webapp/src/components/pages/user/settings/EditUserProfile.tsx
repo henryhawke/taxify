@@ -13,7 +13,7 @@ import { z } from 'zod'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { User, genUserPath } from '@common/models'
-import { update } from '@/lib/taxify/firestore'
+import { update } from '@/lib/taxfy/firestore'
 
 const schema = z.object({
   username: usernameSchema,

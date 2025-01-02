@@ -5,11 +5,9 @@ export const passwordSchema = z.string().min(8)
 export const usernameSchema = z.string().min(1).max(20)
 export const privacySchema = z.boolean().refine((v) => v === true)
 
-export type GPTModel = 'gpt-4-1106-preview' | 'gpt-4' | 'gpt-3.5-turbo'
+export type GPTModel = 'gpt-4o'
 export const allowedGPTModel: GPTModel[] = [
-  'gpt-4-1106-preview',
-  'gpt-4',
-  'gpt-3.5-turbo',
+  'gpt-4o',
 ]
 export const gptModelSchema = z.union([
   z.literal('gpt-4-1106-preview'),

@@ -109,3 +109,4 @@ firebase-export-*
 *key.json
 *keyfile.json
 *keys.json
+functions/taxfy/node_modules

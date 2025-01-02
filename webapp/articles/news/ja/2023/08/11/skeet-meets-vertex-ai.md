@@ -1,17 +1,17 @@
 ---
-id: taxify-meets-vertex-ai
-title: オープンソースアプリフレームワーク "Taxify" が ChatGPT だけでなく Google AI にも対応。より柔軟なカスタマイズが可能に。
+id: taxfy-meets-vertex-ai
+title: オープンソースアプリフレームワーク "Taxfy" が ChatGPT だけでなく Google AI にも対応。より柔軟なカスタマイズが可能に。
 category: プレスリリース
-thumbnail: /news/2023/08/11/TaxifyMeetsVertexAI.png
+thumbnail: /news/2023/08/11/TaxfyMeetsVertexAI.png
 ---
 
-ELSOUL LABO B.V. (エルソウルラボ, 本社: オランダ・アムステルダム) は、オープンソース の TypeScript フルスタックサーバーレスアプリフレームワーク "Taxify" Version 1.1.0 のリリースを発表しました。
+ELSOUL LABO B.V. (エルソウルラボ, 本社: オランダ・アムステルダム) は、オープンソース の TypeScript フルスタックサーバーレスアプリフレームワーク "Taxfy" Version 1.1.0 のリリースを発表しました。
 
-Taxify は GCP (Google Cloud) と Firebase 上にフルスタックアプリを構築できるオープンソースの TypeScript 製サーバーレスフレームワークです。
+Taxfy は GCP (Google Cloud) と Firebase 上にフルスタックアプリを構築できるオープンソースの TypeScript 製サーバーレスフレームワークです。
 
 API サーバーから Web・iOS・Android アプリまでを TypeScript で一貫して超速開発することができます。
 
-今回のアップデートにより、Taxify は OpenAI 社の ChatGPT(GPT-4 等)に加えて、Google 社の Vertex AI にも対応いたしました。
+今回のアップデートにより、Taxfy は OpenAI 社の ChatGPT(GPT-4 等)に加えて、Google 社の Vertex AI にも対応いたしました。
 
 Vertex AI は Google Cloud による、あらゆるユースケースに対応したフルマネージドの機械学習(ML)ツールで、ML モデルの構築、デプロイ、スケーリングを高速化します。
 
@@ -27,14 +27,14 @@ PaLM2 は多言語、多様な事前トレーニングデータセットを使�
 
 特に優れているのはプロンプトの調整やファインチューニングで、自社のビジネス用にモデルをカスタマイズした際におけるアウトプットの質が ChatGPT 等の競合製品と比べて高いので、自社オリジナルの AI チャットアプリを開発するのに向いています。
 
-Taxify を使えばすぐに Vertex AI を活用して、自社専用にカスタマイズしたオリジナル AI のアプリを立ち上げることができます。
+Taxfy を使えばすぐに Vertex AI を活用して、自社専用にカスタマイズしたオリジナル AI のアプリを立ち上げることができます。
 
 詳細は下記リリースノートをお読みください。
 
-Taxify v1.1.0 リリースノート: https://github.com/elsoul/taxify-cli/releases/tag/v1.1.0
+Taxfy v1.1.0 リリースノート: https://github.com/elsoul/Taxfycli/releases/tag/v1.1.0
 
-Taxify は世界中すべてのアプリケーション開発現場の開発・メンテナンスコストを削減、開発者体験を向上させるためにオープンソースとして開発されています。
+Taxfy は世界中すべてのアプリケーション開発現場の開発・メンテナンスコストを削減、開発者体験を向上させるためにオープンソースとして開発されています。
 
 詳しくは公式ドキュメントを御覧ください。
 
-Taxify ドキュメント: https://taxify.dev/ja/
+Taxfy ドキュメント: https://Taxfydev/ja/

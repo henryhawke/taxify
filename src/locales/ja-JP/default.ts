@@ -1,5 +1,5 @@
 const defaultJA = {
-  appTitle: 'Taxify App テンプレート',
+  appTitle: 'Taxfy App テンプレート',
   loginToYourAccount: 'アカウントにログイン',
   or: 'もしくは',
   registerYourAccount: 'アカウントを作成',
@@ -51,12 +51,12 @@ const defaultJA = {
   invalidParamsErrorBody:
     'すみません、なにか問題が発生しました。もう一度お試しください。',
   verifySuccessTitle: '認証成功🎉',
-  verifySuccessBody: 'Taxify App Templateへようこそ',
+  verifySuccessBody: 'Taxfy App Templateへようこそ',
   verifyErrorTitle: '認証エラー',
   verifyErrorBody: 'エラーが発生しました。もう一度お試しください。',
   confirmDoneTitle: '確認完了！',
   confirmDoneBody:
-    'ご確認ありがとうございます。そしてTaxify App Templateへようこそ🙌',
+    'ご確認ありがとうございます。そしてTaxfy App Templateへようこそ🙌',
   alreadyExistTitle: 'すでに登録されています。',
   alreadyExistBody:
     'こちらのメールアドレスはすでに登録されています。ログインをお試しください。',

@@ -1,11 +1,11 @@
 ---
-id: mint-solana-cnft-with-taxify
-title: Taxifyが Solana Compressed NFT (cNFT) に対応。10億個規模のNFTコレクションも低コストで発行可能に。
+id: mint-solana-cnft-with-taxfy
+title: Taxfyが Solana Compressed NFT (cNFT) に対応。10億個規模のNFTコレクションも低コストで発行可能に。
 category: プレスリリース
 thumbnail: /news/2023/09/19/ToTheBillionScaleMintCNFT.png
 ---
 
-ELSOUL LABO B.V. (エルソウルラボ, 本社: オランダ・アムステルダム) は、オープンソースのサーバーレスアプリ開発ツール Taxify が、Web3・ブロックチェーン分野の新技術 Solana Compressed NFT (cNFT) に対応したことを発表しました。
+ELSOUL LABO B.V. (エルソウルラボ, 本社: オランダ・アムステルダム) は、オープンソースのサーバーレスアプリ開発ツール Taxfy が、Web3・ブロックチェーン分野の新技術 Solana Compressed NFT (cNFT) に対応したことを発表しました。
 
 デジタル資産として注目を集めている NFT 技術ですが、大規模な NFT コレクションとなるとブロックチェーン手数料もその分大きくなってしまうため、例えばゲームのアイテム一つずつを NFT で発行したり、全世界のユーザーすべてのプロフィールを NFT で発行するといったことは現実的ではありませんでした。
 
@@ -19,7 +19,7 @@ Solana チェーンはデフォルトでも比較的安価ですが、それで�
 
 ![Solana Compressed NFT](/news/2023/09/19/mint-solana-cnft.png)
 
-Taxify は、2 つの Solana を代表するプロトコルである Metaplex 及び Helius の技術を組み込みました。
+Taxfy は、2 つの Solana を代表するプロトコルである Metaplex 及び Helius の技術を組み込みました。
 
 Metaplex は Solana の NFT プロトコルで、トークンスタンダード等を制定しています。NFT を取り扱ったり、Solana トランザクションを行うためのフレームワーク umi の提供、また、cNFT を発行するための Bubblegum というツールを提供しています。
 
@@ -29,32 +29,32 @@ Helius は、Solana のハイパフォーマンス RPC 及び、cNFT の利用�
 
 Helius: https://www.helius.dev/
 
-Taxify は、これらの技術を活用し、開発者がすぐに Solana Compressed NFT (cNFT) を利用することができるようになりました。
+Taxfy は、これらの技術を活用し、開発者がすぐに Solana Compressed NFT (cNFT) を利用することができるようになりました。
 
-下記の記事では、Taxify を使って実際に cNFT を発行する方法を解説しています。
+下記の記事では、Taxfy を使って実際に cNFT を発行する方法を解説しています。
 
 https://zenn.dev/ki4themecha2q/articles/7dcb9753783a23
 
-## Google Cloud、Firebase 上でサーバーレスアプリを爆速開発できるオープンソースの Taxify フレームワーク
+## Google Cloud、Firebase 上でサーバーレスアプリを爆速開発できるオープンソースの Taxfy フレームワーク
 
-![Taxify AI Auto Coding](/news/2023/09/15/TaxifyJA.png)
+![Taxfy AI Auto Coding](/news/2023/09/15/TaxfyJA.png)
 
-Taxify は GCP (Google Cloud) と Firebase 上にフルスタックアプリを構築できるオープンソースの TypeScript 製サーバーレスフレームワークです。
+Taxfy は GCP (Google Cloud) と Firebase 上にフルスタックアプリを構築できるオープンソースの TypeScript 製サーバーレスフレームワークです。
 
-Taxify を使えば、API サーバーから Web・iOS・Android アプリまですべてを TypeScript で爆速開発することができます。GraphQL や Firestore など、開発者体験の評判が良い技術を積極的に採用しています。ChatGPT や Vertex AI などの AI を活用したアプリケーション開発や Solana などのブロックチェーンを活用した Web3 dApp 開発も簡単に行うことができる現代的なアプリケーションフレームワークとなっています。
+Taxfy を使えば、API サーバーから Web・iOS・Android アプリまですべてを TypeScript で爆速開発することができます。GraphQL や Firestore など、開発者体験の評判が良い技術を積極的に採用しています。ChatGPT や Vertex AI などの AI を活用したアプリケーション開発や Solana などのブロックチェーンを活用した Web3 dApp 開発も簡単に行うことができる現代的なアプリケーションフレームワークとなっています。
 
 下記リンクからデモをお試しいただけます。PaLM2・Vertex AI、そして Open AI 社の ChatGPT (GPT-3.5, GPT-4)も同時にお試しいただくことができますので、どちらがどのような特徴を持っているか比較検討していただくことができます。
 
-Taxify デモ: https://taxifyer.dev/ja/
+Taxfy デモ: https://Taxfyr.dev/ja/
 
-また、こちらのデモのアプリは Taxify CLI を使えば 5 分でご自身の PC 環境やクラウド環境で動かすことが可能です。
+また、こちらのデモのアプリは Taxfy CLI を使えば 5 分でご自身の PC 環境やクラウド環境で動かすことが可能です。
 
-まずはどのようなことができるかデモでイメージしていただき、その後は Taxify CLI を使ってすぐにアプリ開発をスタートできます。Taxify CLI にも AI が搭載されており、チャットによるコード生成等の強力なサポートにより、開発者の生産性を大幅に向上させます。
+まずはどのようなことができるかデモでイメージしていただき、その後は Taxfy CLI を使ってすぐにアプリ開発をスタートできます。Taxfy CLI にも AI が搭載されており、チャットによるコード生成等の強力なサポートにより、開発者の生産性を大幅に向上させます。
 
-Taxify CLI (GitHub): https://github.com/elsoul/taxify-cli
+Taxfy CLI (GitHub): https://github.com/elsoul/Taxfycli
 
-Taxify は世界中すべてのアプリケーション開発現場の開発・メンテナンスコストを削減、開発者体験を向上させるためにオープンソースとして開発されています。
+Taxfy は世界中すべてのアプリケーション開発現場の開発・メンテナンスコストを削減、開発者体験を向上させるためにオープンソースとして開発されています。
 
 詳しくは公式ドキュメントを御覧ください。
 
-Taxify ドキュメント: https://taxify.dev/ja/
+Taxfy ドキュメント: https://Taxfydev/ja/

@@ -1,19 +1,19 @@
 ---
-id: fine-tuning-with-gpt-35-turbo-on-taxify
-title: Open-Source "Taxify" Enables Easy Customization of Generative AIs like ChatGPT, Vertex AI, and Now Supports Fine-tuning with GPT-3.5
+id: fine-tuning-with-gpt-35-turbo-on-taxfy
+title: Open-Source "Taxfy" Enables Easy Customization of Generative AIs like ChatGPT, Vertex AI, and Now Supports Fine-tuning with GPT-3.5
 category: Press release
 thumbnail: /news/2023/08/25/FineTuningWithGPT35Turbo.png
 ---
 
-ELSOUL LABO B.V. (Headquarters: Amsterdam, Netherlands) has announced the release of version 1.4.0 of "Taxify AI," a plugin for the open-source "Taxify," allowing easy customization of generative AIs such as ChatGPT and Vertex AI for in-house use.
+ELSOUL LABO B.V. (Headquarters: Amsterdam, Netherlands) has announced the release of version 1.4.0 of "Taxfy AI," a plugin for the open-source "Taxfy," allowing easy customization of generative AIs such as ChatGPT and Vertex AI for in-house use.
 
-Taxify is an open-source, TypeScript-based serverless framework that can build full-stack apps on GCP (Google Cloud) and Firebase.
+Taxfy is an open-source, TypeScript-based serverless framework that can build full-stack apps on GCP (Google Cloud) and Firebase.
 
 From API servers to Web, iOS, and Android apps, everything can be rapidly developed using TypeScript.
 
-With this update, Taxify now allows easy execution of GPT-3.5's Fine-tuning using TypeScript.
+With this update, Taxfy now allows easy execution of GPT-3.5's Fine-tuning using TypeScript.
 
-Taxify AI (GitHub): https://github.com/elsoul/taxify-ai
+Taxfy AI (GitHub): https://github.com/elsoul/Taxfyai
 
 ## Fine-tuning with ChatGPT's GPT-3.5 Turbo
 
@@ -25,14 +25,14 @@ The benefits of fine-tuning are as follows:
 
 In initial tests, the fine-tuned "GPT-3.5 Turbo" has been reported to demonstrate performance equal to or greater than "GPT-4" in specific narrow tasks.
 
-With Taxify, fine-tuning with GPT-3.5 Turbo can be easily executed, and the resulting model is ready to be integrated into applications.
+With Taxfy, fine-tuning with GPT-3.5 Turbo can be easily executed, and the resulting model is ready to be integrated into applications.
 
 Tools are also provided to create datasets for fine-tuning (in JSONL format) from various data formats (such as Markdown documents), allowing for consistent and rapid customization of AI models and application development leveraging them.
 
 We will continue to enhance a wide range of development support for utilizing AI, building a faster and more convenient development environment.
 
-Taxify is developed as open-source to reduce development and maintenance costs for application developers worldwide and enhance the developer experience.
+Taxfy is developed as open-source to reduce development and maintenance costs for application developers worldwide and enhance the developer experience.
 
 For more details, please refer to the official documentation.
 
-Taxify Documentation: https://taxify.dev/en/
+Taxfy Documentation: https://Taxfydev/en/

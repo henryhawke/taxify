@@ -44,14 +44,14 @@ export default function App() {
     <>
       <Suspense fallback={<AppLoading />}>
         <RecoilRoot>
-          <TaxifyApp />
+          <TaxfyApp />
         </RecoilRoot>
       </Suspense>
     </>
   )
 }
 
-function TaxifyApp() {
+function TaxfyApp() {
   return (
     <>
       <MenuProvider>

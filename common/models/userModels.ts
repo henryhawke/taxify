@@ -1,4 +1,4 @@
-import { Timestamp, FieldValue } from '@taxify-framework/firestore'
+import { Timestamp, FieldValue } from '@skeet-framework/firestore'
 
 // CollectionId: User
 // DocumentId: auto

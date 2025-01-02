@@ -23,7 +23,7 @@ export default function HomeHeroRow() {
     <>
       <Container className="pb-40 pt-24 text-center lg:pb-64 lg:pt-40">
         <h1 className="font-display mx-auto max-w-4xl text-6xl font-extrabold tracking-tighter text-gray-900 dark:text-gray-50 sm:text-8xl">
-          WebApp Boilerplate
+          Solana Tax Calculations made EASY
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-gray-700 dark:text-gray-200">
           {t('home:HeroRow.body')}
@@ -36,19 +36,6 @@ export default function HomeHeroRow() {
               aria-hidden="true"
             />
             {t('aiChat')}
-          </Button>
-          <Button
-            href="https://github.com/elsoul/taxify-cli"
-            variant="outline"
-            className=""
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FontAwesomeIcon
-              icon={faGithub}
-              className="mr-2 inline-block h-5 w-5"
-            />
-            GitHub
           </Button>
         </div>
         <div className="mt-36 lg:mt-48">

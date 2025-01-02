@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import logoHorizontal from '@/assets/img/logo/TaxifyLogoHorizontal.svg'
-import logoHorizontalInvert from '@/assets/img/logo/TaxifyLogoHorizontalInvert.svg'
+import logoHorizontal from '@/assets/img/logo/TaxfyLogoSquare.svg'
+import logoHorizontalInvert from '@/assets/img/logo/TaxfyLogoSquareInvert.svg'
 import clsx from 'clsx'
 
 type Props = {
@@ -12,16 +12,16 @@ export default function LogoHorizontal({ className, ...rest }: Props) {
   return (
     <>
       <div {...rest}>
-        <span className="sr-only">Taxify</span>
+        <span className="sr-only">Taxfy</span>
         <Image
           src={logoHorizontal}
-          alt="Taxify Framework"
+          alt="Taxfy Framework"
           className={clsx('dark:hidden ', className)}
           unoptimized
         />
         <Image
           src={logoHorizontalInvert}
-          alt="Taxify Framework"
+          alt="Taxfy Framework"
           className={clsx('hidden dark:block', className)}
           unoptimized
         />

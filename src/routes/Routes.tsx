@@ -8,12 +8,12 @@ import { NavigationContainer } from '@react-navigation/native'
 import AppLoading from '@/components/loading/AppLoading'
 import { useTranslation } from 'react-i18next'
 import * as Linking from 'expo-linking'
-import taxifyCloudConfig from '@root/taxify-cloud.config.json'
+import taxfyCloudConfig from '@root/taxfy-cloud.config.json'
 import useScreens from '@/hooks/useScreens'
 import { auth, db } from '@/lib/firebase'
 import { signOut, User } from 'firebase/auth'
 import { genUserPath, User as UserModel } from '@root/common/models'
-import { get } from '@/lib/taxify/firestore'
+import { get } from '@/lib/taxfy/firestore'
 
 const Stack = createNativeStackNavigator()
 const prefix = Linking.createURL('/')
@@ -70,7 +70,7 @@ export default function Routes() {
 
   const linking = useMemo(() => {
     return {
-      prefixes: [prefix, `https://${taxifyCloudConfig.app.appDomain}/`],
+      prefixes: [prefix, `https://${taxfyCloudConfig.app.appDomain}/`],
       config: {
         screens: {
           Default: {

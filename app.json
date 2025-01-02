@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "taxify",
-    "slug": "taxify",
-    "scheme": "taxifysolanamobilestack",
+    "name": "taxfy",
+    "slug": "taxfy",
+    "scheme": "taxfysolanamobilestack",
     "owner": "elsoul-labo",
     "platforms": ["ios", "android"],
-    "githubUrl": "https://github.com/elsoul/taxify",
+    "githubUrl": "https://github.com/elsoul/taxfy",
     "version": "0.1.1",
     "orientation": "portrait",
     "primaryColor": "#111827",
@@ -18,7 +18,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.elsoullabo.taxifysolanamobilestack"
+      "bundleIdentifier": "com.elsoullabo.taxfysolanamobilestack"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,7 +26,7 @@
         "backgroundColor": "#ffffff"
       },
       "versionCode": 1,
-      "package": "com.elsoullabo.taxifysolanamobilestack",
+      "package": "com.elsoullabo.taxfysolanamobilestack",
       "permissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {

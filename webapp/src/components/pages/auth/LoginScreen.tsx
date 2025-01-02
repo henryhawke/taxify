@@ -9,7 +9,7 @@ import type {
   SolanaSignInInput,
   SolanaSignInOutput,
 } from '@solana/wallet-standard-features'
-import { fetchTaxifyFunctions } from '@/lib/taxify/functions'
+import { fetchTaxfyFunctions } from '@/lib/taxfy/functions'
 import { CreateSignInDataParams } from '@common/types/http/createSignInDataParams'
 import { VerifySIWSParams } from '@common/types/http/verifySIWSParams'
 import { auth, db } from '@/lib/firebase'
@@ -17,7 +17,7 @@ import { signInWithCustomToken, signOut } from 'firebase/auth'
 import { User, genUserPath } from '@root/common/models'
 import { useRecoilState } from 'recoil'
 import { defaultUser, userState } from '@/store/user'
-import { get } from '@/lib/taxify/firestore'
+import { get } from '@/lib/taxfy/firestore'
 
 export default function LoginScreen() {
   const { t } = useTranslation()
@@ -32,8 +32,8 @@ export default function LoginScreen() {
       }
       if (signIn && db && auth) {
         const createResponse =
-          await fetchTaxifyFunctions<CreateSignInDataParams>(
-            'taxify',
+          await fetchTaxfyFunctions<CreateSignInDataParams>(
+            'taxfy',
             'createSignInData',
             {},
           )
@@ -51,8 +51,8 @@ export default function LoginScreen() {
             icon: signInResult.account.icon,
           },
         }
-        const verifyResponse = await fetchTaxifyFunctions<VerifySIWSParams>(
-          'taxify',
+        const verifyResponse = await fetchTaxfyFunctions<VerifySIWSParams>(
+          'taxfy',
           'verifySIWS',
           { input, output },
         )

@@ -13,7 +13,7 @@ import { useRecoilValue } from 'recoil'
 import { userState } from '@/store/user'
 
 import { chatContentSchema } from '@/utils/form'
-import { fetchTaxifyFunctions } from '@/lib/taxify/functions'
+import { fetchTaxfyFunctions } from '@/lib/taxfy/functions'
 import Image from 'next/image'
 import { ChatRoom } from './VertexChatMenu'
 import { z } from 'zod'
@@ -40,8 +40,8 @@ import {
   genVertexChatRoomMessagePath,
   genVertexChatRoomPath,
 } from '@common/models'
-import { Timestamp } from '@taxify-framework/firestore'
-import { get, query } from '@/lib/taxify/firestore'
+import { Timestamp } from '@skeet-framework/firestore'
+import { get, query } from '@/lib/taxfy/firestore'
 import rehypeSlug from 'rehype-slug'
 import rehypeExternalLinks from 'rehype-external-links'
 
@@ -209,8 +209,8 @@ export default function VertexChatBox({
               },
             ]
           })
-          const res = await fetchTaxifyFunctions<AddVertexMessageParams>(
-            'taxify',
+          const res = await fetchTaxfyFunctions<AddVertexMessageParams>(
+            'taxfy',
             'addVertexMessage',
             {
               vertexChatRoomId: currentChatRoomId,
@@ -328,7 +328,7 @@ export default function VertexChatBox({
                 {chatRoom?.model === 'chat-bison@001' && (
                   <Image
                     src={
-                      'https://storage.googleapis.com/taxify-assets/imgs/bdlc/Bison.png'
+                      'https://storage.googleapis.com/taxfy-assets/imgs/bdlc/Bison.png'
                     }
                     alt="Bison icon"
                     className="my-3 aspect-square h-6 w-6 rounded-full sm:h-10 sm:w-10"
@@ -340,7 +340,7 @@ export default function VertexChatBox({
                 {chatRoom?.model === 'chat-bison-32k' && (
                   <Image
                     src={
-                      'https://storage.googleapis.com/taxify-assets/imgs/bdlc/Bison32k.png'
+                      'https://storage.googleapis.com/taxfy-assets/imgs/bdlc/Bison32k.png'
                     }
                     alt="Bison icon"
                     className="my-3 aspect-square h-6 w-6 rounded-full sm:h-10 sm:w-10"
@@ -407,7 +407,7 @@ export default function VertexChatBox({
                     chatRoom?.model === 'chat-bison@001' && (
                       <Image
                         src={
-                          'https://storage.googleapis.com/taxify-assets/imgs/bdlc/Bison.png'
+                          'https://storage.googleapis.com/taxfy-assets/imgs/bdlc/Bison.png'
                         }
                         alt="Bison icon"
                         className="my-3 aspect-square h-6 w-6 rounded-full sm:h-10 sm:w-10"
@@ -422,7 +422,7 @@ export default function VertexChatBox({
                     chatRoom?.model === 'chat-bison-32k' && (
                       <Image
                         src={
-                          'https://storage.googleapis.com/taxify-assets/imgs/bdlc/Bison32k.png'
+                          'https://storage.googleapis.com/taxfy-assets/imgs/bdlc/Bison32k.png'
                         }
                         alt="Bison icon"
                         className="my-3 aspect-square h-6 w-6 rounded-full sm:h-10 sm:w-10"

@@ -1,7 +1,7 @@
 import Link from '@/components/routing/Link'
 import Image from 'next/image'
-import logoHorizontal from '@/assets/img/logo/TaxifyLogoHorizontal.svg'
-import logoHorizontalInvert from '@/assets/img/logo/TaxifyLogoHorizontalInvert.svg'
+import logoHorizontal from '@/assets/img/logo/TaxfyLogoText.svg'
+import logoHorizontalInvert from '@/assets/img/logo/TaxfyLogoSquareInvert.svg'
 import clsx from 'clsx'
 
 type Props = {
@@ -18,16 +18,16 @@ export default function LogoHorizontalLink({
   return (
     <>
       <Link href={href} {...rest}>
-        <span className="sr-only">Taxify</span>
+        <span className="sr-only">Taxfy</span>
         <Image
           src={logoHorizontal}
-          alt="Taxify Framework"
+          alt="Taxfy Framework"
           className={clsx('dark:hidden ', className)}
           unoptimized
         />
         <Image
-          src={logoHorizontalInvert}
-          alt="Taxify Framework"
+          src={logoHorizontal} //should be logoHorizontalInvert
+          alt="Taxfy Framework"
           className={clsx('hidden dark:block', className)}
           unoptimized
         />

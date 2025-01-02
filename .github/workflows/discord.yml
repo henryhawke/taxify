@@ -1,4 +1,4 @@
-name: TaxifyFrameworkDiscord
+name: TaxfyFrameworkDiscord
 
 on:
   release:

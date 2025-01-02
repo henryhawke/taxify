@@ -9,7 +9,7 @@ export const BASE_URL = `http://127.0.0.1:5001/${PROJECT_ID}/${REGION}`
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN || ''
 if (ACCESS_TOKEN === '') {
   console.error(
-    'ACCESS_TOKEN is not defined\n Please run `taxify login` to get your access token.'
+    'ACCESS_TOKEN is not defined\n Please run `taxfy login` to get your access token.'
   )
   process.exit(1)
 }

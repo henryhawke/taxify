@@ -1,15 +1,15 @@
 ---
-id: taxify-meets-serverless-postgres-neon
-title: Taxify and Neon Announce a Technological Partnership to Innovate Serverless Postgres Database Integration
+id: taxfy-meets-serverless-postgres-neon
+title: Taxfy and Neon Announce a Technological Partnership to Innovate Serverless Postgres Database Integration
 category: Press Release
-thumbnail: /news/2023/12/07/TaxifyMeetsNeon.jpg
+thumbnail: /news/2023/12/07/TaxfyMeetsNeon.jpg
 ---
 
 ELSOUL LABO B.V. (headquartered in Amsterdam, Netherlands, CEO: Fumitake Kawasaki) announces its technological partnership with Neon (headquartered in San Francisco, in the U.S., CEO: Nikita Shamgunov), a provider of serverless Postgres databases.
 
-While relational databases traditionally struggled with auto-scaling, especially compared to NoSQL databases, this partnership allows for on-demand scaling in Taxify, enabling developers to reduce the burden of infrastructure management and focus more on application functionality development.
+While relational databases traditionally struggled with auto-scaling, especially compared to NoSQL databases, this partnership allows for on-demand scaling in Taxfy, enabling developers to reduce the burden of infrastructure management and focus more on application functionality development.
 
-Additionally, the future integration of Neon's serverless Postgres database into Taxify Cloud is planned. Taxify Cloud, currently under development, aims to address the scattered nature of serverless app architectures, offering stronger and more manageable monitoring and logging, among other practical development support tools.
+Additionally, the future integration of Neon's serverless Postgres database into Taxfy Cloud is planned. Taxfy Cloud, currently under development, aims to address the scattered nature of serverless app architectures, offering stronger and more manageable monitoring and logging, among other practical development support tools.
 
 ## Neon - Serverless Postgres Database
 
@@ -21,20 +21,20 @@ Neon offers a serverless Postgres database solution that achieves on-demand scal
 - **Cost Efficiency:** Dynamic adjustment of compute resources and integration with cloud object stores like S3 maximizes cost efficiency.
 - **Database Branching:** Utilizing "copy-on-write" technology, Neon enables immediate creation of database branches for testing environments and CI/CD pipelines.
 
-## Taxify - TypeScript Serverless Framework
+## Taxfy - TypeScript Serverless Framework
 
-![Taxify - TypeScript Serverless Framework](/news/2023/12/07/TaxifyWebEN.png)
+![Taxfy - TypeScript Serverless Framework](/news/2023/12/07/TaxfyWebEN.png)
 
-Taxify is a TypeScript-based serverless app development tool, characterized by:
+Taxfy is a TypeScript-based serverless app development tool, characterized by:
 
 - **Elimination of Infrastructure Design and Management:** Reducing the need for infrastructure preparation and concerns, allowing developers to focus on application logic.
 - **Rapid Application Development:** Facilitating fast development cycles, enabling small teams to manage service operations efficiently.
 
-## Innovation through the Taxify and Neon Technological Partnership
+## Innovation through the Taxfy and Neon Technological Partnership
 
-This partnership facilitates easy auto-scaling of relational databases, traditionally a challenge, reducing the burden of infrastructure management and allowing developers to focus on application functionality. The integration of Neon's on-demand scaling and high-cost efficiency serverless Postgres solution with Taxify's rapid development environment significantly advances the efficiency of the development process.
+This partnership facilitates easy auto-scaling of relational databases, traditionally a challenge, reducing the burden of infrastructure management and allowing developers to focus on application functionality. The integration of Neon's on-demand scaling and high-cost efficiency serverless Postgres solution with Taxfy's rapid development environment significantly advances the efficiency of the development process.
 
-## Comments from Neon and Taxify (Development by ELSOUL LABO B.V.)
+## Comments from Neon and Taxfy (Development by ELSOUL LABO B.V.)
 
 ![Mike Jerome, Product Manager at Neon](/news/2023/12/07/MikeJerome.png)
 
@@ -42,7 +42,7 @@ This partnership facilitates easy auto-scaling of relational databases, traditio
 
 ![Fumitake Kawasaki, CEO of ELSOUL LABO B.V.](/news/2023/12/07/FumitakeKawasaki.png)
 
-"We are excited about the technical integration with Neon, which overcomes the limitations of choosing relational databases. Developers can now focus more on application coding, enhancing productivity. Additionally, integrating Neon's serverless database solution into Taxify Cloud allows for more agile and smaller-scale application development, making it easier to meet business requirements. We look forward to future collaborations." - Fumitake Kawasaki, CEO of ELSOUL LABO B.V.
+"We are excited about the technical integration with Neon, which overcomes the limitations of choosing relational databases. Developers can now focus more on application coding, enhancing productivity. Additionally, integrating Neon's serverless database solution into Taxfy Cloud allows for more agile and smaller-scale application development, making it easier to meet business requirements. We look forward to future collaborations." - Fumitake Kawasaki, CEO of ELSOUL LABO B.V.
 
 ## Contact and Other Information
 
@@ -56,9 +56,9 @@ Twitter (X): https://twitter.com/neondatabase
 
 Official Website: https://labo.elsoul.nl/en/
 
-Taxify Documentation: https://taxify.dev/en/
+Taxfy Documentation: https://Taxfydev/en/
 
-Taxify Cloud Waitlist: https://forms.gle/hLZJFL2mNMHPom9T8
+Taxfy Cloud Waitlist: https://forms.gle/hLZJFL2mNMHPom9T8
 
 Email: labo@elsoul.nl
 

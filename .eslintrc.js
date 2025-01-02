@@ -49,7 +49,7 @@ module.exports = {
         'prettier',
       ],
       parserOptions: {
-        project: './functions/taxify/tsconfig.json',
+        project: './functions/taxfy/tsconfig.json',
         sourceType: 'module',
         ecmaVersion: 'latest',
       },

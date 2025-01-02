@@ -35,7 +35,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRecoilValue } from 'recoil'
 import { userState } from '@/store/user'
-import { Timestamp } from '@taxify-framework/firestore'
+import { Timestamp } from '@skeet-framework/firestore'
 import {
   DocumentData,
   QueryDocumentSnapshot,
@@ -49,7 +49,7 @@ import {
   VertexExampleInput,
   genVertexChatRoomPath,
 } from '@common/models'
-import { query, add } from '@/lib/taxify/firestore'
+import { query, add } from '@/lib/taxfy/firestore'
 
 export type ChatRoom = {
   id: string

@@ -1,8 +1,8 @@
 {
   "functions": [
     {
-      "source": "functions/taxify",
-      "codebase": "taxify",
+      "source": "functions/taxfy",
+      "codebase": "taxfy",
       "ignore": [
         "node_modules",
         ".git",
