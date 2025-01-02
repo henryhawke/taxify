@@ -21,11 +21,6 @@
       "@config/*": ["../*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "../*.json"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../*.json"],
   "exclude": ["node_modules"]
 }

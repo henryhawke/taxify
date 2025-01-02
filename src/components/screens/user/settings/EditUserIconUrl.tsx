@@ -14,8 +14,8 @@ import { blurhash } from '@/utils/placeholder'
 import { getImageBlob } from '@/utils/storage'
 import Toast from 'react-native-toast-message'
 import { signOut } from 'firebase/auth'
-import { User, genUserPath } from '@root/common/models'
-import { update } from '@/lib/taxfy/firestore'
+import { User, genUserPath } from 'common/models'
+import { update } from '@/lib/taxify/firestore'
 
 export default function EditUserIconUrl() {
   const { t } = useTranslation()

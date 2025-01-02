@@ -14,7 +14,7 @@ import { CreateSignInDataParams } from '@common/types/http/createSignInDataParam
 import { VerifySIWSParams } from '@common/types/http/verifySIWSParams'
 import { auth, db } from '@/lib/firebase'
 import { signInWithCustomToken, signOut } from 'firebase/auth'
-import { User, genUserPath } from '@root/common/models'
+import { User, genUserPath } from '@/common/models/index'
 import { useRecoilState } from 'recoil'
 import { defaultUser, userState } from '@/store/user'
 import { get } from '@/lib/taxfy/firestore'

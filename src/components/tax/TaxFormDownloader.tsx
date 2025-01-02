@@ -13,26 +13,26 @@ export default function TaxFormDownloader({ taxableEvents }: Props) {
     form8949Long?: string
     scheduleD?: string
   }>({})
-  
+
   const generateForms = async () => {
     setIsGenerating(true)
     try {
       const formGenerator = new TaxFormGenerator()
-      
+
       // Generate forms with previews
       const form8949 = await formGenerator.generate8949(taxableEvents)
       const scheduleD = await formGenerator.generateScheduleD({
         shortTerm: form8949.shortTerm,
-        longTerm: form8949.longTerm
+        longTerm: form8949.longTerm,
       })
-      
+
       // Update previews
       setPreviews({
         form8949Short: form8949.preview.shortTerm,
         form8949Long: form8949.preview.longTerm,
-        scheduleD: scheduleD.preview
+        scheduleD: scheduleD.preview,
       })
-      
+
       // Create download links
       downloadPDF(form8949.shortTerm, 'form-8949-short-term.pdf')
       downloadPDF(form8949.longTerm, 'form-8949-long-term.pdf')
@@ -43,7 +43,7 @@ export default function TaxFormDownloader({ taxableEvents }: Props) {
       setIsGenerating(false)
     }
   }
-  
+
   const downloadPDF = (dataUrl: string, filename: string) => {
     const link = document.createElement('a')
     link.href = dataUrl
@@ -52,26 +52,28 @@ export default function TaxFormDownloader({ taxableEvents }: Props) {
     link.click()
     document.body.removeChild(link)
   }
-  
+
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold">Tax Forms</h2>
-        
+
         <button
           onClick={generateForms}
           disabled={isGenerating || taxableEvents.length === 0}
           className={`
-            px-4 py-2 rounded-md text-white
-            ${isGenerating || taxableEvents.length === 0
-              ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-blue-600 hover:bg-blue-700'}
+            rounded-md px-4 py-2 text-white
+            ${
+              isGenerating || taxableEvents.length === 0
+                ? 'cursor-not-allowed bg-gray-400'
+                : 'bg-blue-600 hover:bg-blue-700'
+            }
           `}
         >
           {isGenerating ? 'Generating...' : 'Generate Tax Forms'}
         </button>
       </div>
-      
+
       {/* Form Previews */}
       {previews.form8949Short && (
         <TaxFormPreview
@@ -79,20 +81,17 @@ export default function TaxFormDownloader({ taxableEvents }: Props) {
           formType="Form 8949 (Short-term)"
         />
       )}
-      
+
       {previews.form8949Long && (
         <TaxFormPreview
           previewUrl={previews.form8949Long}
           formType="Form 8949 (Long-term)"
         />
       )}
-      
+
       {previews.scheduleD && (
-        <TaxFormPreview
-          previewUrl={previews.scheduleD}
-          formType="Schedule D"
-        />
+        <TaxFormPreview previewUrl={previews.scheduleD} formType="Schedule D" />
       )}
     </div>
   )
-} 
+}

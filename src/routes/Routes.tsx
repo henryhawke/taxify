@@ -8,12 +8,12 @@ import { NavigationContainer } from '@react-navigation/native'
 import AppLoading from '@/components/loading/AppLoading'
 import { useTranslation } from 'react-i18next'
 import * as Linking from 'expo-linking'
-import taxfyCloudConfig from '@root/taxfy-cloud.config.json'
+import taxfyCloudConfig from 'taxfy-cloud.config.json'
 import useScreens from '@/hooks/useScreens'
 import { auth, db } from '@/lib/firebase'
 import { signOut, User } from 'firebase/auth'
-import { genUserPath, User as UserModel } from '@root/common/models'
-import { get } from '@/lib/taxfy/firestore'
+import { genUserPath, User as UserModel } from '@/common/models'
+import { get } from '@/lib/taxify/firestore'
 
 const Stack = createNativeStackNavigator()
 const prefix = Linking.createURL('/')

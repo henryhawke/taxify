@@ -57,7 +57,7 @@ export default function DefaultHeader() {
             <>
               <div className="flex items-center justify-between p-6 md:justify-start md:space-x-10">
                 <div className="flex justify-start lg:w-0 lg:flex-1">
-                  <LogoHorizontalLink className="h-60 w-auto sm:h-60" />
+                  <LogoHorizontalLink className="h-20 w-auto sm:h-20" />
                 </div>
                 <div className="-my-2 -mr-2 md:hidden">
                   <Popover.Button className="inline-flex items-center justify-center  p-2 text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500  dark:text-gray-50 dark:hover:bg-gray-700 dark:hover:text-gray-200">

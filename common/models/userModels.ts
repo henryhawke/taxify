@@ -1,4 +1,4 @@
-import { Timestamp, FieldValue } from '@skeet-framework/firestore'
+import { Timestamp, FieldValue } from 'firebase/firestore'
 
 // CollectionId: User
 // DocumentId: auto

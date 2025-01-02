@@ -14,8 +14,8 @@ import { auth, db } from '@/lib/firebase'
 import Toast from 'react-native-toast-message'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { signOut } from 'firebase/auth'
-import { User, genUserPath } from '@root/common/models'
-import { update } from '@/lib/taxfy/firestore'
+import { User, genUserPath } from '@/common/models/index'
+import { update } from '@/lib/taxify/firestore'
 
 export default function EditUserProfile() {
   const { t } = useTranslation()
