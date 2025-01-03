@@ -1,6 +1,6 @@
 import taxfyCloudConfig from 'taxfy-cloud.config.json'
 import { toKebabCase } from '@/utils/character'
-import { auth, platformDevIP, functions } from '@/lib/firebase'
+import { auth, functions } from '@/lib/firebase'
 import { signOut } from 'firebase/auth'
 import { httpsCallable, httpsCallableFromURL } from 'firebase/functions'
 

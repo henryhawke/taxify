@@ -8,19 +8,18 @@ import { RecoilRoot } from 'recoil'
 import Head from 'next/head'
 import type { SeoData } from '@/lib/getStatic'
 import '@solana/wallet-adapter-react-ui/styles.css'
-import 'highlight.js/styles/github-dark.css'
 import '@/assets/styles/globals.css'
 import { ThemeProvider } from 'next-themes'
 
-export type NextPageWithLayout = NextPage & {
+type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
 
-export type AppPropsWithLayout = AppProps & {
+type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-function MyApp({ Component, pageProps, router }: AppProps) {
+function App({ Component, pageProps, router }: AppPropsWithLayout) {
   return (
     <>
       <Head>
@@ -44,4 +43,4 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   )
 }
 
-export default appWithTranslation(MyApp)
+export default appWithTranslation(App)

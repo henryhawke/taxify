@@ -9,23 +9,24 @@ import Link from '@/components/routing/Link'
 import { User, signOut } from 'firebase/auth'
 import { useRecoilState } from 'recoil'
 import { defaultUser, userState } from '@/store/user'
-import { auth, db } from '@/lib/firebase'
+import { auth } from '@/lib/firebase'
 import LogoHorizontal from '@/components/common/atoms/LogoHorizontal'
 import Image from 'next/image'
-import { User as UserModel, genUserPath } from '/common/models/index'
-import { get } from '@/lib/taxfy/firestore'
+import { UserModel } from '@/common/models'
 import useI18nRouter from '@/hooks/useI18nRouter'
 
-type Props = {
+interface UserLayoutProps {
   children: ReactNode
+  user?: UserModel
 }
 
 const mainContentId = 'userMainContent'
 
-export default function UserLayout({ children }: Props) {
+export default function UserLayout({ children }: UserLayoutProps) {
   const { router, routerPush } = useI18nRouter()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { t } = useTranslation()
+  const [user, setUser] = useRecoilState(userState)
 
   const asPathWithoutLang = useMemo(() => {
     return router.asPath.replace('/ja/', '/').replace('/en/', '/')
@@ -37,6 +38,7 @@ export default function UserLayout({ children }: Props) {
       element.scrollIntoView({ block: 'start' })
     }
   }, [])
+
   useEffect(() => {
     void (async () => {
       try {
@@ -51,45 +53,35 @@ export default function UserLayout({ children }: Props) {
     })()
   }, [router.asPath, resetWindowScrollPosition])
 
-  const [user, setUser] = useRecoilState(userState)
-
   const onAuthStateChanged = useCallback(
     async (fbUser: User | null) => {
-      if (auth && db && fbUser) {
+      if (fbUser) {
         try {
-          const data = await get<UserModel>(db, genUserPath(), fbUser.uid)
-          if (!data) throw new Error('User not found')
-          const { email, username, iconUrl } = data
           setUser({
             uid: fbUser.uid,
-            email,
-            username,
-            iconUrl,
+            email: fbUser.email || '',
+            username: fbUser.displayName || '',
+            iconUrl: fbUser.photoURL || '',
           })
         } catch (e) {
           console.error(e)
           setUser(defaultUser)
-          await signOut(auth)
+          if (auth) await signOut(auth)
           await routerPush('/auth/login')
         }
       } else {
-        if (auth && !fbUser) {
-          setUser(defaultUser)
-          await signOut(auth)
-          await routerPush('/auth/login')
-        }
+        setUser(defaultUser)
+        if (auth) await signOut(auth)
+        await routerPush('/auth/login')
       }
     },
-    [setUser, routerPush],
+    [setUser, routerPush]
   )
 
   useEffect(() => {
-    let subscriber = () => {}
-
-    if (auth) {
-      subscriber = auth.onAuthStateChanged(onAuthStateChanged)
-    }
-    return () => subscriber()
+    if (!auth) return
+    const unsubscribe = auth.onAuthStateChanged(onAuthStateChanged)
+    return () => unsubscribe()
   }, [onAuthStateChanged])
 
   return (

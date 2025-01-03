@@ -1,3 +1,5 @@
+// @ts-check
+
 /** @type {import('next').NextConfig} */
 const path = require('path')
 
@@ -6,6 +8,12 @@ const nextConfig = {
   trailingSlash: true,
   swcMinify: true,
   images: { unoptimized: true },
+
+  // Specify page extensions and directory
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+  distDir: 'dist',
+
+  transpilePackages: ['@solana/web3.js', '@solana/rpc'],
 
   webpack: (config) => {
     // Solana package optimizations
@@ -27,6 +35,13 @@ const nextConfig = {
         },
       },
     }
+
+    // Add support for importing .json files
+    config.module.rules.push({
+      test: /\.json$/,
+      type: 'javascript/auto',
+      use: ['json-loader'],
+    })
 
     return config
   },

@@ -41,15 +41,9 @@ export default class MyDocument extends Document {
             href="/favicon-16x16.png"
           />
           <link rel="manifest" href="/site.webmanifest" />
-          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#111827" />
-          <meta name="msapplication-TileColor" content="#ffffff" />
+          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+          <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff" />
-          {locale === 'ja' ? (
-            <meta name="keywords" content={siteConfig.keywordsJA} />
-          ) : (
-            <meta name="keywords" content={siteConfig.keywordsEN} />
-          )}
-
           <meta property="og:type" content="website" />
           {locale === 'ja' ? (
             <meta property="og:site_name" content={siteConfig.sitenameJA} />
@@ -65,7 +59,6 @@ export default class MyDocument extends Document {
             content={locale === 'ja' ? 'ja-jp' : 'en-us'}
           />
           <meta name="twitter:card" content="summary_large_image" />
-
           <meta name="twitter:creator" content={siteConfig.twitterAccount} />
           <meta
             httpEquiv="Content-Security-Policy"

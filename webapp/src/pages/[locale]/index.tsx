@@ -16,76 +16,76 @@ import {
   DocumentTextIcon,
   CubeTransparentIcon,
   WalletIcon,
-  CircleStackIcon
+  CircleStackIcon,
 } from '@heroicons/react/24/outline'
 
 const features = [
   {
     name: {
       en: 'Solana Token Support',
-      ja: 'Solanaトークンサポート'
+      ja: 'Solanaトークンサポート',
     },
     description: {
       en: 'Support for all major Solana tokens including BONK, JUP, JTO, RNDR, and more',
-      ja: 'BONK、JUP、JTO、RNDRなど、主要なSolanaトークンをすべてサポート'
+      ja: 'BONK、JUP、JTO、RNDRなど、主要なSolanaトークンをすべてサポート',
     },
-    icon: CurrencyDollarIcon
+    icon: CurrencyDollarIcon,
   },
   {
     name: {
       en: 'Compressed NFTs',
-      ja: '圧縮NFT'
+      ja: '圧縮NFT',
     },
     description: {
       en: 'Full support for Solana compressed NFTs (cNFTs) with Bubblegum',
-      ja: 'Bubblegumを使用したSolana圧縮NFT（cNFT）の完全サポート'
+      ja: 'Bubblegumを使用したSolana圧縮NFT（cNFT）の完全サポート',
     },
-    icon: CubeTransparentIcon
+    icon: CubeTransparentIcon,
   },
   {
     name: {
       en: 'Multi-Wallet Support',
-      ja: 'マルチウォレット対応'
+      ja: 'マルチウォレット対応',
     },
     description: {
       en: 'Connect multiple Solana wallets including Phantom, Backpack and more',
-      ja: 'Phantom、Backpackなど複数のSolanaウォレットに対応'
+      ja: 'Phantom、Backpackなど複数のSolanaウォレットに対応',
     },
-    icon: WalletIcon
+    icon: WalletIcon,
   },
   {
     name: {
       en: 'DeFi Tracking',
-      ja: 'DeFiトラッキング'
+      ja: 'DeFiトラッキング',
     },
     description: {
       en: 'Track DeFi activities across Raydium, Orca, Jupiter and more',
-      ja: 'Raydium、Orca、Jupiterなどのプロトコルでのトラッキング'
+      ja: 'Raydium、Orca、Jupiterなどのプロトコルでのトラッキング',
     },
-    icon: CircleStackIcon
+    icon: CircleStackIcon,
   },
   {
     name: {
       en: 'Real-time Tracking',
-      ja: 'リアルタイム追跡'
+      ja: 'リアルタイム追跡',
     },
     description: {
       en: 'Live transaction monitoring and portfolio updates',
-      ja: 'リアルタイムの取引モニタリングとポートフォリオ更新'
+      ja: 'リアルタイムの取引モニタリングとポートフォリオ更新',
     },
-    icon: BoltIcon
+    icon: BoltIcon,
   },
   {
     name: {
       en: 'Tax Forms',
-      ja: '税務書類'
+      ja: '税務書類',
     },
     description: {
       en: 'Automated generation of tax forms and reports',
-      ja: '税務書類とレポートの自動生成'
+      ja: '税務書類とレポートの自動生成',
     },
-    icon: DocumentTextIcon
-  }
+    icon: DocumentTextIcon,
+  },
 ]
 
 const seo = {
@@ -108,7 +108,7 @@ export default function Home() {
   return (
     <>
       <HeroRow />
-      
+
       <div className="bg-white py-24 dark:bg-gray-900 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
@@ -124,7 +124,10 @@ export default function Home() {
               {features.map((feature) => (
                 <div key={feature.name[locale]} className="flex flex-col">
                   <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900 dark:text-white">
-                    <feature.icon className="h-5 w-5 flex-none text-indigo-600 dark:text-indigo-400" aria-hidden="true" />
+                    <feature.icon
+                      className="h-5 w-5 flex-none text-indigo-600 dark:text-indigo-400"
+                      aria-hidden="true"
+                    />
                     {feature.name[locale]}
                   </dt>
                   <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-400">

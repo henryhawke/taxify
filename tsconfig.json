@@ -1,26 +1,34 @@
 {
-  "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@common/*": ["src/common/*"]
+      "@/*": ["webapp/src/*", "src/*"],
+      "@common/*": ["common/*"]
     }
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "src/**/*",
-    "lib/**/*",
-    "common/**/*",
-    "custom.d.ts",
-    "App.tsx",
-    "tests/**/*",
-    "metro.config.js",
-    "babel.config.js",
-    "jest.config.js",
-    "tsconfig.json"
+    "next-env.d.ts",
+    "webapp/**/*.ts",
+    "webapp/**/*.tsx",
+    "webapp/**/*.js",
+    "webapp/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "common/**/*.ts"
   ],
-  "exclude": ["node_modules", ".expo", "dist", "webapp", "functions"]
+  "exclude": ["node_modules"]
 }
