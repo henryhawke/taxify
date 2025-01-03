@@ -22,6 +22,7 @@ interface LotTrackingEntry {
 }
 
 export class CostBasisCalculator {
+    [x: string]: any
     private lots: Map<string, LotTrackingEntry[]> = new Map()
     private method: CostBasisMethod
     private priceOracle: PriceOracle

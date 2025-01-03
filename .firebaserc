@@ -1,14 +1,14 @@
 {
-  "projects": {
-    "default": "taxfy"
-  },
-  "targets": {
-    "taxfy": {
-      "hosting": {
-        "taxfy": [
-          "taxfy"
-        ]
-      }
+    "projects": {
+        "default": "taxifyio"
+    },
+    "targets": {
+        "taxifyio": {
+            "hosting": {
+                "taxifyio": [
+                    "taxifyio"
+                ]
+            }
+        }
     }
-  }
 }

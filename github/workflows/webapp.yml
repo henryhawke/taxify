@@ -1,55 +1,32 @@
-name: WebApp
+name: Web Build & Deploy
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - 'webapp/**'
-      - 'lib/**'
-      - '.github/workflows/webapp.yml'
-      - 'package.json'
-      - 'firebase.json'
-      - '.firebaserc'
+      - '.github/workflows/**'
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        node-version: [20.15.1]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-node@v3
         with:
-          version: 8
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '18'
           cache: 'pnpm'
-      - id: auth
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.SKEET_GCP_SA_KEY }}
-      - name: Install firebase tools
-        run: pnpm i -g firebase-tools
-      - name: GitHub repository setting
-        run: git config --global url."https://github.com".insteadOf ssh://git@github.com
+          
       - name: Install dependencies
         run: pnpm install
-      - name: Build App
+        
+      - name: Build webapp
         run: pnpm build
+        
       - name: Deploy to Firebase
-        run: firebase deploy --only hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseToken: '${{ secrets.FIREBASE_TOKEN }}'
+          projectId: taxifyio
+          channelId: live

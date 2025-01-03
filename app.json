@@ -3,7 +3,7 @@
     "name": "taxfy",
     "slug": "taxfy",
     "scheme": "taxfysolanamobilestack",
-    "owner": "elsoul-labo",
+    "owner": "henryhawke",
     "platforms": ["ios", "android"],
     "githubUrl": "https://github.com/henryhawke/taxfy",
     "version": "0.1.1",
@@ -18,7 +18,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.elsoullabo.taxfysolanamobilestack"
+      "bundleIdentifier": "com.henryhawke.taxify"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,7 +26,7 @@
         "backgroundColor": "#ffffff"
       },
       "versionCode": 1,
-      "package": "com.elsoullabo.taxfysolanamobilestack",
+      "package": "com.henryhawke.taxify",
       "permissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {

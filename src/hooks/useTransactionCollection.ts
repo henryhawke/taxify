@@ -1,31 +1,31 @@
 import { useState, useCallback } from 'react'
-import { TransactionCollectionService, TransactionData } from '@/services/solana/TransactionCollectionService'
+import { Address } from '@solana/web3.js'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
+import { TransactionCollector } from '@/services/solana/TransactionCollector'
 
 export function useTransactionCollection() {
     const { connection } = useConnection()
     const { publicKey } = useWallet()
     const [isCollecting, setIsCollecting] = useState(false)
-    const [transactions, setTransactions] = useState<TransactionData[]>([])
+    const [transactions, setTransactions] = useState([])
 
     const startCollection = useCallback(async (startDate?: Date) => {
         if (!publicKey) return
 
         setIsCollecting(true)
         try {
-            const service = new TransactionCollectionService(
+            const address = new Address(publicKey.toBase58())
+            const collector = new TransactionCollector(
                 connection.rpcEndpoint,
-                publicKey.toBase58()
+                address.toString()
             )
 
-            // Collect historical transactions
-            const historicalTxs = await service.collectHistoricalTransactions(startDate)
-            setTransactions(historicalTxs)
+            const result = await collector.getAllTransactions()
+            setTransactions(result.transfers)
 
-            // Setup real-time monitoring
-            const unsubscribe = await service.setupRealtimeMonitoring()
-
-            return unsubscribe
+            return () => {
+                // Cleanup if needed
+            }
         } catch (error) {
             console.error('Error collecting transactions:', error)
         } finally {
