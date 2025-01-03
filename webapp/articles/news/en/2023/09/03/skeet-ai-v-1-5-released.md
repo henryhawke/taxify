@@ -13,9 +13,9 @@ With Taxfy, you can rapidly develop everything from API servers to Web, iOS, and
 
 With this update, specialized AI models (ChatGPT and Vertex AI) for Taxfy development support can now be easily accessed through Taxfy CLI. Taxfy aims to further boost developer productivity through enhanced AI support for Taxfy app development.
 
-Taxfy CLI (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy CLI (GitHub): https://github.com/henryhawke/taxfycli
 
-Taxfy AI (GitHub): https://github.com/elsoul/Taxfyai
+Taxfy AI (GitHub): https://github.com/henryhawke/taxfyai
 
 ## Development Support with Taxfy AI
 

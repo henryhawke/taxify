@@ -17,7 +17,7 @@ Behind the scenes, the tool utilizes APIs such as OpenAI's ChatGPT and Google's 
 
 Taxfy aims to further enhance developer productivity through AI development support.
 
-Taxfy CLI (GitHub): https://github.com/elsoul/taxfy-cli
+Taxfy CLI (GitHub): https://github.com/henryhawke/taxfy-cli
 
 ## Development Support with Taxfy AI
 

@@ -41,7 +41,7 @@ Furthermore, you can run this demo app on your own PC or cloud environment in ju
 
 First, get a feel for what's possible with the demo, and then jump right into app development using the Taxfy CLI.
 
-Taxfy CLI (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy CLI (GitHub): https://github.com/henryhawke/taxfycli
 
 Taxfy is being developed as an open-source project to reduce development and maintenance costs and improve developer experience across all application development environments worldwide.
 

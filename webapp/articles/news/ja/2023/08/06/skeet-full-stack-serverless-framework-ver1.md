@@ -69,4 +69,4 @@ Taxfy を利用することにより、アプリの開発コストとメンテ�
 
 Taxfy ドキュメント: https://Taxfydev/ja/
 
-Taxfy (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy (GitHub): https://github.com/henryhawke/taxfycli

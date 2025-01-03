@@ -48,4 +48,4 @@ Taxfy を用いた最先端のアプリ開発をぜひ体験してみてくだ�
 
 Taxfy ドキュメント: https://Taxfydev/ja/
 
-Taxfy (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy (GitHub): https://github.com/henryhawke/taxfycli

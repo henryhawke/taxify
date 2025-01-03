@@ -16,7 +16,7 @@ if (TaxfyEnv === 'development')
   connectAuthEmulator(auth, 'http://127.0.0.1:9099')
 
 export const loginSeed = async (
-  email = 'elsoul-labo@example.com',
+  email = 'henry@example.com',
   password = 'password',
 ) => {
   let loginUserCredential: any

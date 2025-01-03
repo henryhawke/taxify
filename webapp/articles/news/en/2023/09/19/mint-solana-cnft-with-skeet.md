@@ -43,7 +43,7 @@ You can try the Taxfy demo here: https://Taxfyr.dev/en/
 
 The demo app can be run on your own PC or cloud environment in just 5 minutes using the Taxfy CLI, which also features AI-powered code generation through chat, significantly enhancing developer productivity.
 
-Taxfy CLI (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy CLI (GitHub): https://github.com/henryhawke/taxfycli
 
 Taxfy is being developed as open-source to reduce development and maintenance costs across all application development environments worldwide.
 

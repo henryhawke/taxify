@@ -39,7 +39,7 @@ Moreover, with Taxfy CLI, you can get an application up and running on your PC o
 
 First, explore the possibilities with the demo, and then start developing your app using Taxfy CLI. Taxfy CLI comes equipped with AI, providing powerful support functions like chat-based code generation and the creation of translation files for apps, greatly enhancing developer productivity.
 
-Taxfy CLI (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy CLI (GitHub): https://github.com/henryhawke/taxfycli
 
 Taxfy is developed as an open-source to reduce development and maintenance costs across application development worldwide and to improve the developer experience.
 

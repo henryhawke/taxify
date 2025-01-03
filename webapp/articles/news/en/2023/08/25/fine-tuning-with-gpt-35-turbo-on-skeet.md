@@ -13,7 +13,7 @@ From API servers to Web, iOS, and Android apps, everything can be rapidly develo
 
 With this update, Taxfy now allows easy execution of GPT-3.5's Fine-tuning using TypeScript.
 
-Taxfy AI (GitHub): https://github.com/elsoul/Taxfyai
+Taxfy AI (GitHub): https://github.com/henryhawke/taxfyai
 
 ## Fine-tuning with ChatGPT's GPT-3.5 Turbo
 

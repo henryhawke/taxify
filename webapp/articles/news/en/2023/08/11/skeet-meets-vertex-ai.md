@@ -31,7 +31,7 @@ Using Taxfy, businesses can swiftly integrate Vertex AI and deploy a bespoke AI 
 
 Please take a look at the release note below for details.
 
-Taxfy v1.1.0 release note: https://github.com/elsoul/Taxfycli/releases/tag/v1.1.0
+Taxfy v1.1.0 release note: https://github.com/henryhawke/taxfycli/releases/tag/v1.1.0
 
 Taxfy is developed as an open-source solution with the aim to reduce development and maintenance costs, enhancing the developer experience across global application development scenarios.
 

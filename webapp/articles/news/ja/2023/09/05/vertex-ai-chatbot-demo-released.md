@@ -16,7 +16,7 @@ ChatGPT の GPT-3.5、GPT-4 も同じデモからお試しいただけますの�
 
 Taxfy デモ: https://taxfyer.dev/ja/
 
-Taxfy CLI (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy CLI (GitHub): https://github.com/henryhawke/taxfycli
 
 ## Google 製 LLM の PaLM2、Vertex AI
 
@@ -36,7 +36,7 @@ Taxfy デモ: https://Taxfyr.dev/ja/
 
 まずはどのようなことができるかデモでイメージしていただき、その後は Taxfy CLI を使ってすぐにアプリ開発をスタートできます。
 
-Taxfy CLI (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy CLI (GitHub): https://github.com/henryhawke/taxfycli
 
 Taxfy は世界中すべてのアプリケーション開発現場の開発・メンテナンスコストを削減、開発者体験を向上させるためにオープンソースとして開発されています。
 

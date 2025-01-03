@@ -17,7 +17,7 @@ Since "Taxfy" is open-source, anyone can use it freely at no cost.
 
 With just a single command, you can set up the Google AI customization environment, develop your own or your business's specialized AI chatbot, and release it instantly.
 
-Taxfy CLI (GitHub): https://github.com/elsoul/taxfy-cli
+Taxfy CLI (GitHub): https://github.com/henryhawke/taxfy-cli
 
 ## Highly Customizable Google AI
 

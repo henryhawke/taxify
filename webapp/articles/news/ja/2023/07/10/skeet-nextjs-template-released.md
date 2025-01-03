@@ -25,7 +25,7 @@ Taxfy は素早くアプリを立ち上げ、少ないコストで長期的に�
 
 他にも多言語対応や PWA(アプリをダウンロードして利用可能)など、Web 開発に欠かせない設定はすでに完了しており、開発環境の準備に時間をかけず、すぐにあなたのアプリケーションコードに集中できます。
 
-Taxfy Next (GitHub): https://github.com/elsoul/Taxfynext
+Taxfy Next (GitHub): https://github.com/henryhawke/taxfynext
 
 ## 新しい AI チャットアプリデモ (made by Next.js)
 

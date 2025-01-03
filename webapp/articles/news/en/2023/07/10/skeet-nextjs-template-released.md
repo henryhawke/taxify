@@ -25,7 +25,7 @@ This Next.js starter uses SSG (Static Site Generation) technology to achieve str
 
 In addition, the settings essential for web development, such as multilingual support and his PWA (available by downloading the app), have already been completed, so you can start developing your application immediately without spending time preparing the development environment. Focus on your code.
 
-Taxfy Next (GitHub): https://github.com/elsoul/Taxfynext
+Taxfy Next (GitHub): https://github.com/henryhawke/taxfynext
 
 ## New AI Chat App demo (made by Next.js)
 

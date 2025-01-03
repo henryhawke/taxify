@@ -5,7 +5,7 @@
     "scheme": "taxfysolanamobilestack",
     "owner": "elsoul-labo",
     "platforms": ["ios", "android"],
-    "githubUrl": "https://github.com/elsoul/taxfy",
+    "githubUrl": "https://github.com/henryhawke/taxfy",
     "version": "0.1.1",
     "orientation": "portrait",
     "primaryColor": "#111827",

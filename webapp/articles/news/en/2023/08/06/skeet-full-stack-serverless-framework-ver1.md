@@ -67,4 +67,4 @@ We will continue to improve to make it a more convenient development tool.
 
 Taxfy Documentation: https://Taxfydev/en/
 
-Taxfy (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy (GitHub): https://github.com/henryhawke/taxfycli

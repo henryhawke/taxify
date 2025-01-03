@@ -45,7 +45,7 @@ First, get a sense of what you can do with the demo, and then start your app dev
 
 The CLI also incorporates AI, offering powerful support like code generation through chat, significantly improving developer productivity.
 
-Taxfy CLI (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy CLI (GitHub): https://github.com/henryhawke/taxfycli
 
 Taxfy is being developed as open-source to reduce development and maintenance costs and improve the developer experience across all application development environments worldwide.
 

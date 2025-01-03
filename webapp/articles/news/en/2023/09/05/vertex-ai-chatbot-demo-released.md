@@ -15,7 +15,7 @@ This release allows users to try out an AI chatbot powered by Google's LLM PaLM2
 
 Taxfy Demo: https://taxfyer.dev/en/
 
-Taxfy CLI (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy CLI (GitHub): https://github.com/henryhawke/taxfycli
 
 ## Google's LLM PaLM2 and Vertex AI
 
@@ -31,7 +31,7 @@ Taxfy Demo: https://Taxfyr.dev/en/
 
 The demo can be run on your own PC or cloud environment in just 5 minutes using Taxfy CLI.
 
-Taxfy CLI (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy CLI (GitHub): https://github.com/henryhawke/taxfycli
 
 Taxfy is developed as an open-source project aimed at reducing development and maintenance costs and improving the developer experience worldwide.
 

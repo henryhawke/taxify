@@ -39,7 +39,7 @@ Taxfy デモ: https://Taxfyr.dev/ja/
 
 まずはデモで可能性を確認して、その後 Taxfy CLI を用いてアプリ開発を開始できます。Taxfy CLI にも AI が搭載されており、チャットによるコード生成やアプリ用の翻訳ファイル生成など、強力なサポート機能が提供され、開発者の生産性を大幅に向上させます。
 
-Taxfy CLI (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy CLI (GitHub): https://github.com/henryhawke/taxfycli
 
 Taxfy は世界中すべてのアプリケーション開発現場の開発・メンテナンスコストを削減、開発者体験を向上させるためにオープンソースとして開発されています。
 

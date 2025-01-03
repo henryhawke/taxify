@@ -31,7 +31,7 @@ Taxfy を使えばすぐに Vertex AI を活用して、自社専用にカスタ
 
 詳細は下記リリースノートをお読みください。
 
-Taxfy v1.1.0 リリースノート: https://github.com/elsoul/Taxfycli/releases/tag/v1.1.0
+Taxfy v1.1.0 リリースノート: https://github.com/henryhawke/taxfycli/releases/tag/v1.1.0
 
 Taxfy は世界中すべてのアプリケーション開発現場の開発・メンテナンスコストを削減、開発者体験を向上させるためにオープンソースとして開発されています。
 

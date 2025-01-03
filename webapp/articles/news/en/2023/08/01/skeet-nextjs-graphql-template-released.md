@@ -48,4 +48,4 @@ Experience state-of-the-art application development using Taxfy.
 
 Taxfy Documentation: https://Taxfydev/en/
 
-Taxfy (GitHub): https://github.com/elsoul/Taxfycli
+Taxfy (GitHub): https://github.com/henryhawke/taxfycli

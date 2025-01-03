@@ -7,7 +7,7 @@ thumbnail: /news/2023/06/23/TaxfyTypeSafeFirestore2.png
 
 ELSOUL LABO B.V. (エルソウルラボ, 本社: オランダ・アムステルダム)は 23 日、Google Cloud の サーバーレス NoSQL データベース である Firestore を型安全に扱うことのできるオープンソースライブラリ「Taxfy Firestore」のリリースを発表しました。
 
-Taxfy Firestore: https://github.com/elsoul/Taxfyfirestore
+Taxfy Firestore: https://github.com/henryhawke/taxfyfirestore
 
 ## サーバーレス NoSQL データベース "Firestore"
 

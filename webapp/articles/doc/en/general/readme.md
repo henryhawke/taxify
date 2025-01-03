@@ -10,7 +10,7 @@ description: Taxfy Next.js (React) テンプレート README
 
 Next.js (React) 環境 for Taxfy Framework
 
-[GitHub - Taxfy App Next.js Template](https://github.com/elsoul/Taxfynext)
+[GitHub - Taxfy App Next.js Template](https://github.com/henryhawke/taxfynext)
 
 ## 心がけ
 

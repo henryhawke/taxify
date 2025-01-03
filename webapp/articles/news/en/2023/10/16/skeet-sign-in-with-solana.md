@@ -64,7 +64,7 @@ The Taxfy CLI also comes with AI, offering powerful support like automatic code 
 
 Taxfy CLI (GitHub):
 
-https://github.com/elsoul/Taxfycli
+https://github.com/henryhawke/taxfycli
 
 Taxfy is being developed as an open-source project to reduce development and maintenance costs across all application development settings worldwide.
 

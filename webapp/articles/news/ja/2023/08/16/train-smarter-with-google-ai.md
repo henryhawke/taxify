@@ -17,7 +17,7 @@ Taxfy はオープンソースとして公開されているため、誰でも�
 
 たった一つのコマンドで Google AI のカスタマイズ環境を構築し、あなたやあなたのビジネス専用 AI チャットボットを開発、すぐにリリースすることができます。
 
-Taxfy CLI (GitHub): https://github.com/elsoul/taxfy-cli
+Taxfy CLI (GitHub): https://github.com/henryhawke/taxfy-cli
 
 ## カスタマイズに優れた Google AI
 
