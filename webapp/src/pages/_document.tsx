@@ -1,7 +1,21 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+  DocumentInitialProps,
+} from 'next/document'
 import siteConfig from '@/config/site'
 
 export default class MyDocument extends Document {
+  static async getInitialProps(
+    ctx: DocumentContext,
+  ): Promise<DocumentInitialProps> {
+    const initialProps = await Document.getInitialProps(ctx)
+    return { ...initialProps }
+  }
+
   render() {
     const { locale } = this.props.__NEXT_DATA__.query
     return (
@@ -23,33 +37,14 @@ export default class MyDocument extends Document {
           />
           <meta name="format-detection" content="telephone=no" />
           <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-          <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-          />
-          <link rel="manifest" href="/site.webmanifest" />
-          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-          <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff" />
           <meta property="og:type" content="website" />
-          {locale === 'ja' ? (
-            <meta property="og:site_name" content={siteConfig.sitenameJA} />
-          ) : (
-            <meta property="og:site_name" content={siteConfig.sitenameEN} />
-          )}
+          <meta
+            property="og:site_name"
+            content={
+              locale === 'ja' ? siteConfig.sitenameJA : siteConfig.sitenameEN
+            }
+          />
           <meta
             property="og:locale"
             content={locale === 'ja' ? 'ja_JP' : 'en_US'}
@@ -60,10 +55,6 @@ export default class MyDocument extends Document {
           />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:creator" content={siteConfig.twitterAccount} />
-          <meta
-            httpEquiv="Content-Security-Policy"
-            content="upgrade-insecure-requests"
-          />
         </Head>
         <body>
           <Main />

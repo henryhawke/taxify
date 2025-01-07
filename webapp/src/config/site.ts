@@ -1,4 +1,4 @@
-import taxfyCloudConfig from '/taxfy-cloud.config.json'
+import taxfyCloudConfig from '../../taxfy-cloud.config.json'
 
 const siteConfig = {
   domain: taxfyCloudConfig.app.appDomain,
@@ -8,7 +8,7 @@ const siteConfig = {
   keywordsJA:
     'Next.js, Firebase, SSG, テンプレート, SEO, 多言語対応, サーバーレス, TypeScript, PWA',
   keywordsEN:
-    'Next.js, Firebase, SSG, Template, SEO, i18n translation, Serverless, TypeScript, PWA',
+    'Solana, Solana Wallet, Solana Wallet Extension, Solana Wallet Adapter, Solana Wallet Adapter React, Solana Wallet Adapter React Next.js, Solana Wallet Adapter React Next.js Template, Solana Wallet Adapter React Next.js SEO, Solana Wallet Adapter React Next.js i18n translation, Solana Wallet Adapter React Next.js Serverless, Solana Wallet Adapter React Next.js TypeScript, Solana Wallet Adapter React Next.js PWA',
   descriptionJA:
     'Next.jsのボイラープレート。SEO対応、多言語対応、SSG、PWA。WebAppをすぐに構築開始でき、そのデプロイは保証されています。',
   descriptionEN:

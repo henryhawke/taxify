@@ -16,7 +16,7 @@ export const fetchTaxfyFunctions = async <T>(
                     ? `https://${taxfyCloudConfig.app.lbDomain
                     }/${functionName}/${toKebabCase(methodName)}`
                     : `https://${taxfyCloudConfig.app.region}-${taxfyCloudConfig.app.fbProjectId}.cloudfunctions.net/${methodName}`
-                : `http://${platformDevIP}:5001/${taxfyCloudConfig.app.fbProjectId}/${taxfyCloudConfig.app.region}/${methodName}`
+                : `http://localhost:5001/${taxfyCloudConfig.app.fbProjectId}/${taxfyCloudConfig.app.region}/${methodName}`
         const taxfyToken = await auth?.currentUser?.getIdToken()
         const res = await fetch(`${url}`, {
             method: 'POST',

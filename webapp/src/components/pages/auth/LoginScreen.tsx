@@ -10,11 +10,12 @@ import type {
   SolanaSignInOutput,
 } from '@solana/wallet-standard-features'
 import { fetchTaxfyFunctions } from '@/lib/taxfy/functions'
-import { CreateSignInDataParams } from '@common/types/http/createSignInDataParams'
-import { VerifySIWSParams } from '@common/types/http/verifySIWSParams'
+import type { CreateSignInDataParams } from '@/common/types/http/createSignInDataParams'
+import type { VerifySIWSParams } from '@/common/types/http/verifySIWSParams'
 import { auth, db } from '@/lib/firebase'
 import { signInWithCustomToken, signOut } from 'firebase/auth'
-import { User, genUserPath } from '@/common/models/index'
+import type { User } from '@/common/models/userModels'
+import { genUserPath } from '@/common/models/userModels'
 import { useRecoilState } from 'recoil'
 import { defaultUser, userState } from '@/store/user'
 import { get } from '@/lib/taxfy/firestore'
@@ -96,7 +97,7 @@ export default function LoginScreen() {
   return (
     <>
       <div className="px-6 py-24 lg:px-8 lg:py-48">
-        <div className="pa-4 flex h-full flex-col items-center justify-center border-2 border-gray-900 shadow-lg dark:border-white sm:mx-auto sm:w-full sm:max-w-md md:max-w-lg">
+        <div className="pa-4 flex h-full flex-col items-center justify-center border-2 border-gray-900 shadow-lg sm:mx-auto sm:w-full sm:max-w-md md:max-w-lg dark:border-white">
           <div className="mt-20">
             <SolanaLogoHorizontal className="mx-auto w-48" />
             <h2 className="mt-4 text-center text-xl font-bold tracking-tight text-gray-500 dark:text-gray-300">
