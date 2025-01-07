@@ -14,6 +14,7 @@ import { OpenAI, OpenAIMessage } from '@skeet-framework/ai'
 import { TypedRequestBody } from '@common/types/http'
 import { add, get, query, update } from '@skeet-framework/firestore'
 import { inspect } from 'util'
+import { Request } from 'express'
 
 const chatGptOrg = defineSecret('CHAT_GPT_ORG')
 const chatGptKey = defineSecret('CHAT_GPT_KEY')
@@ -38,7 +39,8 @@ export const addStreamUserChatRoomMessage = onRequest(
       if (body.userChatRoomId === '') throw new Error('userChatRoomId is empty')
 
       // Get User Info from Firebase Auth
-      const user = await getUserAuth(req)
+      const request = req as unknown as Request
+      const user = await getUserAuth(request)
 
       // Get UserChatRoom
       const chatRoomPath = genUserChatRoomPath(user.uid)

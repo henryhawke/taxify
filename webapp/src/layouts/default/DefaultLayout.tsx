@@ -1,47 +1,30 @@
-import type { ReactNode } from 'react'
-import { useEffect, useCallback } from 'react'
-import DefaultHeader from './DefaultHeader'
-import CommonFooter from '@/layouts/common/CommonFooter'
+import { ReactNode } from 'react'
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 
-import { useRouter } from 'next/router'
-
-type Props = {
+interface DefaultLayoutProps {
   children: ReactNode
 }
 
-const mainContentId = 'defaultMainContent'
-
-export default function DefaultLayout({ children }: Props) {
-  const router = useRouter()
-
-  const resetWindowScrollPosition = useCallback(() => {
-    const element = document.getElementById(mainContentId)
-    if (element) {
-      element.scrollIntoView({ block: 'start' })
-    }
-  }, [])
-  useEffect(() => {
-    void (async () => {
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 100))
-        if (!router.asPath.includes('#')) {
-          resetWindowScrollPosition()
-        }
-      } catch (e) {
-        console.error(e)
-      }
-    })()
-  }, [router.asPath, resetWindowScrollPosition])
+export default function DefaultLayout({ children }: DefaultLayoutProps) {
+  console.log('DefaultLayout rendering')
 
   return (
-    <>
-      <div className="relative h-full w-full bg-white dark:bg-gray-900">
-        <DefaultHeader />
-        <div id={mainContentId} className="min-h-screen">
-          {children}
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      <header className="bg-white shadow dark:bg-gray-800">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+              Taxfy
+            </h1>
+            {console.log('About to render WalletMultiButton')}
+            <WalletMultiButton />
+          </div>
         </div>
-        <CommonFooter />
-      </div>
-    </>
+      </header>
+      <main>
+        {console.log('About to render children')}
+        {children}
+      </main>
+    </div>
   )
 }

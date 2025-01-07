@@ -1,18 +1,30 @@
+import { Timestamp, FieldValue } from 'firebase/firestore'
+
 export interface UserModel {
   id: string
+  uid: string
   email: string
-  name: string
-  photoUrl?: string
-  createdAt: Date
-  updatedAt: Date
+  username: string
+  iconUrl: string
+  createdAt: Date | Timestamp | FieldValue
+  updatedAt: Date | Timestamp | FieldValue
 }
 
-export interface UserProfileModel {
-  id: string
+// Collection paths
+export const UserCN = 'User'
+export const genUserPath = () => UserCN
+
+// User settings
+export interface UserSettings {
+  id?: string
   userId: string
-  displayName?: string
-  avatarUrl?: string
-  bio?: string
-  createdAt: Date
-  updatedAt: Date
+  theme: 'light' | 'dark' | 'system'
+  language: 'en' | 'ja'
+  notifications: boolean
+  createdAt?: Timestamp | FieldValue
+  updatedAt?: Timestamp | FieldValue
 }
+
+export const UserSettingsCN = 'UserSettings'
+export const genUserSettingsPath = (userId: string) =>
+  `${UserCN}/${userId}/${UserSettingsCN}`

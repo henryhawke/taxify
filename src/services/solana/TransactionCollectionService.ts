@@ -1,7 +1,7 @@
-import { createSolanaRpc } from '@solana/web3.js'
+import { Connection, PublicKey } from '@solana/web3.js'
 import { fetchAllDigitalAssetByOwner } from '@metaplex-foundation/mpl-token-metadata'
 import { db } from '@/lib/firebase'
-import { collection, addDoc, query, where, getDocs } from 'firebase/firestore'
+import { collection, addDoc } from 'firebase/firestore'
 
 export interface TransactionData {
     signature: string
@@ -16,64 +16,60 @@ export interface TransactionData {
 }
 
 export class TransactionCollectionService {
-    private rpcUrl: string
+    private connection: Connection
     private walletAddress: string
 
     constructor(rpcUrl: string, walletAddress: string) {
-        this.rpcUrl = rpcUrl
+        this.connection = new Connection(rpcUrl)
         this.walletAddress = walletAddress
     }
 
     async collectHistoricalTransactions(startDate?: Date): Promise<TransactionData[]> {
-        const rpc = createSolanaRpc(this.rpcUrl)
-
-        // Get all signatures for address
-        const signatures = await rpc.getSignaturesForAddress(this.walletAddress, {
+        const pubkey = new PublicKey(this.walletAddress)
+        
+        // Get signatures
+        const signatures = await this.connection.getSignaturesForAddress(pubkey, {
             limit: 1000,
-            before: startDate?.toISOString(),
-        }).send()
+            before: startDate?.toISOString()
+        })
 
-        // Get full transaction details
+        // Get transactions
         const transactions = await Promise.all(
             signatures.map(async (sig) => {
-                const tx = await rpc.getTransaction(sig.signature, {
-                    maxSupportedTransactionVersion: 0,
-                }).send()
-
+                const tx = await this.connection.getTransaction(sig.signature, {
+                    maxSupportedTransactionVersion: 0
+                })
                 return this.parseTransaction(tx)
             })
         )
 
-        // Store in Firestore
         await this.storeTransactions(transactions)
-
         return transactions
     }
 
     async setupRealtimeMonitoring() {
-        const rpc = createSolanaRpc(this.rpcUrl)
-
+        const pubkey = new PublicKey(this.walletAddress)
+        
         // Subscribe to account changes
-        const unsubscribe = rpc.accountSubscribe(
-            this.walletAddress,
-            async (notification) => {
+        const subscription = this.connection.onAccountChange(
+            pubkey,
+            async () => {
                 // When account changes, fetch latest transaction
-                const signatures = await rpc.getSignaturesForAddress(this.walletAddress, {
+                const signatures = await this.connection.getSignaturesForAddress(pubkey, {
                     limit: 1,
-                }).send()
+                })
 
                 if (signatures[0]) {
-                    const tx = await rpc.getTransaction(signatures[0].signature, {
-                        maxSupportedTransactionVersion: 0,
-                    }).send()
-
+                    const tx = await this.connection.getTransaction(signatures[0].signature, {
+                        maxSupportedTransactionVersion: 0
+                    })
                     const parsedTx = this.parseTransaction(tx)
                     await this.storeTransactions([parsedTx])
                 }
             }
-        ).send()
+        )
 
-        return unsubscribe
+        return () => this.connection.removeAccountChangeListener(subscription)
     }
 
     private async storeTransactions(transactions: TransactionData[]) {

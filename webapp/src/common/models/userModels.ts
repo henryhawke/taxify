@@ -1,72 +1,30 @@
-export interface UserModel {
-  id: string
-  email: string
-  name: string
-  photoUrl?: string
-  createdAt: Date
-  updatedAt: Date
-}
-
-export interface UserProfileModel {
-  id: string
-  userId: string
-  displayName?: string
-  avatarUrl?: string
-  bio?: string
-  createdAt: Date
-  updatedAt: Date
-}
-
 import { Timestamp, FieldValue } from 'firebase/firestore'
 
-// CollectionId: User
-// DocumentId: auto
-// Path: User
-export const UserCN = 'User'
-export const genUserPath = () => `${UserCN}`
-export type User = {
-  id?: string
+export interface UserModel {
+  id: string
   uid: string
-  username: string
   email: string
+  username: string
   iconUrl: string
-  userChatRoomIds?: string[]
+  createdAt: Date | Timestamp | FieldValue
+  updatedAt: Date | Timestamp | FieldValue
+}
+
+// Collection paths
+export const UserCN = 'User'
+export const genUserPath = () => UserCN
+
+// User settings
+export interface UserSettings {
+  id?: string
+  userId: string
+  theme: 'light' | 'dark' | 'system'
+  language: 'en' | 'ja'
+  notifications: boolean
   createdAt?: Timestamp | FieldValue
   updatedAt?: Timestamp | FieldValue
 }
 
-// CollectionId: UserChatRoom
-// DocumentId: auto
-// Path: User/{uid}/UserChatRoom
-export const UserChatRoomCN = 'UserChatRoom'
-export const genUserChatRoomPath = (uid: string) =>
-  `${UserCN}/${uid}/${UserChatRoomCN}`
-export type UserChatRoom = {
-  id?: string
-  title: string
-  model: string
-  maxTokens: number
-  temperature: number
-  context: string
-  stream: boolean
-  createdAt?: Timestamp | FieldValue
-  updatedAt?: Timestamp | FieldValue
-}
-
-// CollectionId: UserChatRoomMessage
-// DocumentId: auto
-// Path: User/{uid}/UserChatRoom/{userChatRoomId}/UserChatRoomMessage
-export const UserChatRoomMessageCN = 'UserChatRoomMessage'
-export const genUserChatRoomMessagePath = (
-  uid: string,
-  userChatRoomId: string
-) =>
-  `${UserCN}/${uid}/${UserChatRoomCN}/${userChatRoomId}/${UserChatRoomMessageCN}`
-export type UserChatRoomMessage = {
-  id?: string
-  userChatRoomId: string
-  role: string
-  content: string
-  createdAt?: Timestamp | FieldValue
-  updatedAt?: Timestamp | FieldValue
-}
+export const UserSettingsCN = 'UserSettings'
+export const genUserSettingsPath = (userId: string) =>
+  `${UserCN}/${userId}/${UserSettingsCN}`

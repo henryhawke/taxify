@@ -14,8 +14,7 @@ import type { CreateSignInDataParams } from '@/common/types/http/createSignInDat
 import type { VerifySIWSParams } from '@/common/types/http/verifySIWSParams'
 import { auth, db } from '@/lib/firebase'
 import { signInWithCustomToken, signOut } from 'firebase/auth'
-import type { User } from '@/common/models/userModels'
-import { genUserPath } from '@/common/models/userModels'
+import { User, genUserPath } from '@/common/models/userModels'
 import { useRecoilState } from 'recoil'
 import { defaultUser, userState } from '@/store/user'
 import { get } from '@/lib/taxfy/firestore'
@@ -36,7 +35,9 @@ export default function LoginScreen() {
           await fetchTaxfyFunctions<CreateSignInDataParams>(
             'taxfy',
             'createSignInData',
-            {},
+            {
+              address: '',
+            },
           )
         const signInResponse = await createResponse?.json()
         const input: SolanaSignInInput = signInResponse?.signInData

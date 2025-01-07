@@ -11,10 +11,14 @@ const nextConfig = {
 
   transpilePackages: ['@solana/web3.js', '@solana/rpc'],
 
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'ja'],
-    localeDetection: false,
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/en',
+        permanent: false,
+      },
+    ]
   },
 
   webpack: (config, { isServer }) => {

@@ -1,2 +1,14 @@
-import Redirect from '@/components/routing/Redirect'
-export default Redirect
+import { GetServerSideProps } from 'next'
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    redirect: {
+      destination: '/en',
+      permanent: false,
+    },
+  }
+}
+
+export default function Index() {
+  return null
+}
