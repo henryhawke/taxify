@@ -75,7 +75,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
         await routerPush('/auth/login')
       }
     },
-    [setUser, routerPush]
+    [setUser, routerPush],
   )
 
   useEffect(() => {
@@ -90,7 +90,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            className="relative z-40 bg-white dark:bg-gray-900 lg:hidden"
+            className="relative z-40 bg-white lg:hidden dark:bg-gray-900"
             onClose={setSidebarOpen}
           >
             <Transition.Child
@@ -218,7 +218,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
           <div className="flex-shrink- sticky top-0 flex h-16 bg-white bg-opacity-90 dark:bg-gray-900 dark:bg-opacity-90">
             <button
               type="button"
-              className="px-4 text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 dark:text-gray-50 dark:hover:text-gray-200 lg:hidden"
+              className="px-4 text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 lg:hidden dark:text-gray-50 dark:hover:text-gray-200"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>

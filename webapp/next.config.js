@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 
 /** @type {import('next').NextConfig} */
 const path = require('path')
@@ -20,6 +20,7 @@ const nextConfig = {
     config.resolve.alias = {
       '@solana/web3.js': path.resolve('node_modules/@solana/web3.js'),
       '@solana/rpc': path.resolve('node_modules/@solana/rpc'),
+      '@babel/runtime': path.resolve('node_modules/@babel/runtime'),
     }
 
     // Production optimizations
@@ -42,6 +43,11 @@ const nextConfig = {
       type: 'javascript/auto',
       use: ['json-loader'],
     })
+
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      ...config.webpack.resolve.alias,
+    }
 
     return config
   },

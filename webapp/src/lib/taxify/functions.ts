@@ -1,4 +1,4 @@
-import taxfyCloudConfig from '../../../taxfy-cloud.config.json'
+import taxfyCloudConfig from '@taxfy-cloud.config.json'
 import { toKebabCase } from '@/utils/character'
 import { auth, platformDevIP, functions } from '@/lib/firebase'
 import { signOut } from 'firebase/auth'
