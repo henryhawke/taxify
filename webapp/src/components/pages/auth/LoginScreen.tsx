@@ -56,7 +56,7 @@ export default function LoginScreen() {
         const verifyResponse = await fetchTaxfyFunctions<VerifySIWSParams>(
           'taxfy',
           'verifySIWS',
-          { input, output },
+          { signInData: input, signInResult: output },
         )
         addToast({
           title: t('auth:verifyTitle'),

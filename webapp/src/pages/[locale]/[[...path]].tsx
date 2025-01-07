@@ -5,7 +5,7 @@ import { getI18nProps } from '@/lib/getStatic'
 import HeroRow from '@/components/pages/home/HeroRow'
 import DiscordRow from '@/components/pages/common/DiscordRow'
 
-export default function LocalePage() {
+const LocalePage = () => {
   const router = useRouter()
   const { locale, path } = router.query
 
@@ -33,27 +33,37 @@ export default function LocalePage() {
   )
 }
 
+export default LocalePage
+
 export const getStaticProps: GetStaticProps = async (ctx) => {
+  const locale = ctx?.params?.locale as 'ja' | 'en'
+
+  const seoData = {
+    pathname: '/',
+    title: {
+      ja: 'トップページ',
+      en: 'Top page',
+    },
+    description: {
+      ja: 'Solanaの税金計算を簡単に',
+      en: 'Easy tax calculations for Solana',
+    },
+    img: null,
+  }
+
   return {
     props: {
-      ...(await getI18nProps(ctx, ['common'])),
+      ...(await getI18nProps(ctx, ['common'], seoData)),
     },
   }
 }
 
 export const getStaticPaths = async () => {
-  // Define all possible static paths
-  const paths = [
-    // Home pages
-    { params: { locale: 'en', path: [] } },
-    { params: { locale: 'ja', path: [] } },
-    // Add other static paths as needed
-    // { params: { locale: 'en', path: ['about'] } },
-    // { params: { locale: 'ja', path: ['about'] } },
-  ]
-
   return {
-    paths,
-    fallback: false, // Return 404 for undefined paths
+    paths: [
+      { params: { locale: 'en', path: [] } },
+      { params: { locale: 'ja', path: [] } },
+    ],
+    fallback: false,
   }
 }

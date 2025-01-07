@@ -26,7 +26,7 @@ export class TransactionCollectionService {
 
     async collectHistoricalTransactions(startDate?: Date): Promise<TransactionData[]> {
         const pubkey = new PublicKey(this.walletAddress)
-        
+
         // Get signatures
         const signatures = await this.connection.getSignaturesForAddress(pubkey, {
             limit: 1000,
@@ -49,7 +49,7 @@ export class TransactionCollectionService {
 
     async setupRealtimeMonitoring() {
         const pubkey = new PublicKey(this.walletAddress)
-        
+
         // Subscribe to account changes
         const subscription = this.connection.onAccountChange(
             pubkey,
