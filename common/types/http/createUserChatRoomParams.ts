@@ -1,7 +1,7 @@
-export type CreateUserChatRoomParams = {
-  model?: string
-  systemContent?: string
-  maxTokens?: number
-  temperature?: number
-  stream?: boolean
+export interface CreateUserChatRoomParams {
+  model: string
+  systemContent: string
+  maxTokens: number
+  temperature: number
+  stream: boolean
 }

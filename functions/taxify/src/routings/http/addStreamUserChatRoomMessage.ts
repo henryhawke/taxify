@@ -1,8 +1,8 @@
-import { db } from '@/index'
+import { getFirestore } from 'firebase-admin/firestore'
+import { initializeApp } from 'firebase-admin/app'
 import { onRequest } from 'firebase-functions/v2/https'
 import { getUserAuth } from '@/lib'
 import { publicHttpOption } from '@/routings/options'
-import { AddStreamUserChatRoomMessageParams } from '@common/types/http/addStreamUserChatRoomMessageParams'
 import { defineSecret } from 'firebase-functions/params'
 import {
   UserChatRoom,
@@ -11,17 +11,19 @@ import {
   genUserChatRoomMessagePath,
 } from '@common/models'
 import { OpenAI, OpenAIMessage } from '@skeet-framework/ai'
-import { TypedRequestBody } from '@common/types/http'
 import { add, get, query, update } from '@skeet-framework/firestore'
 import { inspect } from 'util'
 import { Request } from 'express'
+
+const app = initializeApp()
+const db = getFirestore(app)
 
 const chatGptOrg = defineSecret('CHAT_GPT_ORG')
 const chatGptKey = defineSecret('CHAT_GPT_KEY')
 
 export const addStreamUserChatRoomMessage = onRequest(
   { ...publicHttpOption, secrets: [chatGptOrg, chatGptKey] },
-  async (req: TypedRequestBody<AddStreamUserChatRoomMessageParams>, res) => {
+  async (req: Request, res) => {
     const organization = chatGptOrg.value()
     const apiKey = chatGptKey.value()
 

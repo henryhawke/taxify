@@ -17,7 +17,7 @@ import { chatContentSchema, getGptChatModelName } from '@/utils/form'
 import { fetchTaxfyFunctions } from '@/lib/taxfy/functions'
 import Image from 'next/image'
 import { ChatRoom } from './ChatMenu'
-import { AddStreamUserChatRoomMessageParams } from '@common/types/http/addStreamUserChatRoomMessageParams'
+import { AddStreamUserChatRoomMessageParams } from '../../../../common/models/'
 import { z } from 'zod'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -36,7 +36,7 @@ import {
   UserChatRoomMessage,
   genUserChatRoomMessagePath,
   genUserChatRoomPath,
-} from '@common/models'
+} from '../../../../common/models'
 import { Timestamp } from '@skeet-framework/firestore'
 import { get, query } from '@/lib/taxfy/firestore'
 import rehypeSlug from 'rehype-slug'
@@ -51,8 +51,8 @@ type ChatMessage = {
 }
 
 const schema = z.object({
-  chatContent: chatContentSchema,
-})
+  chatContent: z.string().min(1),
+}) as z.ZodType<{ chatContent: string }>
 
 type Inputs = z.infer<typeof schema>
 
@@ -160,7 +160,7 @@ export default function ChatBox({
           id: qs.id,
           ...data,
           content: html.value,
-        } as ChatMessage)
+        } as unknown as ChatMessage)
       }
 
       setChatMessages(messages)
@@ -370,7 +370,7 @@ export default function ChatBox({
                 className={clsx('bg-gray-50 dark:bg-gray-800', 'w-full p-4')}
               >
                 <div className="mx-auto flex w-full max-w-3xl flex-row items-start justify-center gap-4 p-4 sm:p-6 md:gap-6">
-                  {chatRoom?.model === 'gpt-3.5-turbo' && (
+                  {chatRoom?.model === 'gpt-4o' && (
                     <Image
                       src={
                         'https://storage.googleapis.com/epics-bucket/BuidlersCollective/Jake.png'
@@ -435,7 +435,7 @@ export default function ChatBox({
                     )}
                     {(chatMessage.role === 'assistant' ||
                       chatMessage.role === 'system') &&
-                      chatRoom?.model === 'gpt-3.5-turbo' && (
+                      chatRoom?.model === 'gpt-4o' && (
                         <Image
                           src={
                             'https://storage.googleapis.com/epics-bucket/BuidlersCollective/Jake.png'
@@ -507,7 +507,7 @@ export default function ChatBox({
                             : chatContentLines == 2
                             ? 'h-20'
                             : `h-10`,
-                          'flex-1 border-2 border-gray-900 p-1 font-normal text-gray-900 dark:border-gray-50 dark:bg-gray-800 dark:text-white sm:text-lg',
+                          'flex-1 border-2 border-gray-900 p-1 font-normal text-gray-900 sm:text-lg dark:border-gray-50 dark:bg-gray-800 dark:text-white',
                         )}
                       />
                     )}

@@ -34,7 +34,7 @@ const LocalePage = () => {
   return (
     <DefaultLayout>
       <div>Current locale: {locale}</div>
-      <div>Current path: {path.join('/')}</div>
+      <div>Current path: {path.concat('/')}</div>
     </DefaultLayout>
   )
 }

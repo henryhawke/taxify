@@ -1,5 +1,5 @@
-export type AddStreamUserChatRoomMessageParams = {
+export interface AddStreamUserChatRoomMessageParams {
   userChatRoomId: string
   content: string
-  isFirstMessage: boolean
+  isFirstMessage?: boolean
 }

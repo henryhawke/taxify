@@ -7,4 +7,4 @@ export default function SecurityBadge() {
       Bank-Level Security
     </div>
   )
-} 
+}
