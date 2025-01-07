@@ -110,3 +110,5 @@ firebase-export-*
 *keyfile.json
 *keys.json
 functions/taxfy/node_modules
+webapp/dist/
+webapp/.next/

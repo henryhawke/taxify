@@ -4,6 +4,9 @@ import DefaultLayout from '@/layouts/default/DefaultLayout'
 import { getI18nProps } from '@/lib/getStatic'
 import HeroRow from '@/components/pages/home/HeroRow'
 import DiscordRow from '@/components/pages/common/DiscordRow'
+import FeaturesRow from '@/components/pages/home/FeaturesRow'
+import ServiceOverview from '@/components/pages/home/ServiceOverview'
+import StatsRow from '@/components/pages/home/StatsRow'
 
 const LocalePage = () => {
   const router = useRouter()
@@ -19,6 +22,9 @@ const LocalePage = () => {
     return (
       <DefaultLayout>
         <HeroRow />
+        <StatsRow />
+        <FeaturesRow />
+        <ServiceOverview />
         <DiscordRow />
       </DefaultLayout>
     )
