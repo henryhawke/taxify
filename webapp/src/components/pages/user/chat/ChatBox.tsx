@@ -19,7 +19,7 @@ import Image from 'next/image'
 import { ChatRoom } from './ChatMenu'
 import { AddStreamUserChatRoomMessageParams } from '../../../../common/models/'
 import { z } from 'zod'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, Controller, Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { TextDecoder } from 'text-encoding'
 import useToastMessage from '@/hooks/useToastMessage'
@@ -52,7 +52,7 @@ type ChatMessage = {
 
 const schema = z.object({
   chatContent: z.string().min(1),
-}) as z.ZodType<{ chatContent: string }>
+})
 
 type Inputs = z.infer<typeof schema>
 
@@ -87,7 +87,7 @@ export default function ChatBox({
     reset,
     watch,
   } = useForm<Inputs>({
-    resolver: zodResolver(schema),
+    resolver: schema as unknown as Resolver<Inputs>,
     defaultValues: {
       chatContent: '',
     },
@@ -449,7 +449,7 @@ export default function ChatBox({
                       )}
                     {(chatMessage.role === 'assistant' ||
                       chatMessage.role === 'system') &&
-                      chatRoom?.model.includes('gpt-4') && (
+                      chatRoom?.model.includes('gpt-4o') && (
                         <Image
                           src={
                             'https://storage.googleapis.com/epics-bucket/BuidlersCollective/Legend.png'

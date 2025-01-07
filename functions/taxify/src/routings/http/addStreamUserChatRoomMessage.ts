@@ -1,5 +1,5 @@
 import { getFirestore } from 'firebase-admin/firestore'
-import { initializeApp } from 'firebase-admin/app'
+import { initializeApp, getApps } from 'firebase-admin/app'
 import { onRequest } from 'firebase-functions/v2/https'
 import { getUserAuth } from '@/lib'
 import { publicHttpOption } from '@/routings/options'
@@ -15,7 +15,7 @@ import { add, get, query, update } from '@skeet-framework/firestore'
 import { inspect } from 'util'
 import { Request } from 'express'
 
-const app = initializeApp()
+const app = getApps().length === 0 ? initializeApp() : getApps()[0]
 const db = getFirestore(app)
 
 const chatGptOrg = defineSecret('CHAT_GPT_ORG')

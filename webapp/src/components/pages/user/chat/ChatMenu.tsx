@@ -41,9 +41,9 @@ import { format } from 'date-fns'
 import useToastMessage from '@/hooks/useToastMessage'
 import { Dialog, Transition } from '@headlessui/react'
 import { z } from 'zod'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, Controller, Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { UserChatRoom, genUserChatRoomPath } from '@common/models'
+import { UserChatRoom, genUserChatRoomPath } from 'src/common/models'
 import { add, query } from '@/lib/taxfy/firestore'
 
 export type ChatRoom = {
@@ -105,9 +105,9 @@ export default function ChatMenu({
     formState: { errors },
     control,
   } = useForm<Inputs>({
-    resolver: zodResolver(schema),
+    resolver: schema as unknown as Resolver<Inputs>,
     defaultValues: {
-      model: allowedGPTModel[0],
+      model: 'gpt-4',
       maxTokens: 1000,
       temperature: 1,
       systemContent: isJapanese
@@ -129,7 +129,7 @@ export default function ChatMenu({
         const list: ChatRoom[] = []
         querySnapshot.forEach((doc) => {
           const data = doc.data()
-          list.push({ id: doc.id, ...data } as ChatRoom)
+          list.push({ ...data, id: doc.id } as ChatRoom)
         })
 
         if (querySnapshot.docs[querySnapshot.docs.length - 1] === lastChat) {
@@ -438,7 +438,7 @@ export default function ChatMenu({
                                   render={({ field }) => (
                                     <select
                                       {...field}
-                                      className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 dark:border-gray-50 dark:bg-gray-800 dark:text-white sm:leading-6"
+                                      className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 sm:leading-6 dark:border-gray-50 dark:bg-gray-800 dark:text-white"
                                     >
                                       {allowedGPTModel.map((model) => (
                                         <option key={model} value={model}>
@@ -547,7 +547,7 @@ export default function ChatMenu({
                                     <textarea
                                       {...field}
                                       onKeyDown={onKeyDown}
-                                      className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 dark:border-gray-50 dark:bg-gray-800 dark:text-white sm:leading-6"
+                                      className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 sm:leading-6 dark:border-gray-50 dark:bg-gray-800 dark:text-white"
                                     />
                                   )}
                                 />
