@@ -8,7 +8,7 @@ import {
   TrashIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
-import { zodResolver } from '@hookform/resolvers/zod'
+// import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
 import { useTranslation } from 'next-i18next'
 import { Fragment, useCallback, useMemo, useState } from 'react'

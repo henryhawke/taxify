@@ -1,7 +1,7 @@
 import Link from '@/components/routing/Link'
 import Image from 'next/image'
 import logoHorizontal from '@/assets/img/logo/TaxfyLogoText.svg'
-import logoHorizontalInvert from '@/assets/img/logo/TaxfyLogoSquareInvert.svg'
+// import logoHorizontalInvert from '@/assets/img/logo/TaxfyLogoSquareInvert.svg'
 import clsx from 'clsx'
 
 type Props = {

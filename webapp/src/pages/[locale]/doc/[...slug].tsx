@@ -25,8 +25,8 @@ import { addClassToTitles } from '@/lib/rehypePlugin'
 const articleDirName = 'doc'
 
 export default function Doc({
-  article,
-  articleHtml,
+  // article,
+  // articleHtml,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>{/* <DocContents article={article} articleHtml={articleHtml} /> */}</>

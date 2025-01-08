@@ -21,8 +21,8 @@ import { addClassToTitles } from '@/lib/rehypePlugin'
 const articleDirName = 'legal'
 
 export default function Legal({
-  article,
-  articleHtml,
+  // article,
+  // articleHtml,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>

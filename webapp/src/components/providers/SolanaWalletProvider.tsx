@@ -15,7 +15,7 @@ import { fetchTaxfyFunctions } from '@/lib/taxfy/functions'
 import { CreateSignInDataParams } from '../../../../common/types/http/createSignInDataParams'
 import { VerifySIWSParams } from '../../../../common/types/http/verifySIWSParams'
 import { auth, db } from '@/lib/firebase'
-import { signInWithCustomToken, signOut } from 'firebase/auth'
+import { signOut } from 'firebase/auth'
 import { useRecoilState } from 'recoil'
 import { defaultUser, userState } from '@/store/user'
 
@@ -29,7 +29,7 @@ export const solanaEndpoint = 'https://api.mainnet-beta.solana.com'
 export default function SolanaWalletProvider({ children }: Props) {
   const wallets = useMemo(() => [], [])
   const addToast = useToastMessage()
-  const [_user, setUser] = useRecoilState(userState)
+  const [setUser] = useRecoilState(userState)
 
   const onError = useCallback(
     (error: WalletError) => {
@@ -69,16 +69,16 @@ export default function SolanaWalletProvider({ children }: Props) {
               icon: signInResult.account.icon,
             },
           }
-          const verifyResponse = await fetchTaxfyFunctions<VerifySIWSParams>(
-            'taxfy',
-            'verifySIWS',
-            { input, output },
-          )
-          const success = await verifyResponse?.json()
-          const userCredential = await signInWithCustomToken(
-            auth,
-            success?.token,
-          )
+          // const verifyResponse = await fetchTaxfyFunctions<VerifySIWSParams>(
+          //   'taxfy',
+          //   'verifySIWS',
+          //   { input, output },
+          // )
+          // const success = await verifyResponse?.json()
+          // const userCredential = await signInWithCustomToken(
+          //   auth,
+          //   success?.token,
+          // )
 
           return false
         }
@@ -102,7 +102,7 @@ export default function SolanaWalletProvider({ children }: Props) {
 
   const autoConnect = useCallback(
     async (adapter: Adapter) => {
-      adapter.autoConnect().catch((e) => {
+      adapter.autoConnect().catch(() => {
         return autoSignIn(adapter)
       })
       return false

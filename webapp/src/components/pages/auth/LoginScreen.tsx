@@ -22,7 +22,7 @@ import { get } from '@/lib/taxfy/firestore'
 export default function LoginScreen() {
   const { t } = useTranslation()
   const { connected, signIn } = useWallet()
-  const [_user, setUser] = useRecoilState(userState)
+  const [setUser] = useRecoilState(userState)
   const addToast = useToastMessage()
 
   const signInWithSolana = useCallback(async () => {

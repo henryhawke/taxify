@@ -11,7 +11,7 @@ import useToastMessage from '@/hooks/useToastMessage'
 import { Dialog, Transition } from '@headlessui/react'
 import { z } from 'zod'
 import { useForm, Controller, Resolver } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+// import { zodResolver } from '@hookform/resolvers/zod'
 import { User, genUserPath } from 'src/common/models'
 import { update } from '@/lib/taxfy/firestore'
 

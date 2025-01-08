@@ -1,4 +1,4 @@
-import type { GetStaticProps, InferGetStaticPropsType } from 'next'
+import type { GetStaticProps } from 'next'
 import type { ReactElement } from 'react'
 import DocLayout from '@/layouts/doc/DocLayout'
 import { getStaticPaths } from '@/lib/getStatic'

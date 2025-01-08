@@ -18,7 +18,6 @@ import Image from 'next/image'
 import { ChatRoom } from './VertexChatMenu'
 import { z } from 'zod'
 import { useForm, Controller, Resolver } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { TextDecoder } from 'text-encoding'
 import useToastMessage from '@/hooks/useToastMessage'
 import { unified } from 'unified'
@@ -67,7 +66,7 @@ type Props = {
 
 export default function VertexChatBox({
   currentChatRoomId,
-  setNewChatModalOpen,
+  // setNewChatModalOpen,
   getChatRooms,
 }: Props) {
   const { t } = useTranslation()

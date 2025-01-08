@@ -95,7 +95,7 @@ export default function SolanaNFTScreen() {
       ) : (
         <>
           <div className="grid grid-cols-3 sm:grid-cols-4 sm:gap-6 md:grid-cols-6 lg:gap-8">
-            {userNfts.map((nft, index) => (
+            {userNfts.map((nft) => (
               <div
                 key={nft.imgUrl}
                 className="flex flex-col items-start justify-between"
