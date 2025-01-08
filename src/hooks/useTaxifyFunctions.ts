@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { fetchTaxfyFunctions } from '@/lib/taxfy/functions'
 
 export function useTaxfyFunctions() {
-    const functions = fetchTaxfyFunctions()
+    const functions = fetchTaxfyFunctions(
 
     const createSignInData = useCallback(async (params: CreateSignInDataParams) => {
         try {

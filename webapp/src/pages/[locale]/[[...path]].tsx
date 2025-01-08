@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import DefaultLayout from '@/layouts/default/DefaultLayout'
 import { getI18nProps } from '@/lib/getStatic'
@@ -34,7 +34,7 @@ const LocalePage = () => {
   return (
     <DefaultLayout>
       <div>Current locale: {locale}</div>
-      <div>Current path: {path.concat('/')}</div>
+      <div>Current path: {Array.isArray(path) ? path.join('/') : path}</div>
     </DefaultLayout>
   )
 }
@@ -42,8 +42,6 @@ const LocalePage = () => {
 export default LocalePage
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const locale = ctx?.params?.locale as 'ja' | 'en'
-
   const seoData = {
     pathname: '/',
     title: {
@@ -61,15 +59,5 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       ...(await getI18nProps(ctx, ['common'], seoData)),
     },
-  }
-}
-
-export const getStaticPaths = async () => {
-  return {
-    paths: [
-      { params: { locale: 'en', path: [] } },
-      { params: { locale: 'ja', path: [] } },
-    ],
-    fallback: false,
   }
 }

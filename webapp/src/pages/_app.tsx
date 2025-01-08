@@ -15,10 +15,13 @@ import {
 } from '@solana/wallet-adapter-react'
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
 import { clusterApiUrl } from '@solana/web3.js'
-import { useMemo, useEffect } from 'react'
+import { useMemo } from 'react'
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets'
 
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
+  P,
+  IP
+> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
 
@@ -28,19 +31,6 @@ export type AppPropsWithLayout = AppProps & {
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   console.log('App component rendering', { pageProps })
-
-  if (!pageProps) {
-    console.error('No pageProps provided')
-    return null
-  }
-
-  // Clear any existing redirect loops on mount
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      sessionStorage.clear()
-      localStorage.clear()
-    }
-  }, [])
 
   // Set up Solana wallet connection
   const endpoint = useMemo(() => {
@@ -54,19 +44,14 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   }, [])
 
   // Use the layout defined at the page level, or fall back to a default
-  const getLayout =
-    Component.getLayout ??
-    ((page) => {
-      console.log('Using default layout')
-      return page
-    })
+  const getLayout = Component.getLayout ?? ((page) => page)
 
   try {
     return (
       <>
         <Head>
-          <title>{pageProps.title || 'Taxfy'}</title>
-          {pageProps.seoData?.map((seo: SeoData, index: number) => (
+          <title>{pageProps?.title || 'Taxfy'}</title>
+          {pageProps?.seoData?.map((seo: SeoData, index: number) => (
             <meta {...seo} key={`metaSeo${index}`} />
           ))}
         </Head>
@@ -76,7 +61,6 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
               <WalletModalProvider>
                 <ThemeProvider attribute="class">
                   <div className="min-h-screen scroll-smooth font-sans antialiased">
-                    {console.log('About to render layout')}
                     {getLayout(<Component {...pageProps} />)}
                   </div>
                 </ThemeProvider>

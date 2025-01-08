@@ -2,24 +2,14 @@ const path = require('path')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  trailingSlash: true,
-  swcMinify: true,
-  images: { unoptimized: true },
-
-  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+  output: 'export',
   distDir: 'dist',
-
-  transpilePackages: ['@solana/web3.js', '@solana/rpc'],
-
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/en',
-        permanent: false,
-      },
-    ]
+  images: {
+    unoptimized: true,
   },
+  reactStrictMode: true,
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+  transpilePackages: ['@solana/web3.js', '@solana/rpc'],
 
   webpack: (config, { isServer }) => {
     config.resolve.alias = {

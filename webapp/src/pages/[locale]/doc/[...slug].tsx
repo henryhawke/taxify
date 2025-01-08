@@ -18,7 +18,6 @@ import rehypeExternalLinks from 'rehype-external-links'
 import { getAllArticles, getArticleBySlug } from '@/utils/article'
 import DocLayout from '@/layouts/doc/DocLayout'
 import { getI18nProps } from '@/lib/getStatic'
-import DocContents from '@/components/articles/doc/DocContents'
 import embedder from '@remark-embedder/core'
 import youtubeTransformer from '@/lib/youtubeTransformer'
 import { addClassToTitles } from '@/lib/rehypePlugin'
@@ -30,9 +29,7 @@ export default function Doc({
   articleHtml,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <>
-      <DocContents article={article} articleHtml={articleHtml} />
-    </>
+    <>{/* <DocContents article={article} articleHtml={articleHtml} /> */}</>
   )
 }
 

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 export default function Logo3D() {
   return (
@@ -29,10 +30,13 @@ export default function Logo3D() {
 
           {/* Logo */}
           <div className="relative">
-            <img
+            <Image
               src="/images/logo/TaxfyLogoSquare.svg"
               alt="Taxfy Logo"
-              className="h-32 w-32 object-contain drop-shadow-2xl"
+              width={500}
+              height={500}
+              className="h-auto w-full"
+              priority
             />
           </div>
         </div>

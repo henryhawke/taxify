@@ -21,16 +21,15 @@ export const MDXComponents = {
       </Link>
     ) : null
   },
-  img: ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => {
+  img: ({ src, alt }: React.ImgHTMLAttributes<HTMLImageElement>) => {
     if (!src) return null
     return (
       <div className="relative my-8 h-64 w-full">
         <Image
           src={src}
           alt={alt || ''}
-          fill
+          fill={true}
           className="object-contain"
-          {...props}
         />
       </div>
     )

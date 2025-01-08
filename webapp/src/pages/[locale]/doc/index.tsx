@@ -3,7 +3,6 @@ import type { ReactElement } from 'react'
 import DocLayout from '@/layouts/doc/DocLayout'
 import { getStaticPaths } from '@/lib/getStatic'
 import { getI18nProps } from '@/lib/getStatic'
-import DocIndex from '@/components/articles/doc/DocIndex'
 
 const articleDirName = 'doc'
 
@@ -21,11 +20,7 @@ const seo = {
 }
 
 export default function DocIndexPage() {
-  return (
-    <>
-      <DocIndex />
-    </>
-  )
+  return <>{/* <DocIndex /> */}</>
 }
 
 DocIndexPage.getLayout = function getLayout(page: ReactElement) {

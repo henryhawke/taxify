@@ -20,7 +20,7 @@ export class TransactionCollector {
         )
 
         // Get NFT transactions
-        const nftAssets = await fetchAllDigitalAssetByOwner(address)
+        const nftAssets = await fetchAllDigitalAssetByOwner(this.rpc, address)
 
         return {
             transfers: signatures,

@@ -42,6 +42,7 @@
     "@solana/codecs": "2.0.0",
     "@solana/errors": "2.0.0",
     "@solana/rpc": "2.0.0",
+    "@solana/rpc-api": "^2.0.0",
     "@solana/rpc-subscriptions": "2.0.0",
     "@solana/signers": "2.0.0",
     "@solana/transactions": "2.0.0",

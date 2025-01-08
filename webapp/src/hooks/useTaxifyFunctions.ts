@@ -1,49 +1,37 @@
 import { useCallback } from 'react'
 import { callTaxfyFunctions } from '@/lib/taxfy/functions'
-import { CreateSignInDataParams } from '@/common/types/http/createSignInDataParams'
-import { VerifySIWSParams } from '@/common/types/http/verifySIWSParams'
 
-export function useTaxfyFunctions() {
-    const createSignInData = useCallback(async (params: CreateSignInDataParams) => {
-        try {
-            const result = await callTaxfyFunctions('auth', 'createSignInData', params)
-            if (!result?.data) {
-                throw new Error('No result returned from createSignInData')
-            }
-            return result.data
-        } catch (error) {
-            console.error('Error creating sign in data:', error)
-            throw error
-        }
+type SignInData = {
+    email: string
+    password: string
+}
+
+type ChatMessage = {
+    content: string
+    roomId: string
+}
+
+type VertexMessage = {
+    content: string
+    roomId: string
+}
+
+export function useTaxifyFunctions() {
+    const createSignInData = useCallback(async (data: SignInData) => {
+        return await callTaxfyFunctions('taxfy', 'createSignInData', data)
     }, [])
 
-    const verifySIWS = useCallback(async (params: VerifySIWSParams) => {
-        try {
-            const result = await callTaxfyFunctions('auth', 'verifySIWS', params)
-            return result?.data
-        } catch (error) {
-            console.error('Error verifying SIWS:', error)
-            throw error
-        }
+    const createChatMessage = useCallback(async (data: ChatMessage) => {
+        return await callTaxfyFunctions('taxfy', 'createChatMessage', data)
     }, [])
 
-    const processTaxData = useCallback(async (params: any) => {
-        return callTaxfyFunctions('tax', 'processTaxData', params)
-    }, [])
-
-    const generateTaxForms = useCallback(async (params: any) => {
-        return callTaxfyFunctions('tax', 'generateTaxForms', params)
-    }, [])
-
-    const optimizeTaxPosition = useCallback(async (params: any) => {
-        return callTaxfyFunctions('tax', 'optimizeTaxPosition', params)
+    const createVertexMessage = useCallback(async (data: VertexMessage) => {
+        return await callTaxfyFunctions('taxfy', 'createVertexMessage', data)
     }, [])
 
     return {
         createSignInData,
-        verifySIWS,
-        processTaxData,
-        generateTaxForms,
-        optimizeTaxPosition
+        createChatMessage,
+        createVertexMessage,
     }
 } 

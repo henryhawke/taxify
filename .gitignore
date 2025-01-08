@@ -113,3 +113,5 @@ functions/taxfy/node_modules
 webapp/dist/
 webapp/.next/
 webapp/dist/
+pnpm-lock.yaml
+pnpm-lock.yaml

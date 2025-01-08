@@ -1,17 +1,14 @@
 module.exports = {
-  extends: ['../.eslintrc.js'],
-  parserOptions: {
-    project: ['../tsconfig.json', './tsconfig.json'],
-    tsconfigRootDir: __dirname,
-  },
+  root: true,
+  extends: [
+    'next/core-web-vitals',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+  ],
+  plugins: ['@typescript-eslint'],
   rules: {
-    '@typescript-eslint/no-var-requires': 'off',
-  },
-  settings: {
-    'import/resolver': {
-      typescript: {
-        project: ['../tsconfig.json', './tsconfig.json'],
-      },
-    },
+    '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/no-explicit-any': ['warn'],
+    'react/display-name': 'off',
   },
 }

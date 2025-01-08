@@ -16,7 +16,6 @@ import rehypeExternalLinks from 'rehype-external-links'
 import { getAllArticles, getArticleBySlug } from '@/utils/article'
 import DefaultLayout from '@/layouts/default/DefaultLayout'
 import { getI18nProps } from '@/lib/getStatic'
-import LegalContents from '@/components/articles/legal/LegalContents'
 import { addClassToTitles } from '@/lib/rehypePlugin'
 
 const articleDirName = 'legal'
@@ -27,7 +26,7 @@ export default function Legal({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <LegalContents article={article} articleHtml={articleHtml} />
+      {/* <LegalContents article={article} articleHtml={articleHtml} /> */}
     </>
   )
 }
