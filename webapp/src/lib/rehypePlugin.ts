@@ -1,9 +1,8 @@
+import type { Root, Element, Text } from 'hast'
 import { visit } from 'unist-util-visit'
-import { Plugin } from 'unified'
-import { Node, Element } from 'hast'
 
-export const addClassToTitles: Plugin = () => {
-  return (tree: Node) => {
+export const addClassToTitles = () => {
+  return (tree: Root) => {
     visit(tree, 'element', (node: Element) => {
       if (
         node.tagName === 'h1' ||

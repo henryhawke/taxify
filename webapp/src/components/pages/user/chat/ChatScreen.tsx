@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import { useTranslation } from 'next-i18next'
-import { UserChatRoom, genUserChatRoomPath } from '@common/models'
+import { UserChatRoom, genUserChatRoomPath } from 'src/common/models'
 import { query } from '@/lib/taxfy/firestore'
 
 export default function ChatScreen() {
@@ -43,7 +43,7 @@ export default function ChatScreen() {
         const list: ChatRoom[] = []
         querySnapshot.forEach((doc) => {
           const data = doc.data()
-          list.push({ id: doc.id, ...data } as ChatRoom)
+          list.push({ ...data, id: doc.id } as ChatRoom)
         })
         setChatList(list)
         setLastChat(querySnapshot.docs[querySnapshot.docs.length - 1])

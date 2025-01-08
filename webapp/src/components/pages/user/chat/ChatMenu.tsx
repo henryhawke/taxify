@@ -225,7 +225,7 @@ export default function ChatMenu({
               context: data.systemContent,
               maxTokens: data.maxTokens,
               temperature: data.temperature,
-              stream: true,
+              id: '',
             },
           )
           addToast({

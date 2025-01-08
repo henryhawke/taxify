@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import AppLoading from '@/components/loading/AppLoading'
 import AgreeToPolicy from '@/components/utils/AgreeToPolicy'
-import { AppPropsWithLayout } from '@/pages/_app'
+import type { AppPropsWithLayout } from '@/pages/_app'
 import { Suspense } from 'react'
 import ToastMessage from '@/components/utils/ToastMessage'
 import SolanaWalletProvider from '@/components/providers/SolanaWalletProvider'

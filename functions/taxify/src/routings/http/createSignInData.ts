@@ -22,7 +22,7 @@ export const createSignInData = onRequest(
         nonce: 'oBbLoEldZs',
         chainId: 'solana:mainnet',
         issuedAt: currentDateTime,
-        resources: ['https://taxfy.dev', 'https://phantom.app/'],
+        resources: ['https://taxfy.io', 'https://phantom.app/'],
       }
 
       res.json({

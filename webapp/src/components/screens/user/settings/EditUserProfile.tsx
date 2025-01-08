@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { UserModel } from '@/common/models/userModels'
+import { User } from '@/common/models/userModels'
 import { updateDoc, doc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 
 interface EditUserProfileProps {
-  user: UserModel
+  user: User
 }
 
 export default function EditUserProfile({ user }: EditUserProfileProps) {

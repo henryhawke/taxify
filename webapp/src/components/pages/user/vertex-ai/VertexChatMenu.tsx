@@ -31,7 +31,7 @@ import { format } from 'date-fns'
 import useToastMessage from '@/hooks/useToastMessage'
 import { Dialog, Transition } from '@headlessui/react'
 import { z } from 'zod'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, Controller, Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRecoilValue } from 'recoil'
 import { userState } from '@/store/user'
@@ -48,7 +48,7 @@ import {
   VertexChatRoom,
   VertexExampleInput,
   genVertexChatRoomPath,
-} from '@common/models'
+} from '../../../../../../common/models'
 import { query, add } from '@/lib/taxfy/firestore'
 
 export type ChatRoom = {
@@ -116,7 +116,7 @@ export default function VertexChatMenu({
     formState: { errors },
     control,
   } = useForm<Inputs>({
-    resolver: zodResolver(schema),
+    resolver: schema as unknown as Resolver<Inputs>,
     defaultValues: {
       model: allowedVertexModel[0],
       maxTokens: 4000,
@@ -456,7 +456,7 @@ export default function VertexChatMenu({
                                   render={({ field }) => (
                                     <select
                                       {...field}
-                                      className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 dark:border-gray-50 dark:bg-gray-800 dark:text-white sm:leading-6"
+                                      className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 sm:leading-6 dark:border-gray-50 dark:bg-gray-800 dark:text-white"
                                     >
                                       {allowedVertexModel.map((model) => (
                                         <option key={model} value={model}>
@@ -643,7 +643,7 @@ export default function VertexChatMenu({
                                     <textarea
                                       {...field}
                                       onKeyDown={onKeyDown}
-                                      className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 dark:border-gray-50 dark:bg-gray-800 dark:text-white sm:leading-6"
+                                      className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 sm:leading-6 dark:border-gray-50 dark:bg-gray-800 dark:text-white"
                                     />
                                   )}
                                 />

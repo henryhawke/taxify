@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil'
 import { policyAgreedState } from '@/store/policy'
 import Link from '@/components/routing/Link'
 import Button from '@/components/common/atoms/Button'
-import { firebaseApp } from '@/lib/firebase'
+import { app } from '@/lib/firebase'
 
 export default function AgreeToPolicy() {
   const [policyAgreed, setPolicyAgreed] = useRecoilState(policyAgreedState)
@@ -28,15 +28,15 @@ export default function AgreeToPolicy() {
 
   useEffect(() => {
     if (policyAgreed) {
-      if (firebaseApp && !analytics) {
+      if (app && !analytics) {
         if (
           typeof window !== 'undefined' &&
           process.env.NODE_ENV !== 'development'
         ) {
-          setAnalytics(getAnalytics(firebaseApp))
+          setAnalytics(getAnalytics(app))
         }
       }
-      if (firebaseApp && analytics) {
+      if (app && analytics) {
         logEvent(analytics, 'page_view', {
           page_title: document.title,
           page_location: document.URL,
@@ -52,7 +52,7 @@ export default function AgreeToPolicy() {
     <>
       {open && (
         <div className="fixed bottom-4 left-4 z-[999]">
-          <div className="h-96 w-64 bg-white shadow-lg dark:bg-black sm:h-72 sm:w-96">
+          <div className="h-96 w-64 bg-white shadow-lg sm:h-72 sm:w-96 dark:bg-black">
             <div className="flex h-full flex-col justify-between p-6 sm:p-8">
               <div>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">

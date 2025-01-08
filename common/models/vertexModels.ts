@@ -1,7 +1,7 @@
 // ⚡️ This is a Taxfy Framework Sample Models ⚡️
 // Define Your Model Types
 // CollectionId & DocumentId are custamizable
-import { Timestamp, FieldValue } from '@skeet-framework/firestore'
+import { Timestamp, FieldValue } from 'firebase/firestore'
 import { UserCN } from './userModels'
 
 // CollectionId: VertexChatRoom

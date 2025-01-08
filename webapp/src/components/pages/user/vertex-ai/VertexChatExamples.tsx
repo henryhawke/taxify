@@ -12,13 +12,16 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
 import { useTranslation } from 'next-i18next'
 import { Fragment, useCallback, useMemo, useState } from 'react'
-import { Controller, useFieldArray, useForm } from 'react-hook-form'
+import { Controller, Resolver, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { ChatRoom } from './VertexChatMenu'
 import { db } from '@/lib/firebase'
 import { useRecoilValue } from 'recoil'
 import { userState } from '@/store/user'
-import { VertexChatRoom, genVertexChatRoomPath } from '@common/models'
+import {
+  VertexChatRoom,
+  genVertexChatRoomPath,
+} from '../../../../../../common/models'
 import { update } from '@/lib/taxfy/firestore'
 
 type Inputs = z.infer<typeof vertexExampleFormSchema>
@@ -65,7 +68,7 @@ export default function VertexChatExamples({
               },
             ],
     },
-    resolver: zodResolver(vertexExampleFormSchema),
+    resolver: vertexExampleFormSchema as unknown as Resolver<Inputs>,
   })
 
   const { fields, append, remove } = useFieldArray({
@@ -191,7 +194,7 @@ export default function VertexChatExamples({
                             style={{ resize: 'none' }}
                             {...field}
                             className={clsx(
-                              'h-full flex-1 border-2 border-gray-900 p-1 font-normal text-gray-900 dark:border-gray-50 dark:bg-gray-800 dark:text-white sm:text-lg',
+                              'h-full flex-1 border-2 border-gray-900 p-1 font-normal text-gray-900 sm:text-lg dark:border-gray-50 dark:bg-gray-800 dark:text-white',
                             )}
                           />
                         )}
@@ -217,7 +220,7 @@ export default function VertexChatExamples({
                             style={{ resize: 'none' }}
                             {...field}
                             className={clsx(
-                              'h-full flex-1 border-2 border-gray-900 p-1 font-normal text-gray-900 dark:border-gray-50 dark:bg-gray-800 dark:text-white sm:text-lg',
+                              'h-full flex-1 border-2 border-gray-900 p-1 font-normal text-gray-900 sm:text-lg dark:border-gray-50 dark:bg-gray-800 dark:text-white',
                             )}
                           />
                         )}

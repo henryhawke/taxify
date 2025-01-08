@@ -28,7 +28,7 @@ export default function CommonFooter() {
                     <Link
                       key={`${nav.name} CommonFooter.commonFooterNav`}
                       href={nav.href ?? ''}
-                      className="text-base font-medium text-gray-700 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-200 sm:py-0"
+                      className="text-base font-medium text-gray-700 hover:text-gray-900 sm:py-0 dark:text-gray-50 dark:hover:text-gray-200"
                     >
                       {t(nav.name)}
                     </Link>
@@ -81,7 +81,7 @@ export default function CommonFooter() {
                   />
                 </a>
                 <a
-                  href={`https://instagram.com/${siteConfig.instagramAccount}`}
+                  href={`https://instagram.com/`}
                   className="group text-gray-500 hover:text-gray-700"
                   aria-label="Instagram"
                   target="_blank"

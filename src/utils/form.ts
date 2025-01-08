@@ -4,23 +4,21 @@ export const emailSchema = z.string().email()
 export const passwordSchema = z.string().min(8)
 export const usernameSchema = z.string().min(1).max(20)
 
-export type GPTModel = 'gpt-4-1106-preview' | 'gpt-4' | 'gpt-3.5-turbo'
+export type GPTModel = 'gpt-4o' | 'claude-3-5-sonnet'
 export const allowedGPTModel: GPTModel[] = [
-  'gpt-4-1106-preview',
-  'gpt-4',
-  'gpt-3.5-turbo',
+  'gpt-4o',
+  'claude-3-5-sonnet',
 ]
 export const gptModelSchema = z.union([
-  z.literal('gpt-4-1106-preview'),
-  z.literal('gpt-4'),
-  z.literal('gpt-3.5-turbo'),
+  z.literal('gpt-4o'),
+  z.literal('claude-3-5-sonnet'),
+
 ])
 
-export const getGptChatModelName = (name = 'gpt-4-1106-preview') => {
+export const getGptChatModelName = (name = 'gpt-4o') => {
   const chatRoomNames = {
-    'gpt-4-1106-preview': 'GPT-4 Turbo (preview)',
-    'gpt-4': 'GPT-4',
-    'gpt-3.5-turbo': 'GPT-3.5 Turbo',
+    'gpt-4o': 'GPT-4o',
+    'claude-3-5-sonnet': 'Claude 3.5 Sonnet',
   }
   return chatRoomNames[name as keyof typeof chatRoomNames]
 }

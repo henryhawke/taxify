@@ -10,9 +10,9 @@ import { db } from '@/lib/firebase'
 import useToastMessage from '@/hooks/useToastMessage'
 import { Dialog, Transition } from '@headlessui/react'
 import { z } from 'zod'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, Controller, Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { User, genUserPath } from '@common/models'
+import { User, genUserPath } from 'src/common/models'
 import { update } from '@/lib/taxfy/firestore'
 
 const schema = z.object({
@@ -33,7 +33,7 @@ export default function EditUserProfile() {
     formState: { errors },
     control,
   } = useForm<Inputs>({
-    resolver: zodResolver(schema),
+    resolver: schema as unknown as Resolver<Inputs>,
     defaultValues: {
       username: user.username,
     },
@@ -179,7 +179,7 @@ export default function EditUserProfile() {
                                   render={({ field }) => (
                                     <input
                                       {...field}
-                                      className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 dark:border-gray-50 dark:bg-gray-800 dark:text-white sm:leading-6"
+                                      className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 sm:leading-6 dark:border-gray-50 dark:bg-gray-800 dark:text-white"
                                       inputMode="text"
                                     />
                                   )}

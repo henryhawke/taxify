@@ -1,9 +1,11 @@
 import { useTranslation } from 'next-i18next'
 import SecurityBadge from '@/components/common/SecurityBadge'
 import Logo3D from '@/components/common/Logo3D'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 export default function HeroRow() {
   const { t } = useTranslation(['common'])
+  const { setVisible } = useWalletModal()
 
   return (
     <div className="relative isolate">
@@ -31,12 +33,12 @@ export default function HeroRow() {
             {t('description')}
           </p>
           <div className="mt-10 flex items-center gap-x-6">
-            <a
-              href="#connect"
+            <button
+              onClick={() => setVisible(true)}
               className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               {t('getStarted')}
-            </a>
+            </button>
           </div>
         </div>
 

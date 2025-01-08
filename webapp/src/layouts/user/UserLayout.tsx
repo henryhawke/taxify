@@ -6,18 +6,18 @@ import clsx from 'clsx'
 import { userHeaderNav, userMenuNav } from '@/config/navs'
 import { useTranslation } from 'next-i18next'
 import Link from '@/components/routing/Link'
-import { User, signOut } from 'firebase/auth'
+import { User as FirebaseUser, signOut } from 'firebase/auth'
 import { useRecoilState } from 'recoil'
 import { defaultUser, userState } from '@/store/user'
 import { auth } from '@/lib/firebase'
 import LogoHorizontal from '@/components/common/atoms/LogoHorizontal'
 import Image from 'next/image'
-import { UserModel } from '@/common/models'
+import { User } from '@/common/models'
 import useI18nRouter from '@/hooks/useI18nRouter'
 
 interface UserLayoutProps {
   children: ReactNode
-  user?: UserModel
+  user?: User
 }
 
 const mainContentId = 'userMainContent'
@@ -54,7 +54,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
   }, [router.asPath, resetWindowScrollPosition])
 
   const onAuthStateChanged = useCallback(
-    async (fbUser: User | null) => {
+    async (fbUser: FirebaseUser | null) => {
       if (fbUser) {
         try {
           setUser({

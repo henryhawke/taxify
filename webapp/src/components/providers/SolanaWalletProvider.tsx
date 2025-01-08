@@ -12,8 +12,8 @@ import type {
   SolanaSignInOutput,
 } from '@solana/wallet-standard-features'
 import { fetchTaxfyFunctions } from '@/lib/taxfy/functions'
-import { CreateSignInDataParams } from '@common/types/http/createSignInDataParams'
-import { VerifySIWSParams } from '@common/types/http/verifySIWSParams'
+import { CreateSignInDataParams } from '../../../../common/types/http/createSignInDataParams'
+import { VerifySIWSParams } from '../../../../common/types/http/verifySIWSParams'
 import { auth, db } from '@/lib/firebase'
 import { signInWithCustomToken, signOut } from 'firebase/auth'
 import { useRecoilState } from 'recoil'

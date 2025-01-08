@@ -10,7 +10,8 @@ const siteConfig = {
   descriptionJA: 'Solanaの税金計算を簡単に',
   descriptionEN: 'Easy tax calculations for Solana',
   twitterAccount: '@TaxfyDev',
-  discordInvitationLink: 'https://discord.gg/taxfy'
+  discordInvitationLink: 'https://discord.gg/taxfy',
+  githubAccount: 'henryhawke/taxfy-cli'
 }
 
 export default siteConfig

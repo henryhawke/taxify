@@ -18,11 +18,11 @@ import { clusterApiUrl } from '@solana/web3.js'
 import { useMemo, useEffect } from 'react'
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets'
 
-type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
 
-type AppPropsWithLayout = AppProps & {
+export type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 

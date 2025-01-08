@@ -17,7 +17,7 @@ import { fetchTaxfyFunctions } from '@/lib/taxfy/functions'
 import Image from 'next/image'
 import { ChatRoom } from './VertexChatMenu'
 import { z } from 'zod'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, Controller, Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { TextDecoder } from 'text-encoding'
 import useToastMessage from '@/hooks/useToastMessage'
@@ -31,7 +31,7 @@ import remarkGfm from 'remark-gfm'
 import remarkDirective from 'remark-directive'
 import { sleep } from '@/utils/time'
 import VertexChatExamples from './VertexChatExamples'
-import { AddVertexMessageParams } from '@common/types/http/addVertexMessageParams'
+import { AddVertexMessageParams } from '../../../../../../common/types/http/addVertexMessageParams'
 import { db } from '@/lib/firebase'
 import { orderBy } from 'firebase/firestore'
 import {
@@ -39,7 +39,7 @@ import {
   VertexChatRoomMessage,
   genVertexChatRoomMessagePath,
   genVertexChatRoomPath,
-} from '@common/models'
+} from '../../../../../../common/models'
 import { Timestamp } from '@skeet-framework/firestore'
 import { get, query } from '@/lib/taxfy/firestore'
 import rehypeSlug from 'rehype-slug'
@@ -90,7 +90,7 @@ export default function VertexChatBox({
     reset,
     watch,
   } = useForm<Inputs>({
-    resolver: zodResolver(schema),
+    resolver: schema as unknown as Resolver<Inputs>,
     defaultValues: {
       chatContent: '',
     },
@@ -477,7 +477,7 @@ export default function VertexChatBox({
                           : chatContentLines == 2
                           ? 'h-20'
                           : `h-10`,
-                        'flex-1 border-2 border-gray-900 p-1 font-normal text-gray-900 dark:border-gray-50 dark:bg-gray-800 dark:text-white sm:text-lg',
+                        'flex-1 border-2 border-gray-900 p-1 font-normal text-gray-900 sm:text-lg dark:border-gray-50 dark:bg-gray-800 dark:text-white',
                       )}
                     />
                   )}
