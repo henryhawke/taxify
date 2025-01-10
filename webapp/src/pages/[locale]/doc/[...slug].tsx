@@ -22,8 +22,7 @@ import embedder from '@remark-embedder/core'
 import youtubeTransformer from '@/lib/youtubeTransformer'
 import { addClassToTitles } from '@/lib/rehypePlugin'
 import type { Transformer } from '@remark-embedder/core'
-import type { Plugin, Processor } from 'unified'
-import type { Root } from 'mdast'
+import type { Plugin } from 'unified'
 
 const articleDirName = 'doc'
 
@@ -66,7 +65,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const articleHtml = await unified()
     .use(remarkParse)
-    .use(embedder as Plugin<Parameters<Processor['use']>[0]>, {
+    .use(embedder as unknown as Plugin<[{ transformers: Transformer[] }]>, {
       transformers: [youtubeTransformer],
     })
     .use(remarkDirective)
