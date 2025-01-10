@@ -10,6 +10,6 @@ export type Toast = {
 export type Toasts = Toast[]
 
 export const toastsState = atom<Toasts>({
-  key: 'toasts',
+  key: 'taxfy_toasts_state_v1',
   default: [],
 })

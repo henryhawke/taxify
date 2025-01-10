@@ -1,54 +1,34 @@
-import { useState, useEffect } from 'react'
-import AppLoading from '@/components/loading/AppLoading'
-import type { AppPropsWithLayout } from '@/pages/_app'
-import { Suspense } from 'react'
-import dynamic from 'next/dynamic'
-import SolanaWalletProvider from '@/components/providers/SolanaWalletProvider'
+import { ReactElement } from 'react'
+import type { NextPage } from 'next'
+import type { Router } from 'next/router'
+import { useAuthContext } from '@/contexts/AuthContext'
+import Sidebar from '@/components/layout/Sidebar'
 
-const DynamicRecoilProvider = dynamic(
-  () => import('@/components/providers/RecoilProvider'),
-  { ssr: false },
-)
+interface Props {
+  Component: NextPage
+  pageProps: any
+  router: Router
+}
 
-// Dynamically import components that use Recoil with SSR disabled
-const ToastMessage = dynamic(() => import('@/components/utils/ToastMessage'), {
-  ssr: false,
-})
+export default function Layout({
+  Component,
+  pageProps,
+  router,
+}: Props): ReactElement {
+  const { isAuthenticated } = useAuthContext()
+  const isAuthPage = router.pathname.startsWith('/auth/')
 
-const AgreeToPolicy = dynamic(
-  () => import('@/components/utils/AgreeToPolicy'),
-  {
-    ssr: false,
-  },
-)
-
-export default function Layout({ Component, pageProps }: AppPropsWithLayout) {
-  const [mounted, setMounted] = useState(false)
-  const getLayout = Component.getLayout ?? ((page) => page)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) {
-    return (
-      <div className="min-h-screen">
-        <AppLoading />
-      </div>
-    )
+  // Don't show sidebar on auth pages
+  if (isAuthPage) {
+    return <Component {...pageProps} />
   }
 
   return (
-    <DynamicRecoilProvider>
-      <SolanaWalletProvider>
-        <div className="relative min-h-screen scroll-smooth font-sans antialiased">
-          <Suspense fallback={<AppLoading />}>
-            {getLayout(<Component {...pageProps} />)}
-          </Suspense>
-          <ToastMessage />
-          <AgreeToPolicy />
-        </div>
-      </SolanaWalletProvider>
-    </DynamicRecoilProvider>
+    <div className="flex min-h-screen">
+      {isAuthenticated && <Sidebar />}
+      <main className="flex-1">
+        <Component {...pageProps} />
+      </main>
+    </div>
   )
 }

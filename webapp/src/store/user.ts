@@ -21,7 +21,7 @@ export const defaultUser: User = {
 }
 
 export const userState = atom<User>({
-  key: 'taxfy_userState',
+  key: 'taxfy_user_state_v1',
   default: defaultUser,
   effects_UNSTABLE: [persistAtom],
 })

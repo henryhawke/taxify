@@ -2,82 +2,33 @@ import { useTranslation } from 'next-i18next'
 import clsx from 'clsx'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import SolanaLogoHorizontal from '@/components/common/atoms/SolanaLogoHorizontal'
-import { useWallet } from '@solana/wallet-adapter-react'
 import useToastMessage from '@/hooks/useToastMessage'
-import { useCallback, useState } from 'react'
-import type {
-  SolanaSignInInput,
-  SolanaSignInOutput,
-} from '@solana/wallet-standard-features'
-import { fetchTaxfyFunctions } from '@/lib/taxfy/functions'
-import type { CreateSignInDataParams } from '@/common/types/http/createSignInDataParams'
-import type { VerifySIWSParams } from '@/common/types/http/verifySIWSParams'
-import { auth, db } from '@/lib/firebase'
-import { signInWithCustomToken, signOut } from 'firebase/auth'
-import { User, genUserPath } from '@/common/models/userModels'
-import { defaultUser } from '@/store/user'
-import { get } from '@/lib/taxfy/firestore'
+import { usePhantomAuth } from '@/hooks/usePhantomAuth'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { useAuthContext } from '@/contexts/AuthContext'
 
 export default function LoginScreen() {
   const { t } = useTranslation()
-  const { connected, signIn } = useWallet()
-  const [_user, setUser] = useState(defaultUser)
+  const { signIn, wallet, loading, error } = usePhantomAuth()
+  const { isAuthenticated } = useAuthContext()
   const addToast = useToastMessage()
+  const router = useRouter()
 
-  const signInWithSolana = useCallback(async () => {
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push('/tax-calculator')
+    }
+  }, [isAuthenticated, router])
+
+  const handleSignIn = async () => {
     try {
-      if (!signIn) {
-        throw new Error('signIn is not defined')
-      }
-      if (signIn && db && auth) {
-        const createResponse =
-          await fetchTaxfyFunctions<CreateSignInDataParams>(
-            'taxfy',
-            'createSignInData',
-            {
-              address: '',
-            },
-          )
-        const signInResponse = await createResponse?.json()
-        const input: SolanaSignInInput = signInResponse?.signInData
-        const signInResult = await signIn(input)
-        const output: SolanaSignInOutput = {
-          ...signInResult,
-          account: {
-            address: signInResult.account.address,
-            publicKey: signInResult.account.publicKey,
-            chains: signInResult.account.chains,
-            features: signInResult.account.features,
-            label: signInResult.account.label,
-            icon: signInResult.account.icon,
-          },
-        }
-        const verifyResponse = await fetchTaxfyFunctions<VerifySIWSParams>(
-          'taxfy',
-          'verifySIWS',
-          { signInData: input, signInResult: output },
-        )
-        addToast({
-          title: t('auth:verifyTitle'),
-          description: t('auth:verifyDescription'),
-          type: 'info',
-        })
-        const success = await verifyResponse?.json()
-        const userCredential = await signInWithCustomToken(auth, success?.token)
-        const data = await get<User>(db, genUserPath(), userCredential.user.uid)
-
-        if (!data) throw new Error('User not found')
-
-        const { email, username, iconUrl } = data
-        setUser({
-          uid: userCredential.user.uid,
-          email: email || '',
-          username: username || '',
-          iconUrl: iconUrl || '',
-        })
-
-        return false
-      }
+      await signIn()
+      addToast({
+        title: t('auth:verifyTitle'),
+        description: t('auth:verifyDescription'),
+        type: 'info',
+      })
     } catch (err) {
       console.error(err)
       if (err instanceof Error) {
@@ -87,12 +38,8 @@ export default function LoginScreen() {
           type: 'error',
         })
       }
-      if (auth) {
-        setUser(defaultUser)
-        await signOut(auth)
-      }
     }
-  }, [t, addToast, signIn, setUser])
+  }
 
   return (
     <>
@@ -119,23 +66,24 @@ export default function LoginScreen() {
                 )}
               >
                 <button
-                  onClick={async () => {
-                    await signInWithSolana()
-                  }}
-                  disabled={!connected}
+                  onClick={handleSignIn}
+                  disabled={!wallet.connected || loading}
                   className={clsx(
                     'px-6 py-2',
-                    !connected
+                    !wallet.connected || loading
                       ? 'bg-gray-300 text-white hover:cursor-not-allowed dark:bg-gray-800 dark:text-gray-400'
                       : 'bg-green-700 text-white hover:cursor-pointer hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-800',
                   )}
                 >
-                  {t('auth:signIn')}
+                  {loading ? t('common:loading') : t('auth:signIn')}
                 </button>
-                {!connected && (
+                {!wallet.connected && (
                   <p className="font-light text-gray-500">
                     {t('auth:pleaseConnectWallet')}
                   </p>
+                )}
+                {error && (
+                  <p className="text-sm text-red-500">{error.message}</p>
                 )}
               </div>
             </div>

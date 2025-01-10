@@ -12,6 +12,7 @@ import { ThemeProvider } from '../components/providers/ThemeProvider'
 import Layout from '@/layouts/Layout'
 import { useRouter } from 'next/router'
 import type { Router } from 'next/router'
+import { AuthProvider } from '@/contexts/AuthContext'
 
 export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
   P,
@@ -29,15 +30,17 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <RecoilRoot>
-      <ThemeProvider defaultTheme="system" attribute="class" enableSystem>
-        <Head>
-          <title>{pageProps?.title || 'Taxfy'}</title>
-          {pageProps?.seoData?.map((seo: SeoData, index: number) => (
-            <meta {...seo} key={`metaSeo${index}`} />
-          ))}
-        </Head>
-        <Layout Component={Component} pageProps={pageProps} router={router} />
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider defaultTheme="system" attribute="class" enableSystem>
+          <Head>
+            <title>{pageProps?.title || 'Taxfy'}</title>
+            {pageProps?.seoData?.map((seo: SeoData, index: number) => (
+              <meta {...seo} key={`metaSeo${index}`} />
+            ))}
+          </Head>
+          <Layout Component={Component} pageProps={pageProps} router={router} />
+        </ThemeProvider>
+      </AuthProvider>
     </RecoilRoot>
   )
 }
