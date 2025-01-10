@@ -115,3 +115,5 @@ webapp/.next/
 webapp/dist/
 pnpm-lock.yaml
 pnpm-lock.yaml
+public
+webapp/public

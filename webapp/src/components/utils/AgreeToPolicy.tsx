@@ -8,25 +8,32 @@ import Link from '@/components/routing/Link'
 import Button from '@/components/common/atoms/Button'
 import { app } from '@/lib/firebase'
 
-export default function AgreeToPolicy() {
+const AgreeToPolicy = () => {
+  const [mounted, setMounted] = useState(false)
   const [policyAgreed, setPolicyAgreed] = useRecoilState(policyAgreedState)
-  const [open, setOpen] = useState(!policyAgreed)
-
+  const [open, setOpen] = useState(false)
   const [analytics, setAnalytics] = useState<Analytics | undefined>(undefined)
 
   const router = useRouter()
   const { t } = useTranslation()
 
+  useEffect(() => {
+    setMounted(true)
+    setOpen(!policyAgreed)
+  }, [policyAgreed])
+
   const handleAgree = useCallback(() => {
     setOpen(false)
     setPolicyAgreed(true)
-  }, [setOpen, setPolicyAgreed])
+  }, [setPolicyAgreed])
 
   const handleClose = useCallback(() => {
     setOpen(false)
   }, [])
 
   useEffect(() => {
+    if (!mounted) return
+
     if (policyAgreed) {
       if (app && !analytics) {
         if (
@@ -46,7 +53,9 @@ export default function AgreeToPolicy() {
     } else {
       setOpen(true)
     }
-  }, [setOpen, policyAgreed, router.asPath, analytics])
+  }, [mounted, policyAgreed, router.asPath, analytics])
+
+  if (!mounted) return null
 
   return (
     <>
@@ -85,3 +94,5 @@ export default function AgreeToPolicy() {
     </>
   )
 }
+
+export default AgreeToPolicy

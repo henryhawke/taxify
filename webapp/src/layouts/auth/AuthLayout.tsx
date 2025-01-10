@@ -36,7 +36,7 @@ export default function AuthLayout({ children }: Props) {
     })()
   }, [router.asPath, resetWindowScrollPosition])
 
-  const [setUser] = useRecoilState(userState)
+  const [_user, setUser] = useRecoilState(userState)
 
   const onAuthStateChanged = useCallback(
     async (fbUser: User | null) => {
@@ -50,7 +50,7 @@ export default function AuthLayout({ children }: Props) {
         }
       }
     },
-    [setUser, routerPush],
+    [routerPush, setUser],
   )
 
   useEffect(() => {

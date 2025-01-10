@@ -2,7 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
+  "/[locale]/[[...path]]": "pages/[locale]/[[...path]].js",
   "/404": "pages/404.js",
-  "/[locale]/[[...path]]": "pages/[locale]/[[...path]].js"
+  "/[locale]/auth/login": "pages/[locale]/auth/login.js"
 }

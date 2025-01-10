@@ -1,25 +1,23 @@
-import type { Root, Element } from 'hast'
+import type { Node } from 'unist'
 import { visit } from 'unist-util-visit'
 
-export const addClassToTitles = () => {
-  return (tree: Root) => {
-    visit(tree, 'element', (node: Element) => {
-      if (
-        node.tagName === 'h1' ||
-        node.tagName === 'h2' ||
-        node.tagName === 'h3' ||
-        node.tagName === 'h4' ||
-        node.tagName === 'h5' ||
-        node.tagName === 'h6'
-      ) {
-        node.properties = node.properties || {}
-        const existingClasses = Array.isArray(node.properties.className)
-          ? node.properties.className
-          : []
+interface Element extends Node {
+  type: 'element'
+  tagName: string
+  properties?: {
+    className?: string[]
+    [key: string]: unknown
+  }
+}
 
+export const addClassToTitles = () => {
+  return (tree: Node) => {
+    visit(tree, 'element', (node: Element) => {
+      if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(node.tagName)) {
+        node.properties = node.properties || {}
         node.properties.className = [
-          'font-extrabold tracking-tighter break-word',
-          ...existingClasses,
+          ...(node.properties.className || []),
+          'scroll-mt-20',
         ]
       }
     })

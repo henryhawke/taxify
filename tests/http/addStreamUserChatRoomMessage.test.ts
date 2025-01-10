@@ -1,5 +1,5 @@
-import { AddStreamUserChatRoomMessageParams } from '@common/models/index'
-import { CreateUserChatRoomParams } from '@common/models/index'
+import { AddStreamUserChatRoomMessageParams } from '../../common/types/http/addStreamUserChatRoomMessageParams'
+import { CreateUserChatRoomParams } from '../../common/models/index'
 import { postFetch } from '../jest.setup'
 
 let userChatRoomId = ''

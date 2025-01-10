@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 import SecurityBadge from '@/components/common/SecurityBadge'
 import Logo3D from '@/components/common/Logo3D'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+import Image from 'next/image'
 
 export default function HeroRow() {
   const { t } = useTranslation(['common'])
@@ -45,12 +46,13 @@ export default function HeroRow() {
         {/* Hero Image */}
         <div className="mt-16 sm:mt-24 lg:mt-0 lg:flex-shrink-0 lg:flex-grow">
           <div className="relative mx-auto w-[22.875rem] max-w-full">
-            <img
+            <Image
               className="absolute -top-64 left-1/2 -z-10 h-[64rem] w-[128rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
               src="/images/hero-gradient.png"
-              alt=""
+              alt="Hero"
               width={2432}
               height={1442}
+              priority
             />
             <div className="relative rounded-xl bg-gray-900/5 p-8 shadow-2xl ring-1 ring-gray-900/10 dark:bg-gray-800/50 dark:ring-white/10">
               <Logo3D />

@@ -4,7 +4,6 @@ import solanaLogoMark from '@/assets/img/logo/solanaLogoMark.svg'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { useCallback, useEffect, useState } from 'react'
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults'
-import { solanaEndpoint } from '@/components/providers/SolanaWalletProvider'
 import { fetchAllDigitalAssetByOwner } from '@metaplex-foundation/mpl-token-metadata'
 import { fromWeb3JsPublicKey } from '@metaplex-foundation/umi-web3js-adapters'
 import GridsLoading from '@/components/loading/GridsLoading'
@@ -24,7 +23,7 @@ export default function SolanaNFTScreen() {
     if (publicKey && connection) {
       try {
         setNftLoading(true)
-        const umi = createUmi(solanaEndpoint)
+        const umi = createUmi(connection)
         const nfts = await fetchAllDigitalAssetByOwner(
           umi,
           fromWeb3JsPublicKey(publicKey),

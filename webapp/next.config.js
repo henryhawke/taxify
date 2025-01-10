@@ -26,6 +26,9 @@ const nextConfig = {
       }
     }
 
+    // Ignore punycode warning
+    config.ignoreWarnings = [{ module: /node_modules\/punycode/ }]
+
     return config
   },
 }

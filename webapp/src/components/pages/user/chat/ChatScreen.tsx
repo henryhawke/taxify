@@ -96,9 +96,9 @@ export default function ChatScreen() {
           getChatRooms={getChatRooms}
         />
         <ChatBox
-          setNewChatModalOpen={setNewChatModalOpen}
-          currentChatRoomId={currentChatRoomId}
-          getChatRooms={getChatRooms}
+          _setNewChatModalOpen={setNewChatModalOpen}
+          _currentChatRoomId={currentChatRoomId}
+          _getChatRooms={getChatRooms}
         />
       </div>
     </>

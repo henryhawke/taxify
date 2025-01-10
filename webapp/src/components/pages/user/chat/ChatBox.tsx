@@ -10,7 +10,17 @@ type Inputs = {
   chatContent: string
 }
 
-export default function ChatBox() {
+type Props = {
+  _setNewChatModalOpen: (_value: boolean) => void
+  _currentChatRoomId: string | null
+  _getChatRooms: () => void
+}
+
+export default function ChatBox({
+  _setNewChatModalOpen,
+  _currentChatRoomId,
+  _getChatRooms,
+}: Props) {
   const { t } = useTranslation(['common'])
   const { register, handleSubmit, reset } = useForm<Inputs>()
   const [messages, setMessages] = useRecoilState(chatMessagesState)
@@ -46,7 +56,7 @@ export default function ChatBox() {
       if (response) {
         const assistantMessage: ChatMessage = {
           id: `assistant-${Date.now()}`,
-          content: response.content,
+          content: response.data as string,
           role: 'assistant',
           timestamp: Date.now(),
         }

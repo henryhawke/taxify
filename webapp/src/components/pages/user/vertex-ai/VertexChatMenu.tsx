@@ -399,7 +399,7 @@ export default function VertexChatMenu({
           onClose={() => setNewChatModalOpen(false)}
         >
           <div className="text-center">
-            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
             {/* This element is to trick the browser into centering the modal contents. */}
             <span
@@ -436,9 +436,9 @@ export default function VertexChatMenu({
                       {t('vertex-ai:newChat')}
                     </p>
                     <div className="w-full sm:mx-auto sm:max-w-xl">
-                      <div className="gap-6  sm:px-10">
+                      <div className="gap-6 sm:px-10">
                         <form onSubmit={handleSubmit(onSubmit)}>
-                          <div className="flex flex-col gap-6  py-6 sm:px-10">
+                          <div className="flex flex-col gap-6 py-6 sm:px-10">
                             <div>
                               <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-50">
                                 {t('vertex-ai:model')}
@@ -684,8 +684,8 @@ export default function VertexChatMenu({
           className="fixed inset-0 z-10 overflow-y-auto"
           onClose={() => setChatListModalOpen(false)}
         >
-          <div className=" text-center">
-            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+          <div className="text-center">
+            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
             {/* This element is to trick the browser into centering the modal contents. */}
             <span
               className="inline-block h-screen align-middle"

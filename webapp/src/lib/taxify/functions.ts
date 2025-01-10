@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import taxfyCloudConfig from '@taxfy-cloud.config.json'
 import { toKebabCase } from '@/utils/character'
 import { auth, platformDevIP, functions } from '@/lib/firebase'
@@ -11,12 +12,18 @@ export const fetchTaxfyFunctions = async <T>(
   params: T,
 ) => {
   try {
+    const taxfyCloudApp = taxfyCloudConfig.app as {
+      hasLoadBalancer: boolean
+      region: string
+      fbProjectId: string
+      lbDomain: string
+    }
     const url =
       process.env.NODE_ENV === 'production'
-        ? taxfyCloudConfig.app.hasLoadBalancer
-          ? `https://${taxfyCloudConfig.app.lbDomain}/${functionName}/${toKebabCase(methodName)}`
-          : `https://${taxfyCloudConfig.app.region}-${taxfyCloudConfig.app.fbProjectId}.cloudfunctions.net/${methodName}`
-        : `http://${platformDevIP}:5001/${taxfyCloudConfig.app.fbProjectId}/${taxfyCloudConfig.app.region}/${methodName}`
+        ? taxfyCloudApp.hasLoadBalancer
+          ? `https://${taxfyCloudApp.lbDomain}/${functionName}/${toKebabCase(methodName)}`
+          : `https://${taxfyCloudApp.region}-${taxfyCloudApp.fbProjectId}.cloudfunctions.net/${methodName}`
+        : `http://${platformDevIP}:5001/${taxfyCloudApp.fbProjectId}/${taxfyCloudApp.region}/${methodName}`
     const taxfyToken = await auth?.currentUser?.getIdToken()
     const res = await fetch(`${url}`, {
       method: 'POST',
@@ -47,13 +54,19 @@ export const callTaxfyFunctions = async <T>(
   params: T,
 ) => {
   try {
+    const taxfyCloudApp = taxfyCloudConfig.app as {
+      hasLoadBalancer: boolean
+      region: string
+      fbProjectId: string
+      lbDomain: string
+    }
     const callableFunction =
       process.env.NODE_ENV === 'production' &&
-        taxfyCloudConfig.app.hasLoadBalancer
+        taxfyCloudApp.hasLoadBalancer
         ? functions
           ? httpsCallableFromURL(
             functions,
-            `https://${taxfyCloudConfig.app.lbDomain}/${functionName}/${toKebabCase(methodName)}`,
+            `https://${taxfyCloudApp.lbDomain}/${functionName}/${toKebabCase(methodName)}`,
           )
           : undefined
         : functions

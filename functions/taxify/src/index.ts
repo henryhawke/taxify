@@ -14,4 +14,4 @@ export {
   addUserChatRoomMessage,
   createSignInData,
   verifySIWS,
-} from '@/routings'
+} from './routings'

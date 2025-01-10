@@ -372,211 +372,187 @@ export default function ChatMenu({
           </div>
         </div>
       </div>
-      <Transition appear show={isNewChatModalOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={() => setNewChatModalOpen(false)}
-        >
-          <div className="text-center">
-            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+      <Dialog
+        as="div"
+        className="fixed inset-0 z-10 overflow-y-auto"
+        onClose={() => setNewChatModalOpen(false)}
+        open={isNewChatModalOpen}
+      >
+        <div className="min-h-screen px-4 text-center">
+          {/* Background overlay */}
+          <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
-            {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
+          {/* This element is to trick the browser into centering the modal contents. */}
+          <span
+            className="inline-block h-screen align-middle"
+            aria-hidden="true"
+          >
+            &#8203;
+          </span>
+
+          <Dialog.Panel className="my-8 inline-block w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+            <Dialog.Title
+              as="h3"
+              className="text-lg font-medium leading-6 text-gray-900"
             >
-              &#8203;
-            </span>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="my-8 inline-block w-full max-w-xl -translate-y-10 transform overflow-hidden bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-900">
-                <div className="flex w-full flex-col pb-8">
-                  <div className="flex flex-row items-center justify-center p-4">
-                    <LogoHorizontal className="w-24" />
-                    <div className="flex-grow" />
-                    <button
-                      onClick={() => {
-                        setNewChatModalOpen(false)
-                      }}
-                      className="h-5 w-5 text-gray-900 hover:cursor-pointer hover:text-gray-700 dark:text-gray-50 dark:hover:text-gray-200"
-                    >
-                      <XMarkIcon className="h-5 w-5" />
-                    </button>
-                  </div>
-                  <div className="flex flex-grow flex-col gap-2">
-                    <p className="text-center text-lg font-bold">
-                      {t('chat:newChat')}
+              {t('chat:newChat')}
+            </Dialog.Title>
+            <div className="mt-2">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="flex flex-col gap-6 py-6 sm:px-10">
+                  <div>
+                    <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-50">
+                      {t('chat:model')}
+                      {errors.model && (
+                        <span className="text-xs text-red-500 dark:text-red-300">
+                          {' : '}
+                          {t('chat:modelErrorText')}
+                        </span>
+                      )}
                     </p>
-                    <div className="w-full sm:mx-auto sm:max-w-xl">
-                      <div className="gap-6  sm:px-10">
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                          <div className="flex flex-col gap-6  py-6 sm:px-10">
-                            <div>
-                              <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-50">
-                                {t('chat:model')}
-                                {errors.model && (
-                                  <span className="text-xs text-red-500 dark:text-red-300">
-                                    {' : '}
-                                    {t('chat:modelErrorText')}
-                                  </span>
-                                )}
-                              </p>
-                              <div className="mt-2">
-                                <Controller
-                                  name="model"
-                                  control={control}
-                                  render={({ field }) => (
-                                    <select
-                                      {...field}
-                                      className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 sm:leading-6 dark:border-gray-50 dark:bg-gray-800 dark:text-white"
-                                    >
-                                      {allowedGPTModel.map((model) => (
-                                        <option key={model} value={model}>
-                                          {getGptChatModelName(model)}
-                                        </option>
-                                      ))}
-                                    </select>
-                                  )}
-                                />
-                              </div>
-                            </div>
-                            <div>
-                              <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-50">
-                                {t('chat:maxTokens')}
-                                {errors.maxTokens && (
-                                  <span className="text-xs text-red-500 dark:text-red-300">
-                                    {' : '}
-                                    {t('chat:maxTokensErrorText')}
-                                  </span>
-                                )}
-                              </p>
-                              <div className="mt-2">
-                                <Controller
-                                  name="maxTokens"
-                                  control={control}
-                                  render={({ field }) => (
-                                    <>
-                                      <input
-                                        {...field}
-                                        type="range"
-                                        min={100}
-                                        max={4096}
-                                        step={4}
-                                        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 dark:bg-gray-700"
-                                        onChange={(e) =>
-                                          field.onChange(
-                                            e.target.value
-                                              ? parseFloat(e.target.value)
-                                              : 0,
-                                          )
-                                        }
-                                      />
-                                      <p className="text-bold text-gray-900 dark:text-white">
-                                        {field.value}
-                                      </p>
-                                    </>
-                                  )}
-                                />
-                              </div>
-                            </div>
-                            <div>
-                              <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-50">
-                                {t('chat:temperature')}
-                                {errors.temperature && (
-                                  <span className="text-xs text-red-500 dark:text-red-300">
-                                    {' : '}
-                                    {t('chat:temperatureErrorText')}
-                                  </span>
-                                )}
-                              </p>
-                              <div className="mt-2">
-                                <Controller
-                                  name="temperature"
-                                  control={control}
-                                  render={({ field }) => (
-                                    <>
-                                      <input
-                                        {...field}
-                                        type="range"
-                                        min={0}
-                                        max={2.0}
-                                        step={0.01}
-                                        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 dark:bg-gray-700"
-                                        onChange={(e) =>
-                                          field.onChange(
-                                            e.target.value
-                                              ? parseFloat(e.target.value)
-                                              : 0,
-                                          )
-                                        }
-                                      />
-                                      <p className="text-bold text-gray-900 dark:text-white">
-                                        {field.value}
-                                      </p>
-                                    </>
-                                  )}
-                                />
-                              </div>
-                            </div>
-
-                            <div>
-                              <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-50">
-                                {t('chat:systemContent')}
-                                {errors.systemContent && (
-                                  <span className="text-xs text-red-500 dark:text-red-300">
-                                    {' : '}
-                                    {t('chat:systemContentErrorText')}
-                                  </span>
-                                )}
-                              </p>
-                              <div className="mt-2">
-                                <Controller
-                                  name="systemContent"
-                                  control={control}
-                                  render={({ field }) => (
-                                    <textarea
-                                      {...field}
-                                      onKeyDown={onKeyDown}
-                                      className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 sm:leading-6 dark:border-gray-50 dark:bg-gray-800 dark:text-white"
-                                    />
-                                  )}
-                                />
-                              </div>
-                            </div>
-
-                            <div>
-                              <button
-                                type="submit"
-                                disabled={isDisabled}
-                                className={clsx(
-                                  isDisabled
-                                    ? 'cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
-                                    : 'bg-gray-900 text-white hover:bg-gray-700 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-200',
-                                  'w-full px-3 py-2 text-center text-lg font-bold',
-                                )}
-                              >
-                                {t('chat:createChatRoom')}
-                              </button>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
+                    <div className="mt-2">
+                      <Controller
+                        name="model"
+                        control={control}
+                        render={({ field }) => (
+                          <select
+                            {...field}
+                            className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 sm:leading-6 dark:border-gray-50 dark:bg-gray-800 dark:text-white"
+                          >
+                            {allowedGPTModel.map((model) => (
+                              <option key={model} value={model}>
+                                {getGptChatModelName(model)}
+                              </option>
+                            ))}
+                          </select>
+                        )}
+                      />
                     </div>
                   </div>
+                  <div>
+                    <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-50">
+                      {t('chat:maxTokens')}
+                      {errors.maxTokens && (
+                        <span className="text-xs text-red-500 dark:text-red-300">
+                          {' : '}
+                          {t('chat:maxTokensErrorText')}
+                        </span>
+                      )}
+                    </p>
+                    <div className="mt-2">
+                      <Controller
+                        name="maxTokens"
+                        control={control}
+                        render={({ field }) => (
+                          <>
+                            <input
+                              {...field}
+                              type="range"
+                              min={100}
+                              max={4096}
+                              step={4}
+                              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 dark:bg-gray-700"
+                              onChange={(e) =>
+                                field.onChange(
+                                  e.target.value
+                                    ? parseFloat(e.target.value)
+                                    : 0,
+                                )
+                              }
+                            />
+                            <p className="text-bold text-gray-900 dark:text-white">
+                              {field.value}
+                            </p>
+                          </>
+                        )}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-50">
+                      {t('chat:temperature')}
+                      {errors.temperature && (
+                        <span className="text-xs text-red-500 dark:text-red-300">
+                          {' : '}
+                          {t('chat:temperatureErrorText')}
+                        </span>
+                      )}
+                    </p>
+                    <div className="mt-2">
+                      <Controller
+                        name="temperature"
+                        control={control}
+                        render={({ field }) => (
+                          <>
+                            <input
+                              {...field}
+                              type="range"
+                              min={0}
+                              max={2.0}
+                              step={0.01}
+                              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 dark:bg-gray-700"
+                              onChange={(e) =>
+                                field.onChange(
+                                  e.target.value
+                                    ? parseFloat(e.target.value)
+                                    : 0,
+                                )
+                              }
+                            />
+                            <p className="text-bold text-gray-900 dark:text-white">
+                              {field.value}
+                            </p>
+                          </>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-50">
+                      {t('chat:systemContent')}
+                      {errors.systemContent && (
+                        <span className="text-xs text-red-500 dark:text-red-300">
+                          {' : '}
+                          {t('chat:systemContentErrorText')}
+                        </span>
+                      )}
+                    </p>
+                    <div className="mt-2">
+                      <Controller
+                        name="systemContent"
+                        control={control}
+                        render={({ field }) => (
+                          <textarea
+                            {...field}
+                            onKeyDown={onKeyDown}
+                            className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 sm:leading-6 dark:border-gray-50 dark:bg-gray-800 dark:text-white"
+                          />
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <button
+                      type="submit"
+                      disabled={isDisabled}
+                      className={clsx(
+                        isDisabled
+                          ? 'cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
+                          : 'bg-gray-900 text-white hover:bg-gray-700 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-200',
+                        'w-full px-3 py-2 text-center text-lg font-bold',
+                      )}
+                    >
+                      {t('chat:createChatRoom')}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
+              </form>
+            </div>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
 
       <Transition appear show={isChatListModalOpen} as={Fragment}>
         <Dialog
@@ -586,15 +562,17 @@ export default function ChatMenu({
           className="fixed inset-0 z-10 overflow-y-auto"
           onClose={() => setChatListModalOpen(false)}
         >
-          <div className=" text-center">
-            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
-            {/* This element is to trick the browser into centering the modal contents. */}
+          <div className="text-center">
+            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+
+            {/* This element is to trick the browser into centering the modal contents */}
             <span
               className="inline-block h-screen align-middle"
               aria-hidden="true"
             >
               &#8203;
             </span>
+
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -604,7 +582,7 @@ export default function ChatMenu({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="my-8 inline-block w-full max-w-xl -translate-y-10 transform overflow-hidden bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-900">
+              <Dialog.Panel className="my-8 inline-block w-full max-w-xl -translate-y-10 transform overflow-hidden bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-900">
                 <div className="flex w-full flex-col bg-white pb-12 dark:bg-gray-900">
                   <div className="flex flex-row items-center justify-center p-4">
                     <LogoHorizontal className="w-24" />
@@ -668,7 +646,7 @@ export default function ChatMenu({
                     </div>
                   </div>
                 </div>
-              </div>
+              </Dialog.Panel>
             </Transition.Child>
           </div>
         </Dialog>

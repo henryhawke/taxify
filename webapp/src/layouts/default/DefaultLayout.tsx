@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
-import Header from '@/components/common/Header'
-import Footer from '@/components/common/Footer'
+import Header from '@/layouts/auth/AuthHeader'
+import Footer from '@/layouts/common/CommonFooter'
 
 type DefaultLayoutProps = {
   children: ReactNode

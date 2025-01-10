@@ -31,6 +31,16 @@
     "src/**/*.tsx",
     "common/**/*.ts"
   ],
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".next",
+    ".git",
+    ".app-cache",
+    ".npm",
+    ".npm-tmp",
+    "dist",
+    "dist*"
+  ],
   "extends": "expo/tsconfig.base"
 }

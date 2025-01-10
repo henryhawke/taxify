@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import DefaultLayout from '@/layouts/default/DefaultLayout'
 import { getI18nProps } from '@/lib/getStatic'
@@ -7,6 +7,7 @@ import DiscordRow from '@/components/pages/common/DiscordRow'
 import FeaturesRow from '@/components/pages/home/FeaturesRow'
 import ServiceOverview from '@/components/pages/home/ServiceOverview'
 import StatsRow from '@/components/pages/home/StatsRow'
+import i18nextConfig from '../../../next-i18next.config'
 
 const LocalePage = () => {
   const router = useRouter()
@@ -41,23 +42,38 @@ const LocalePage = () => {
 
 export default LocalePage
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  const seoData = {
-    pathname: '/',
-    title: {
-      ja: 'トップページ',
-      en: 'Top page',
-    },
-    description: {
-      ja: 'Solanaの税金計算を簡単に',
-      en: 'Easy tax calculations for Solana',
-    },
-    img: null,
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = i18nextConfig.i18n.locales.flatMap((locale) => [
+    { params: { locale, path: [] } },
+    { params: { locale, path: ['about'] } },
+    { params: { locale, path: ['contact'] } },
+    // Add all other possible paths here
+  ])
+
+  return {
+    paths,
+    // Change from 'blocking' to false for static export
+    fallback: false,
   }
+}
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const _locale = ctx?.params?.locale as string
 
   return {
     props: {
-      ...(await getI18nProps(ctx, ['common'], seoData)),
+      ...(await getI18nProps(ctx, ['common'], {
+        pathname: '/',
+        title: {
+          ja: 'ホーム',
+          en: 'Home',
+        },
+        description: {
+          ja: 'ホームページ',
+          en: 'Home page',
+        },
+        img: null,
+      })),
     },
   }
 }

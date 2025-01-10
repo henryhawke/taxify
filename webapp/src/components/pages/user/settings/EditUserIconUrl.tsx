@@ -128,7 +128,7 @@ export default function EditUserIconUrl() {
           onClose={() => setModalOpen(false)}
         >
           <div className="px-4 text-center">
-            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
             {/* This element is to trick the browser into centering the modal contents. */}
             <span

@@ -4,6 +4,12 @@ import { auth, platformDevIP, functions } from '@/lib/firebase'
 import { signOut } from 'firebase/auth'
 import { httpsCallable, httpsCallableFromURL } from 'firebase/functions'
 
+type FirebaseError = {
+  message: string
+  code?: string
+  details?: unknown
+}
+
 export const fetchTaxfyFunctions = async <T>(
   functionName: string,
   methodName: string,
@@ -61,8 +67,11 @@ export const callTaxfyFunctions = async <T>(
 
     const res = await callableFunction?.(params)
     return res
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err)
-    throw new Error(err.message)
+    if (err && typeof err === 'object' && 'message' in err) {
+      throw new Error((err as FirebaseError).message)
+    }
+    throw new Error('An unknown error occurred')
   }
 }

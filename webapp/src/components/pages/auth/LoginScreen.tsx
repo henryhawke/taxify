@@ -4,7 +4,7 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import SolanaLogoHorizontal from '@/components/common/atoms/SolanaLogoHorizontal'
 import { useWallet } from '@solana/wallet-adapter-react'
 import useToastMessage from '@/hooks/useToastMessage'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import type {
   SolanaSignInInput,
   SolanaSignInOutput,
@@ -15,14 +15,13 @@ import type { VerifySIWSParams } from '@/common/types/http/verifySIWSParams'
 import { auth, db } from '@/lib/firebase'
 import { signInWithCustomToken, signOut } from 'firebase/auth'
 import { User, genUserPath } from '@/common/models/userModels'
-import { useRecoilState } from 'recoil'
-import { defaultUser, userState } from '@/store/user'
+import { defaultUser } from '@/store/user'
 import { get } from '@/lib/taxfy/firestore'
 
 export default function LoginScreen() {
   const { t } = useTranslation()
   const { connected, signIn } = useWallet()
-  const [setUser] = useRecoilState(userState)
+  const [_user, setUser] = useState(defaultUser)
   const addToast = useToastMessage()
 
   const signInWithSolana = useCallback(async () => {
@@ -72,9 +71,9 @@ export default function LoginScreen() {
         const { email, username, iconUrl } = data
         setUser({
           uid: userCredential.user.uid,
-          email,
-          username,
-          iconUrl,
+          email: email || '',
+          username: username || '',
+          iconUrl: iconUrl || '',
         })
 
         return false
@@ -93,7 +92,7 @@ export default function LoginScreen() {
         await signOut(auth)
       }
     }
-  }, [addToast, signIn, setUser])
+  }, [t, addToast, signIn, setUser])
 
   return (
     <>

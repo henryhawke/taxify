@@ -21,13 +21,18 @@ import { getI18nProps } from '@/lib/getStatic'
 import embedder from '@remark-embedder/core'
 import youtubeTransformer from '@/lib/youtubeTransformer'
 import { addClassToTitles } from '@/lib/rehypePlugin'
+import type { Transformer } from '@remark-embedder/core'
+import type { Plugin, Processor } from 'unified'
+import type { Root } from 'mdast'
 
 const articleDirName = 'doc'
 
-export default function Doc({
-  // article,
-  // articleHtml,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Doc(
+  {
+    // article,
+    // articleHtml,
+  }: InferGetStaticPropsType<typeof getStaticProps>,
+) {
   return (
     <>{/* <DocContents article={article} articleHtml={articleHtml} /> */}</>
   )
@@ -61,7 +66,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const articleHtml = await unified()
     .use(remarkParse)
-    .use(embedder, {
+    .use(embedder as Plugin<Parameters<Processor['use']>[0]>, {
       transformers: [youtubeTransformer],
     })
     .use(remarkDirective)

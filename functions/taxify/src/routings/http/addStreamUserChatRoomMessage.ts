@@ -1,15 +1,15 @@
 import { getFirestore } from 'firebase-admin/firestore'
 import { initializeApp, getApps } from 'firebase-admin/app'
 import { onRequest } from 'firebase-functions/v2/https'
-import { getUserAuth } from '@/lib'
-import { publicHttpOption } from '@/routings/options'
+import { getUserAuth } from '../../lib'
+import { publicHttpOption } from '../../routings/options'
 import { defineSecret } from 'firebase-functions/params'
 import {
   UserChatRoom,
   UserChatRoomMessage,
   genUserChatRoomPath,
   genUserChatRoomMessagePath,
-} from '@common/models'
+} from 'common/models'
 import { OpenAI, OpenAIMessage } from '@skeet-framework/ai'
 import { add, get, query, update } from '@skeet-framework/firestore'
 import { inspect } from 'util'
