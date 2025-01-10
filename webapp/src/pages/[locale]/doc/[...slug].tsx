@@ -108,7 +108,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const articles = getAllArticles(articleDirPrefix)
+  const articles = await getAllArticles(articleDirPrefix)
   return {
     paths: articles.map((article) => {
       if (article[0] === 'ja') {

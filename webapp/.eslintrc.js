@@ -1,10 +1,11 @@
 module.exports = {
   extends: [
+    'plugin:@next/next/recommended',
     'next/core-web-vitals',
     'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
-  plugins: ['@typescript-eslint', 'react', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', '@next/next'],
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
@@ -31,6 +32,9 @@ module.exports = {
   settings: {
     react: {
       version: 'detect',
+    },
+    next: {
+      rootDir: ['./'],
     },
   },
   ignorePatterns: ['dist/**/*', 'node_modules/**/*'],

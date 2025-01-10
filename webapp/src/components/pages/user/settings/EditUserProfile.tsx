@@ -122,7 +122,7 @@ export default function EditUserProfile() {
           onClose={() => setModalOpen(false)}
         >
           <div className="px-4 text-center">
-            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+            <div className="fixed inset-0 bg-black opacity-30" />
 
             {/* This element is to trick the browser into centering the modal contents. */}
             <span

@@ -1,7 +1,7 @@
 import fs from 'fs'
-import glob from 'glob'
 import { join } from 'path'
 import matter from 'gray-matter'
+import { globby } from 'globby'
 
 export const getArticleBySlug = (
   slugArray: string[],
@@ -40,8 +40,11 @@ export const getArticleBySlug = (
   return items
 }
 
-export const getAllArticles = (articleDirPrefix: string) => {
-  const entries = glob.sync(`${articleDirPrefix}/**/*.md`)
+export const getAllArticles = async (articleDirPrefix: string) => {
+  const entries = await globby(`${articleDirPrefix}/**/*.md`, {
+    cwd: process.cwd(),
+    absolute: false
+  })
   return entries
     .map((file) => file.split(articleDirPrefix).pop())
     .map((slug) => (slug as string).replace(/\.md$/, '').split('/'))
