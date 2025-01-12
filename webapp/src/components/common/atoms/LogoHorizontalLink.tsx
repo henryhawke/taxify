@@ -1,6 +1,6 @@
 import Link from '@/components/routing/Link'
 import Image from 'next/image'
-import logoHorizontal from '@/assets/img/logo/TaxfyLogoText.svg'
+import logoHorizontal from '@/assets/img/logo/logo.png'
 // import logoHorizontalInvert from '@/assets/img/logo/TaxfyLogoSquareInvert.svg'
 import clsx from 'clsx'
 

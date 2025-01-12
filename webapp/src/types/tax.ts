@@ -4,13 +4,17 @@ export type TaxableEvent = {
     amount: number
     price: number
     fee?: number
+    stateCode?: string
 }
 
-export type TaxSummary = {
+export interface TaxSummary {
     shortTermGains: number
     longTermGains: number
     totalIncome: number
     totalFees: number
+    stateTax: number
+    stateCode: string
+    effectiveStateTaxRate: number
     taxableEvents: TaxableEvent[]
 }
 

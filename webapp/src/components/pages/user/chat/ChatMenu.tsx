@@ -41,7 +41,7 @@ import useToastMessage from '@/hooks/useToastMessage'
 import { Dialog, Transition } from '@headlessui/react'
 import { z } from 'zod'
 import { useForm, Controller, Resolver } from 'react-hook-form'
-import { UserChatRoom, genUserChatRoomPath } from 'src/common/models'
+import { UserChatRoom, genUserChatRoomPath } from '@/common/models'
 import { add, query } from '@/lib/taxfy/firestore'
 
 export type ChatRoom = {

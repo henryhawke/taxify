@@ -8,11 +8,6 @@ const nextConfig = {
   },
   reactStrictMode: true,
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-  i18n: {
-    locales: ['en'],
-    defaultLocale: 'en',
-    localeDetection: false,
-  },
   transpilePackages: [
     '@solana/web3.js',
     '@solana/rpc',
@@ -43,6 +38,11 @@ const nextConfig = {
 
     return config
   },
+
+  experimental: {
+    forceSwcTransforms: false,
+  },
+  swcMinify: false,
 }
 
 module.exports = nextConfig

@@ -1,12 +1,25 @@
 module.exports = {
-  presets: ['next/babel'],
+  presets: [
+    [
+      'next/babel',
+      {
+        'preset-typescript': {
+          allowNamespaces: true,
+          allowDeclareFields: true,
+          onlyRemoveTypeImports: true,
+          optimizeConstEnums: true,
+        },
+      },
+    ],
+  ],
   plugins: [
     [
-      '@babel/plugin-transform-runtime',
+      '@babel/plugin-transform-typescript',
       {
-        corejs: 3,
-        helpers: true,
-        regenerator: true,
+        allowNamespaces: true,
+        allowDeclareFields: true,
+        isTSX: true,
+        allowDeclareFields: true,
       },
     ],
   ],

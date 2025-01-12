@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TaxableEvent, TaxSummary, WalletTaxInfo } from '@/types/tax'
 import { Connection, PublicKey } from '@solana/web3.js'
 
@@ -66,7 +67,7 @@ export function calculateTaxSummary(events: TaxableEvent[]): TaxSummary {
 }
 
 export function categorizeTaxableEvents(transactions: any[]): TaxableEvent[] {
-    return transactions.map(tx => {
+    return transactions.map(_tx => {
         // For demonstration, we'll create sample data
         // In a real implementation, you would analyze the transaction data
         return {

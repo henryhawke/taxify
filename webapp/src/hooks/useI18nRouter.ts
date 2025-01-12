@@ -1,20 +1,20 @@
-import { useCallback, useMemo } from 'react'
-import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useCallback } from 'react'
 
 export default function useI18nRouter() {
-  const { i18n } = useTranslation()
-  const currentLanguage = useMemo(() => i18n.language, [i18n])
   const router = useRouter()
+
   const routerPush = useCallback(
-    async (path: string) => {
-      await router.push(`/${currentLanguage}${path}`)
+    (path: string) => {
+      const locale = router.locale || 'en'
+      const cleanPath = path.startsWith('/') ? path : `/${path}`
+      return router.push(`/${locale}${cleanPath}`)
     },
-    [router, currentLanguage],
+    [router]
   )
+
   return {
-    router,
-    currentLanguage,
     routerPush,
+    router
   }
 }

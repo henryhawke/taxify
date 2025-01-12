@@ -26,15 +26,15 @@ export default function Logo3D() {
           <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-white/20 backdrop-blur-xl dark:from-gray-800/40 dark:to-gray-900/20" />
 
           {/* Reflective border */}
-          <div className="absolute inset-0 rounded-2xl border border-white/50 dark:border-white/10" />
+          <div className="absolute inset-0 rounded-2xl  dark:border-white/10" />
 
           {/* Logo */}
           <div className="relative">
             <Image
-              src="/images/logo/TaxfyLogoSquare.svg"
+              src="/logo.png"
               alt="Taxfy Logo"
-              width={500}
-              height={500}
+              width={700}
+              height={700}
               className="h-auto w-full"
               priority
             />

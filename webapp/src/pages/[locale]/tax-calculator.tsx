@@ -4,9 +4,13 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { Connection } from '@solana/web3.js'
 import { WalletTaxInfo } from '@/types/tax'
 import { generateWalletTaxInfo, IRS_GUIDANCE } from '@/utils/taxCalculator'
+import { STATE_TAX_RATES, calculateStateTax } from '@/utils/stateTaxRates'
 import dynamic from 'next/dynamic'
 import LoadingScreen from '@/components/common/LoadingScreen'
 import useToastMessage from '@/hooks/useToastMessage'
+import { taxifyFunctions } from '@/lib/taxfy/functions'
+import { useAuth } from '@/hooks/useAuth'
+import { FirebaseError } from 'firebase/app'
 import {
   Box,
   Container,
@@ -25,6 +29,8 @@ import {
   CardContent,
   Link,
   Alert,
+  FormControl,
+  InputLabel,
 } from '@mui/material'
 
 const WalletMultiButton = dynamic(
@@ -36,9 +42,11 @@ const WalletMultiButton = dynamic(
 export default function TaxCalculator() {
   const { t } = useTranslation()
   const { connected, connecting, publicKey } = useWallet()
+  const { user } = useAuth()
   const [loading, setLoading] = useState(false)
   const [taxInfo, setTaxInfo] = useState<WalletTaxInfo | null>(null)
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
+  const [selectedState, setSelectedState] = useState('CA')
   const [error, setError] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
   const addToast = useToastMessage()
@@ -49,7 +57,7 @@ export default function TaxCalculator() {
 
   useEffect(() => {
     async function fetchTaxInfo() {
-      if (connected && publicKey) {
+      if (connected && publicKey && user) {
         setLoading(true)
         setError(null)
         try {
@@ -68,18 +76,68 @@ export default function TaxCalculator() {
             )
           }
 
-          const info = await generateWalletTaxInfo(
-            publicKey.toString(),
-            connection,
-            selectedYear,
-          )
-          setTaxInfo(info)
+          let info: WalletTaxInfo
+          try {
+            info = await generateWalletTaxInfo(
+              publicKey.toString(),
+              connection,
+              selectedYear,
+            )
+          } catch (error) {
+            console.error('Error generating wallet tax info:', error)
+            throw new Error(
+              'Failed to generate tax information. Please try again later.',
+            )
+          }
+
+          // Calculate state tax
+          const totalGains =
+            info.summary.shortTermGains + info.summary.longTermGains
+          const stateTax = calculateStateTax(totalGains, selectedState)
+          const effectiveStateTaxRate =
+            totalGains > 0 ? (stateTax / totalGains) * 100 : 0
+
+          // Add state tax information to the summary
+          const updatedInfo = {
+            ...info,
+            summary: {
+              ...info.summary,
+              stateTax,
+              stateCode: selectedState,
+              effectiveStateTaxRate,
+            },
+          }
+
+          setTaxInfo(updatedInfo)
+
+          // Save tax info to Firebase
+          try {
+            await taxifyFunctions.saveTaxData(user.uid, updatedInfo)
+            addToast({
+              title: 'Success',
+              description: 'Tax information saved successfully',
+              type: 'success',
+            })
+          } catch (error) {
+            console.error('Error saving tax data:', error)
+            if (error instanceof FirebaseError) {
+              if (error.code === 'internal') {
+                throw new Error(
+                  'Internal server error. Please try again later.',
+                )
+              }
+              throw new Error(`Failed to save tax data: ${error.message}`)
+            }
+            throw new Error(
+              'Failed to save tax information. Please try again later.',
+            )
+          }
         } catch (error) {
-          console.error('Error fetching tax info:', error)
+          console.error('Error in tax calculator:', error)
           const errorMessage =
             error instanceof Error
               ? error.message
-              : 'Failed to fetch tax information'
+              : 'An unexpected error occurred'
           setError(errorMessage)
           addToast({
             title: 'Error',
@@ -95,7 +153,15 @@ export default function TaxCalculator() {
     if (mounted) {
       fetchTaxInfo()
     }
-  }, [connected, publicKey, selectedYear, addToast, mounted])
+  }, [
+    connected,
+    publicKey,
+    selectedYear,
+    selectedState,
+    addToast,
+    mounted,
+    user,
+  ])
 
   if (!mounted) {
     return null
@@ -146,22 +212,43 @@ export default function TaxCalculator() {
           </Box>
         ) : (
           <Box sx={{ mt: 6 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
-              <Select
-                value={selectedYear}
-                onChange={(e) => setSelectedYear(Number(e.target.value))}
-                sx={{ minWidth: 120 }}
-                disabled={connecting}
-              >
-                {Array.from(
-                  { length: 5 },
-                  (_, i) => new Date().getFullYear() - i,
-                ).map((year) => (
-                  <MenuItem key={year} value={year}>
-                    {year}
-                  </MenuItem>
-                ))}
-              </Select>
+            <Box
+              sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4 }}
+            >
+              <FormControl sx={{ minWidth: 120 }}>
+                <InputLabel>Year</InputLabel>
+                <Select
+                  value={selectedYear}
+                  onChange={(e) => setSelectedYear(Number(e.target.value))}
+                  disabled={connecting}
+                  label="Year"
+                >
+                  {Array.from(
+                    { length: 5 },
+                    (_, i) => new Date().getFullYear() - i,
+                  ).map((year) => (
+                    <MenuItem key={year} value={year}>
+                      {year}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <FormControl sx={{ minWidth: 120 }}>
+                <InputLabel>State</InputLabel>
+                <Select
+                  value={selectedState}
+                  onChange={(e) => setSelectedState(e.target.value)}
+                  disabled={connecting}
+                  label="State"
+                >
+                  {Object.entries(STATE_TAX_RATES).map(([code, info]) => (
+                    <MenuItem key={code} value={code}>
+                      {info.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </Box>
 
             {taxInfo && (
@@ -210,6 +297,22 @@ export default function TaxCalculator() {
                       </Typography>
                       <Typography variant="h4" color="error.main">
                         ${taxInfo.summary.totalFees.toFixed(2)}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <Card>
+                    <CardContent>
+                      <Typography variant="h6" gutterBottom>
+                        State Tax
+                      </Typography>
+                      <Typography variant="h4" color="error.main">
+                        ${taxInfo.summary.stateTax.toFixed(2)}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Effective Rate:{' '}
+                        {taxInfo.summary.effectiveStateTaxRate.toFixed(2)}%
                       </Typography>
                     </CardContent>
                   </Card>

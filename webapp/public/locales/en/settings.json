@@ -2,6 +2,9 @@
   "title": "Settings",
   "register": "Register",
   "username": "Username",
+  "displayName": "Display Name",
+  "bio": "Bio",
+  "iconUrl": "Avatar URL",
   "editIconUrl": "Edit avatar image",
   "editProfile": "Edit profile",
   "avatarUpdated": "Avatar Updated",
@@ -13,7 +16,12 @@
   "updateProfileError": "Profile Update Failed",
   "updateProfileErrorMessage": "Something went wrong... Please try it again later.",
   "usernameErrorText": "Please input username (1~20 characters).",
+  "displayNameErrorText": "Please enter a display name (2-50 characters).",
+  "bioErrorText": "Bio cannot exceed 160 characters.",
+  "iconUrlErrorText": "Please enter a valid URL for your avatar image.",
   "upload": "Upload",
   "dropFiles": "Drop the files here ...",
-  "dragDropFiles": "Drag 'n' drop some files here, or click to select files"
+  "dragDropFiles": "Drag 'n' drop some files here, or click to select files",
+  "saving": "Saving...",
+  "save": "Save Changes"
 }

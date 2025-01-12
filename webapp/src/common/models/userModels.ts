@@ -6,6 +6,8 @@ export interface User {
   email: string
   username: string
   iconUrl: string
+  displayName?: string
+  bio?: string
   createdAt: Date | Timestamp | FieldValue
   updatedAt: Date | Timestamp | FieldValue
 }

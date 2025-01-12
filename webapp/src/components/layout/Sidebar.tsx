@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useRouter } from 'next/router'
-import Link from 'next/link'
+
 import { useAuthContext } from '@/contexts/AuthContext'
 import { usePhantomAuth } from '@/hooks/usePhantomAuth'
 import {
@@ -10,7 +11,8 @@ import {
   DocumentTextIcon,
   UserCircleIcon,
   ArrowRightOnRectangleIcon,
-} from '@heroicons/react/24/outline'
+  PencilSquareIcon,
+} from '@heroicons/react/24/solid'
 import {
   Box,
   Drawer,
@@ -24,9 +26,14 @@ import {
   Typography,
   useTheme,
   styled,
+  alpha,
+  IconButton,
+  Tooltip,
 } from '@mui/material'
 import { useMediaQuery } from '@mui/material'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
+import useI18nRouter from '@/hooks/useI18nRouter'
+import EditUserProfile from '@/components/pages/user/settings/EditUserProfile'
 
 const drawerWidth = 240
 
@@ -36,6 +43,34 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   padding: theme.spacing(3),
   ...theme.mixins.toolbar,
+  background: `linear-gradient(45deg, ${theme.palette.primary.main} 30%, ${theme.palette.primary.light} 90%)`,
+  color: theme.palette.primary.contrastText,
+  position: 'relative',
+}))
+
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
+  width: 80,
+  height: 80,
+  marginBottom: theme.spacing(2),
+  backgroundColor: 'transparent',
+  border: `3px solid ${theme.palette.common.white}`,
+  boxShadow: `0 0 20px ${alpha(theme.palette.common.white, 0.3)}`,
+  transition: 'transform 0.3s ease-in-out',
+  cursor: 'pointer',
+  '&:hover': {
+    transform: 'scale(1.05)',
+  },
+}))
+
+const EditButton = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  top: theme.spacing(2),
+  right: theme.spacing(2),
+  color: theme.palette.common.white,
+  backgroundColor: alpha(theme.palette.common.white, 0.2),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.3),
+  },
 }))
 
 const navigation = [
@@ -52,6 +87,9 @@ export default function Sidebar() {
   const { signOut } = usePhantomAuth()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const { routerPush } = useI18nRouter()
+  const [isProfileOpen, setProfileOpen] = useState(false)
+  const [isMobileOpen, setMobileOpen] = useState(!isMobile)
 
   const handleSignOut = useCallback(async () => {
     await signOut()
@@ -60,13 +98,18 @@ export default function Sidebar() {
 
   const isActivePath = useCallback(
     (path: string) => {
-      const currentPath = router.pathname
-        .replace(/^\/[^/]+/, '')
-        .replace(/\/$/, '')
-      const normalizedPath = path.replace(/^\/+/, '').replace(/\/$/, '')
-      return currentPath === normalizedPath
+      const currentPath = router.asPath.split('/').slice(2).join('/')
+      return `/${currentPath}` === path
     },
-    [router.pathname],
+    [router.asPath],
+  )
+
+  const handleNavigation = useCallback(
+    (path: string) => {
+      const locale = router.locale || 'en'
+      router.push(`/${locale}${path}`)
+    },
+    [router],
   )
 
   const drawer = (
@@ -76,86 +119,119 @@ export default function Sidebar() {
         flexDirection: 'column',
         height: '100%',
         bgcolor: 'background.paper',
+        overflow: 'hidden',
       }}
     >
       <DrawerHeader>
-        <Avatar sx={{ width: 64, height: 64, mb: 2, bgcolor: 'primary.main' }}>
-          <UserCircleIcon className="h-10 w-10" />
-        </Avatar>
-        <Typography variant="subtitle1" sx={{ color: 'text.primary' }}>
-          {user?.email || 'Anonymous User'}
+        <StyledAvatar
+          src={user?.photoURL?.toString() || undefined}
+          onClick={() => setProfileOpen(true)}
+        >
+          <UserCircleIcon className="h-12 w-12 text-white" />
+        </StyledAvatar>
+        <Typography
+          variant="subtitle1"
+          sx={{
+            color: 'inherit',
+            fontWeight: 600,
+            cursor: 'pointer',
+            '&:hover': { opacity: 0.9 },
+          }}
+          onClick={() => setProfileOpen(true)}
+        >
+          {user?.displayName || user?.displayName || 'Anonymous User'}
         </Typography>
-        <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-          {user?.uid?.slice(0, 8) || 'Not Connected'}
+        <Typography variant="caption" sx={{ color: 'inherit', opacity: 0.8 }}>
+          {user?.email || 'Not Connected'}
         </Typography>
+        <Tooltip title="Edit Profile">
+          <EditButton size="small" onClick={() => setProfileOpen(true)}>
+            <PencilSquareIcon className="h-4 w-4" />
+          </EditButton>
+        </Tooltip>
       </DrawerHeader>
 
-      <Divider />
+      <Divider sx={{ opacity: 0.6 }} />
 
-      <List sx={{ flex: 1, pt: 2 }}>
+      <List sx={{ flex: 1, pt: 2, px: 1 }}>
         {navigation.map((item) => {
           const isActive = isActivePath(item.path)
           return (
             <ListItem key={item.name} disablePadding>
-              <Link
-                href={item.path}
-                locale={router.locale}
-                style={{ width: '100%', textDecoration: 'none' }}
-                scroll={false}
-                shallow={true}
-                legacyBehavior={false}
-              >
-                <ListItemButton
-                  component="div"
-                  selected={isActive}
-                  sx={{
-                    '&.Mui-selected': {
-                      backgroundColor: 'action.selected',
-                    },
+              <ListItemButton
+                onClick={() => handleNavigation(item.path)}
+                selected={isActive}
+                sx={{
+                  borderRadius: 1,
+                  '&.Mui-selected': {
+                    backgroundColor: alpha(theme.palette.primary.main, 0.15),
                     '&:hover': {
-                      backgroundColor: 'action.hover',
+                      backgroundColor: alpha(theme.palette.primary.main, 0.25),
                     },
-                    transition: 'background-color 0.2s ease',
+                  },
+                  '&:hover': {
+                    backgroundColor: alpha(theme.palette.primary.main, 0.1),
+                    transform: 'translateX(6px)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    color: isActive ? 'primary.main' : 'text.secondary',
+                    minWidth: 40,
+                    '& svg': {
+                      transition: 'transform 0.2s ease',
+                    },
+                    '&:hover svg': {
+                      transform: 'scale(1.2)',
+                    },
                   }}
                 >
-                  <ListItemIcon
-                    sx={{
-                      color: isActive ? 'primary.main' : 'text.secondary',
-                      transition: 'color 0.2s ease',
-                    }}
-                  >
-                    <item.icon className="h-6 w-6" />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.name}
-                    sx={{
-                      '& .MuiTypography-root': {
-                        color: isActive ? 'primary.main' : 'text.primary',
-                        transition: 'color 0.2s ease',
-                      },
-                    }}
-                  />
-                </ListItemButton>
-              </Link>
+                  <item.icon className="h-6 w-6" />
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.name}
+                  sx={{
+                    '& .MuiTypography-root': {
+                      fontWeight: isActive ? 600 : 400,
+                      color: isActive ? 'primary.main' : 'text.primary',
+                    },
+                  }}
+                />
+              </ListItemButton>
             </ListItem>
           )
         })}
       </List>
 
-      <Divider />
+      <Divider sx={{ opacity: 0.6 }} />
 
-      <List>
+      <List sx={{ p: 1 }}>
         <ListItem disablePadding>
           <ListItemButton
             onClick={handleSignOut}
             sx={{
-              transition: 'background-color 0.2s ease',
+              borderRadius: 1,
+              color: 'error.main',
+              '&:hover': {
+                backgroundColor: alpha(theme.palette.error.main, 0.1),
+                transform: 'translateX(6px)',
+              },
+              transition: 'all 0.3s ease',
             }}
           >
-            <ListItemIcon sx={{ color: 'text.secondary' }}>
+            <ListItemIcon sx={{ color: 'inherit', minWidth: 40 }}>
               <ArrowRightOnRectangleIcon className="h-6 w-6" />
             </ListItemIcon>
-            <ListItemText primary="Sign Out" />
+            <ListItemText
+              primary="Sign Out"
+              sx={{
+                '& .MuiTypography-root': {
+                  fontWeight: 500,
+                },
+              }}
+            />
           </ListItemButton>
         </ListItem>
       </List>
@@ -163,31 +239,51 @@ export default function Sidebar() {
   )
 
   return (
-    <Box
-      component="nav"
-      sx={{
-        width: { sm: drawerWidth },
-        flexShrink: { sm: 0 },
-      }}
-    >
-      <Drawer
-        variant={isMobile ? 'temporary' : 'permanent'}
-        open={!isMobile}
-        ModalProps={{
-          keepMounted: true,
-        }}
+    <>
+      <Box
+        component="nav"
         sx={{
-          '& .MuiDrawer-paper': {
-            boxSizing: 'border-box',
-            width: drawerWidth,
-            borderRight: '1px solid',
-            borderColor: 'divider',
-            bgcolor: 'background.paper',
-          },
+          width: { sm: drawerWidth },
+          flexShrink: { sm: 0 },
         }}
       >
-        {drawer}
-      </Drawer>
-    </Box>
+        <Drawer
+          variant={isMobile ? 'temporary' : 'permanent'}
+          open={isMobile ? isMobileOpen : true}
+          onClose={() => setMobileOpen(false)}
+          ModalProps={{
+            keepMounted: true,
+          }}
+          sx={{
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: drawerWidth,
+              borderRight: '1px solid',
+              borderColor: 'divider',
+              bgcolor: 'background.paper',
+              transition: theme.transitions.create(['transform', 'width'], {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+              }),
+              '&:not(.MuiDrawer-paperAnchorDockedLeft)': {
+                transform: 'translateX(0) !important',
+              },
+            },
+            '& .MuiBackdrop-root': {
+              backgroundColor: alpha(theme.palette.background.default, 0.5),
+              backdropFilter: 'blur(4px)',
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+      {user && (
+        <EditUserProfile
+          open={isProfileOpen}
+          onClose={() => setProfileOpen(false)}
+        />
+      )}
+    </>
   )
 }

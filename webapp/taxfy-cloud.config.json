@@ -2,7 +2,7 @@
     "app": {
         "name": "taxfy",
         "projectId": "taxfy",
-        "fbProjectId": "taxfy",
+        "fbProjectId": "taxifyio",
         "region": "nam5",
         "template": "Taxfy Mobile Stack (Expo) + Web (Next.js) - Firestore",
         "appDomain": "taxfy.io",
@@ -23,18 +23,19 @@
                     }
                 },
                 {
+                    "priority": "20",
+                    "description": "Allow Firebase Function calls",
+                    "options": {
+                        "src-ip-ranges": "0.0.0.0/0",
+                        "action": "allow"
+                    }
+                },
+                {
                     "priority": "300",
                     "description": "Defense from NodeJS attack",
                     "options": {
                         "action": "deny-403",
                         "expression": "evaluatePreconfiguredExpr('nodejs-v33-stable')"
-                    }
-                },
-                {
-                    "priority": "2147483647",
-                    "description": "Deny All IP addresses",
-                    "options": {
-                        "action": "deny-403"
                     }
                 }
             ]

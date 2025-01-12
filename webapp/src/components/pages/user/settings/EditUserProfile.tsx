@@ -1,217 +1,229 @@
-import clsx from 'clsx'
-import { PencilSquareIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon } from '@heroicons/react/24/solid'
 import { useTranslation } from 'next-i18next'
-import { useState, useCallback, useMemo, Fragment } from 'react'
-import LogoHorizontal from '@/components/common/atoms/LogoHorizontal'
+import { useState, useCallback } from 'react'
 import { useRecoilState } from 'recoil'
 import { userState } from '@/store/user'
 import { usernameSchema } from '@/utils/form'
 import { db } from '@/lib/firebase'
 import useToastMessage from '@/hooks/useToastMessage'
-import { Dialog, Transition } from '@headlessui/react'
 import { z } from 'zod'
 import { useForm, Controller, Resolver } from 'react-hook-form'
-// import { zodResolver } from '@hookform/resolvers/zod'
-import { User, genUserPath } from 'src/common/models'
-import { update } from '@/lib/taxfy/firestore'
 
-const schema = z.object({
+import { User, genUserPath } from '@/common/models'
+import { update } from '@/lib/taxfy/firestore'
+import {
+  Dialog,
+  TextField,
+  Button,
+  Box,
+  Typography,
+  IconButton,
+  useTheme,
+} from '@mui/material'
+// import { FolderMinusIcon } from '@heroicons/react/24/outline'
+// import { UserCircleIcon } from '@heroicons/react/24/solid'
+
+type FormInputs = {
+  username: string
+  displayName?: string
+  bio?: string
+  iconUrl: string
+}
+
+const formSchema = z.object({
   username: usernameSchema,
+  displayName: z
+    .string()
+    .min(2, 'Display name must be at least 2 characters')
+    .max(50)
+    .optional(),
+  bio: z.string().max(160).optional(),
+  iconUrl: z.string().url(),
 })
 
-type Inputs = z.infer<typeof schema>
+type Props = {
+  open: boolean
+  onClose: () => void
+}
 
-export default function EditUserProfile() {
+export default function EditUserProfile({ open, onClose }: Props) {
   const { t } = useTranslation()
-  const [isModalOpen, setModalOpen] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [user, setUser] = useRecoilState(userState)
   const addToast = useToastMessage()
+  const theme = useTheme()
 
   const {
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm<Inputs>({
-    resolver: schema as unknown as Resolver<Inputs>,
+  } = useForm<FormInputs>({
+    resolver: formSchema as unknown as Resolver<FormInputs>,
     defaultValues: {
-      username: user.username,
+      username: user?.username || '',
+      displayName: user?.displayName || '',
+      bio: user?.bio || '',
+      iconUrl: user?.iconUrl || '',
     },
   })
 
   const onSubmit = useCallback(
-    async (data: Inputs) => {
-      if (db) {
-        try {
-          setLoading(true)
-          await update<User>(db, genUserPath(), user.uid, {
-            username: data.username,
-          })
-          setUser({
-            ...user,
-            username: data.username,
-          })
-          addToast({
-            type: 'success',
-            title: t('settings:updateProfileSuccess'),
-            description: t('settings:updateProfileSuccessMessage'),
-          })
-        } catch (err) {
-          console.error(err)
-          if (
-            err instanceof Error &&
-            (err.message.includes('Firebase ID token has expired.') ||
-              err.message.includes('Error: getUserAuth'))
-          ) {
-            addToast({
-              type: 'error',
-              title: t('errorTokenExpiredTitle'),
-              description: t('errorTokenExpiredBody'),
-            })
-          } else {
-            addToast({
-              type: 'error',
-              title: t('settings:updateProfileError'),
-              description: t('settings:updateProfileErrorMessage'),
-            })
-          }
-        } finally {
-          setModalOpen(false)
-          setLoading(false)
+    async (data: FormInputs) => {
+      if (!user || !db) return
+
+      try {
+        setLoading(true)
+        const updateData: Partial<User> = {
+          username: data.username,
+          displayName: data.displayName,
+          bio: data.bio,
+          iconUrl: data.iconUrl,
         }
+        await update<User>(db, genUserPath(), user.uid, updateData)
+        setUser((prev) => ({
+          ...prev,
+          ...updateData,
+        }))
+        addToast({
+          type: 'success',
+          title: t('settings:updateProfileSuccess'),
+          description: t('settings:updateProfileSuccessMessage'),
+        })
+        onClose()
+      } catch (err) {
+        console.error(err)
+        if (
+          err instanceof Error &&
+          (err.message.includes('Firebase ID token has expired.') ||
+            err.message.includes('Error: getUserAuth'))
+        ) {
+          addToast({
+            type: 'error',
+            title: t('errorTokenExpiredTitle'),
+            description: t('errorTokenExpiredBody'),
+          })
+        } else {
+          addToast({
+            type: 'error',
+            title: t('settings:updateProfileError'),
+            description: t('settings:updateProfileErrorMessage'),
+          })
+        }
+      } finally {
+        setLoading(false)
       }
     },
-    [t, user, setUser, addToast, setModalOpen, setLoading],
-  )
-
-  const isDisabled = useMemo(
-    () => isLoading || errors.username != null,
-    [isLoading, errors.username],
+    [t, user, setUser, addToast, onClose],
   )
 
   return (
-    <>
-      <div className="p-4 text-center sm:text-left">
-        <p className="text-3xl font-bold text-gray-900 dark:text-gray-50">
-          {user.username}
-        </p>
-        <p className="font-medium text-gray-500 dark:text-gray-300">
-          {user.email}
-        </p>
-        <p className="break-all text-xs text-gray-500 dark:text-gray-300">
-          {user.uid}
-        </p>
-      </div>
-      <div className="flex flex-row justify-center p-2 sm:justify-start">
-        <button
-          className={clsx(
-            'flex flex-row items-center px-2 py-2 text-sm font-medium text-gray-900 hover:text-gray-700 dark:text-gray-50 dark:hover:text-gray-300',
-          )}
-          onClick={() => {
-            setModalOpen(true)
-          }}
-        >
-          <PencilSquareIcon className="mr-3 h-6 w-6 flex-shrink-0" />
-          <span className="py-2 font-medium">{t('settings:editProfile')}</span>
-        </button>
-      </div>
-      <Transition appear show={isModalOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={() => setModalOpen(false)}
-        >
-          <div className="px-4 text-center">
-            <div className="fixed inset-0 bg-black opacity-30" />
+    <Dialog
+      open={open}
+      onClose={() => !isLoading && onClose()}
+      maxWidth="sm"
+      fullWidth
+      PaperProps={{
+        sx: {
+          borderRadius: 2,
+          bgcolor: 'background.paper',
+        },
+      }}
+    >
+      <Box sx={{ p: 3 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+          <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 600 }}>
+            {t('settings:editProfile')}
+          </Typography>
+          <IconButton onClick={() => !isLoading && onClose()} size="small">
+            <XMarkIcon className="h-5 w-5" />
+          </IconButton>
+        </Box>
 
-            {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
-              &#8203;
-            </span>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="my-8 inline-block w-full max-w-xl -translate-y-10 transform overflow-hidden bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-900">
-                <div className="flex w-full flex-col bg-white pb-8 dark:bg-gray-900">
-                  <div className="flex flex-row items-center justify-center p-4">
-                    <LogoHorizontal className="w-24" />
-                    <div className="flex-grow" />
-                    <button
-                      onClick={() => {
-                        setModalOpen(false)
-                      }}
-                      className="h-5 w-5 hover:cursor-pointer"
-                    >
-                      <XMarkIcon className="h-5 w-5 text-gray-900 hover:text-gray-800 dark:text-gray-50 dark:hover:text-gray-100" />
-                    </button>
-                  </div>
-                  <div className="flex flex-grow flex-col gap-8 pt-10">
-                    <p className="text-center text-lg font-bold">
-                      {t('settings:editProfile')}
-                    </p>
-                    <div className="w-full sm:mx-auto sm:max-w-xl">
-                      <div className="gap-6 px-4 sm:px-10">
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                          <div className="flex flex-col gap-6 px-4 py-6 sm:px-10">
-                            <div>
-                              <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-50">
-                                {t('settings:username')}
-                                {errors.username && (
-                                  <span className="text-xs text-red-500 dark:text-red-300">
-                                    {' : '}
-                                    {t('settings:usernameErrorText')}
-                                  </span>
-                                )}
-                              </p>
-                              <div className="mt-2">
-                                <Controller
-                                  name="username"
-                                  control={control}
-                                  render={({ field }) => (
-                                    <input
-                                      {...field}
-                                      className="w-full border-2 border-gray-900 p-3 text-lg font-bold text-gray-900 sm:leading-6 dark:border-gray-50 dark:bg-gray-800 dark:text-white"
-                                      inputMode="text"
-                                    />
-                                  )}
-                                />
-                              </div>
-                            </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+            <Controller
+              name="username"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label={t('settings:username')}
+                  error={!!errors.username}
+                  helperText={
+                    errors.username?.message || t('settings:usernameErrorText')
+                  }
+                  fullWidth
+                  required
+                />
+              )}
+            />
 
-                            <div>
-                              <button
-                                type="submit"
-                                disabled={isDisabled}
-                                className={clsx(
-                                  isDisabled
-                                    ? 'cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
-                                    : 'bg-gray-900 text-white hover:bg-gray-700 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-200',
-                                  'w-full px-3 py-2 text-center text-lg font-bold',
-                                )}
-                              >
-                                {t('settings:register')}
-                              </button>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
-    </>
+            <Controller
+              name="displayName"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label={t('settings:displayName')}
+                  error={!!errors.displayName}
+                  helperText={
+                    errors.displayName?.message ||
+                    t('settings:displayNameErrorText')
+                  }
+                  fullWidth
+                  required
+                />
+              )}
+            />
+
+            <Controller
+              name="bio"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label={t('settings:bio')}
+                  multiline
+                  rows={3}
+                  error={!!errors.bio}
+                  helperText={errors.bio?.message || t('settings:bioErrorText')}
+                  fullWidth
+                />
+              )}
+            />
+
+            <Controller
+              name="iconUrl"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label={t('settings:iconUrl')}
+                  error={!!errors.iconUrl}
+                  helperText={
+                    errors.iconUrl?.message || t('settings:iconUrlErrorText')
+                  }
+                  fullWidth
+                />
+              )}
+            />
+
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+              sx={{
+                mt: 2,
+                py: 1.5,
+                borderRadius: '20px',
+                background: `linear-gradient(45deg, ${theme.palette.primary.main} 30%, ${theme.palette.primary.light} 90%)`,
+              }}
+            >
+              {isLoading ? t('common:saving') : t('common:save')}
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </Dialog>
   )
 }

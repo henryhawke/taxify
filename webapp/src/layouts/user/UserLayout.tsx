@@ -62,6 +62,9 @@ export default function UserLayout({ children }: UserLayoutProps) {
             email: fbUser.email || '',
             username: fbUser.displayName || '',
             iconUrl: fbUser.photoURL || '',
+            id: fbUser.uid,
+            createdAt: new Date(),
+            updatedAt: new Date(),
           })
         } catch (e) {
           console.error(e)

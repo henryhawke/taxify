@@ -1,7 +1,7 @@
 import { initializeApp, getApp, getApps } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
-import { getFunctions } from 'firebase/functions'
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions'
 import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -17,6 +17,11 @@ const firebaseConfig = {
 export const app = getApps().length ? getApp() : initializeApp(firebaseConfig)
 export const auth = getAuth(app)
 export const db = getFirestore(app)
-export const functions = getFunctions(app)
+export const functions = getFunctions(app, 'us-central1')
 export const storage = getStorage(app)
 export const platformDevIP = '127.0.0.1' // For web development
+
+// Connect to Functions emulator in development
+if (process.env.NODE_ENV === 'development') {
+  connectFunctionsEmulator(functions, platformDevIP, 5001)
+}

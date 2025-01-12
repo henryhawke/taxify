@@ -1,16 +1,14 @@
-import { createFirestoreDataConverter } from './createFirestoreDataConverter'
 import {
+  Firestore,
   DocumentData,
   collection,
-  Firestore,
   CollectionReference,
 } from 'firebase/firestore'
 
-export const createCollectionRef = <T extends DocumentData>(
+export function createCollectionRef<T extends DocumentData>(
   db: Firestore,
-  collectionPath: string,
-): CollectionReference<T> => {
-  return collection(db, collectionPath).withConverter(
-    createFirestoreDataConverter<T>(),
-  )
+  path: string
+): CollectionReference<T> {
+  const ref = collection(db, path)
+  return ref as CollectionReference<T>
 }

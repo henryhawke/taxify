@@ -3,10 +3,12 @@ import SecurityBadge from '@/components/common/SecurityBadge'
 import Logo3D from '@/components/common/Logo3D'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 export default function HeroRow() {
   const { t } = useTranslation(['common'])
-  const { setVisible } = useWalletModal()
+  useWalletModal()
+  const router = useRouter()
 
   return (
     <div className="relative isolate">
@@ -35,8 +37,8 @@ export default function HeroRow() {
           </p>
           <div className="mt-10 flex items-center gap-x-6">
             <button
-              onClick={() => setVisible(true)}
-              className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={() => router.push('/auth/login')}
+              className="rounded-md bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               {t('getStarted')}
             </button>

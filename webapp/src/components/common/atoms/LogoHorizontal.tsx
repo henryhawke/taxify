@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import logoHorizontal from '@/assets/img/logo/TaxfyLogoSquare.svg'
-import logoHorizontalInvert from '@/assets/img/logo/TaxfyLogoSquareInvert.svg'
+import logoHorizontal from '@/assets/img/logo/logo.png'
+import logoHorizontalInvert from '@/assets/img/logo/taxfy.png'
 import clsx from 'clsx'
 
 type Props = {

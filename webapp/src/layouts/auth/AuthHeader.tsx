@@ -36,20 +36,20 @@ export default function AuthHeader() {
   return (
     <>
       {isScrollingUp && (
-        <div className="h-24  bg-opacity-80  dark:bg-opacity-80" />
+        <div className="h-24 bg-opacity-80 dark:bg-opacity-80" />
       )}
       <header
         className={
           isScrollingUp
-            ? 'fixed top-0 z-10 h-24 w-full  bg-white bg-opacity-80 dark:bg-gray-900  dark:bg-opacity-80'
-            : 'relative z-10 h-24 w-full  '
+            ? 'fixed top-0 z-10 h-24 w-full bg-white bg-opacity-80 dark:bg-gray-900 dark:bg-opacity-80'
+            : 'relative z-10 h-24 w-full'
         }
       >
         <Popover
           className={
             isScrollingUp
-              ? 'fixed top-0 h-24 w-full  bg-opacity-80  dark:bg-opacity-80'
-              : 'relative h-24 w-full  '
+              ? 'fixed top-0 h-24 w-full bg-opacity-80 dark:bg-opacity-80'
+              : 'relative h-24 w-full'
           }
         >
           {({ close }) => (
@@ -59,14 +59,17 @@ export default function AuthHeader() {
                   <LogoHorizontalLink className="h-8 w-auto sm:h-10" />
                 </div>
                 <div className="-my-2 -mr-2 md:hidden">
-                  <Popover.Button className="inline-flex items-center justify-center  p-2 text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500  dark:text-gray-50 dark:hover:bg-gray-700 dark:hover:text-gray-200">
+                  <Popover.Button className="inline-flex items-center justify-center p-2 text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 dark:text-gray-50 dark:hover:bg-gray-700 dark:hover:text-gray-200">
                     <span className="sr-only">{t('openMenu')}</span>
                     <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                   </Popover.Button>
                 </div>
 
                 <div className="hidden items-center justify-end gap-3 md:flex md:flex-1 lg:w-0">
-                  <Button href="/auth/login" variant="outline" className="">
+                  <Button
+                    href="/auth/login"
+                    className="rounded-md bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  >
                     {t('login')}
                   </Button>
 
@@ -85,9 +88,9 @@ export default function AuthHeader() {
               >
                 <Popover.Panel
                   focus
-                  className="absolute inset-x-0 top-0 origin-top-right transform bg-white p-2 transition dark:bg-gray-900 md:hidden"
+                  className="absolute inset-x-0 top-0 origin-top-right transform bg-white p-2 transition md:hidden dark:bg-gray-900"
                 >
-                  <div className=" shadow-lg ring-1 ring-black ring-opacity-5 ">
+                  <div className="shadow-lg ring-1 ring-black ring-opacity-5">
                     <div className="px-5 pt-5">
                       <div className="flex items-center justify-between">
                         <div>
@@ -97,7 +100,7 @@ export default function AuthHeader() {
                           />
                         </div>
                         <div className="-mr-2">
-                          <Popover.Button className="inline-flex items-center justify-center  p-2 text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500  dark:text-gray-50 dark:hover:bg-gray-700 dark:hover:text-gray-200">
+                          <Popover.Button className="inline-flex items-center justify-center p-2 text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 dark:text-gray-50 dark:hover:bg-gray-700 dark:hover:text-gray-200">
                             <span className="sr-only">{t('closeMenu')}</span>
                             <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                           </Popover.Button>

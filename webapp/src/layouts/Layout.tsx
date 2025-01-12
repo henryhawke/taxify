@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactElement } from 'react'
 import type { NextPage } from 'next'
 import type { Router } from 'next/router'
@@ -5,6 +6,7 @@ import { useAuthContext } from '@/contexts/AuthContext'
 import Sidebar from '@/components/layout/Sidebar'
 import { Box, Container } from '@mui/material'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useRouter } from 'next/router'
 
 interface Props {
   Component: NextPage
@@ -18,13 +20,12 @@ export default function Layout({
   router,
 }: Props): ReactElement {
   const { isAuthenticated } = useAuthContext()
+  const currentRouter = useRouter()
+
   const isAuthPage = router.pathname.startsWith('/auth/')
   const isLandingPage =
-    router.asPath === '/' ||
-    router.asPath === '/en' ||
-    router.asPath === '/en/' ||
-    router.pathname === '/' ||
-    router.pathname === '/en'
+    ['/', '/en'].includes(currentRouter.asPath) ||
+    ['/', '/en'].includes(currentRouter.pathname)
 
   // Don't show sidebar on auth pages or landing page
   if (isAuthPage || isLandingPage) {
