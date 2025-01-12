@@ -1,5 +1,7 @@
 {
   "yaml.schemas": {
     "https://json.schemastore.org/github-action.json": "file:///Users/ktm/dev/taxfy/github/workflows/firebase-rules.yml"
-  }
+  },
+  "IDX.aI.enableInlineCompletion": true,
+  "IDX.aI.enableCodebaseIndexing": true
 }

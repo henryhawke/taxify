@@ -58,7 +58,7 @@
     "singleProjectMode": true
   },
   "hosting": {
-    "target": "taxifyio",
+    "target": "taxify-dev-38a8d", // Replace with your Firebase Hosting site name
     "public": "webapp/dist",
     "ignore": [
       "firebase.json",

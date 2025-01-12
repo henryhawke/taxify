@@ -8,7 +8,7 @@
   "engines": {
     "pnpm": ">=8",
     "npm": "please_use_pnpm_instead",
-    "node": "23.5.0",
+    "node": "21.7.2",
     "version": "0.0.1"
   },
   "scripts": {
@@ -58,7 +58,7 @@
     "date-fns": "latest",
     "dotenv": "16.4.7",
     "express": "^4.21.2",
-    "firebase": "11.1.0",
+    "firebase": "^10.5.2",
     "firebase-admin": "latest",
     "framer-motion": "11.17.0",
     "glob": "10.3.10",

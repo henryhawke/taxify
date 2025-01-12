@@ -8,7 +8,7 @@
   "engines": {
     "pnpm": ">=8",
     "npm": "please_use_pnpm_instead",
-    "node": "23.5.0",
+    "node": "21.7.2",
     "version": "0.0.1"
   },
   "scripts": {
