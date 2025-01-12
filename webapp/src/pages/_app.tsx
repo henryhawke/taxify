@@ -8,11 +8,11 @@ import Head from 'next/head'
 import type { SeoData } from '@/lib/getStatic'
 import '@solana/wallet-adapter-react-ui/styles.css'
 import '@/assets/styles/globals.css'
-import { ThemeProvider } from '../components/providers/ThemeProvider'
+import { ThemeProvider } from '@/components/providers/ThemeProvider'
+import SolanaWalletProvider from '@/components/providers/SolanaWalletProvider'
 import Layout from '@/layouts/Layout'
-import { useRouter } from 'next/router'
-import type { Router } from 'next/router'
 import { AuthProvider } from '@/contexts/AuthContext'
+import ToastContainer from '@/components/common/ToastContainer'
 
 export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
   P,
@@ -25,20 +25,25 @@ export type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-function App({ Component, pageProps }: AppPropsWithLayout) {
-  const router = useRouter() as Router
-
+function App({ Component, pageProps, router }: AppPropsWithLayout) {
   return (
     <RecoilRoot>
       <AuthProvider>
-        <ThemeProvider defaultTheme="system" attribute="class" enableSystem>
-          <Head>
-            <title>{pageProps?.title || 'Taxfy'}</title>
-            {pageProps?.seoData?.map((seo: SeoData, index: number) => (
-              <meta {...seo} key={`metaSeo${index}`} />
-            ))}
-          </Head>
-          <Layout Component={Component} pageProps={pageProps} router={router} />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <SolanaWalletProvider>
+            <Head>
+              <title>{pageProps?.title || 'Taxfy'}</title>
+              {pageProps?.seoData?.map((seo: SeoData, index: number) => (
+                <meta {...seo} key={`metaSeo${index}`} />
+              ))}
+            </Head>
+            <Layout
+              Component={Component}
+              pageProps={pageProps}
+              router={router}
+            />
+            <ToastContainer />
+          </SolanaWalletProvider>
         </ThemeProvider>
       </AuthProvider>
     </RecoilRoot>

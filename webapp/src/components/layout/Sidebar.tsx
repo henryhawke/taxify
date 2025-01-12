@@ -11,86 +11,183 @@ import {
   UserCircleIcon,
   ArrowRightOnRectangleIcon,
 } from '@heroicons/react/24/outline'
-import clsx from 'clsx'
+import {
+  Box,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  Avatar,
+  Typography,
+  useTheme,
+  styled,
+} from '@mui/material'
+import { useMediaQuery } from '@mui/material'
+import { useCallback } from 'react'
+
+const drawerWidth = 240
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: theme.spacing(3),
+  ...theme.mixins.toolbar,
+}))
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
-  { name: 'Tax Calculator', href: '/tax-calculator', icon: CalculatorIcon },
-  { name: 'Portfolio', href: '/portfolio', icon: ChartBarIcon },
-  { name: 'Documents', href: '/documents', icon: DocumentTextIcon },
-  { name: 'Settings', href: '/settings', icon: Cog8ToothIcon },
+  { name: 'Dashboard', path: '/dashboard', icon: HomeIcon },
+  { name: 'Tax Calculator', path: '/tax-calculator', icon: CalculatorIcon },
+  { name: 'Portfolio', path: '/portfolio', icon: ChartBarIcon },
+  { name: 'Documents', path: '/documents', icon: DocumentTextIcon },
+  { name: 'Settings', path: '/settings', icon: Cog8ToothIcon },
 ]
 
 export default function Sidebar() {
   const router = useRouter()
   const { user } = useAuthContext()
   const { signOut } = usePhantomAuth()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const handleSignOut = async () => {
+  const handleSignOut = useCallback(async () => {
     await signOut()
     router.push('/auth/login')
-  }
+  }, [signOut, router])
 
-  return (
-    <div className="flex h-full min-h-screen w-64 flex-col bg-gray-900">
-      {/* User Profile Section */}
-      <div className="flex flex-col items-center space-y-3 border-b border-gray-700 p-6">
-        <div className="h-16 w-16 rounded-full bg-gray-800">
-          <UserCircleIcon className="h-16 w-16 text-gray-400" />
-        </div>
-        <div className="text-center">
-          <h2 className="text-sm font-medium text-white">
-            {user?.email || 'Anonymous User'}
-          </h2>
-          <p className="text-xs text-gray-400">
-            {user?.uid?.slice(0, 8) || 'Not Connected'}
-          </p>
-        </div>
-      </div>
+  const isActivePath = useCallback(
+    (path: string) => {
+      const currentPath = router.pathname
+        .replace(/^\/[^/]+/, '')
+        .replace(/\/$/, '')
+      const normalizedPath = path.replace(/^\/+/, '').replace(/\/$/, '')
+      return currentPath === normalizedPath
+    },
+    [router.pathname],
+  )
 
-      {/* Navigation */}
-      <nav className="flex-1 space-y-1 px-2 py-4">
+  const drawer = (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        bgcolor: 'background.paper',
+      }}
+    >
+      <DrawerHeader>
+        <Avatar sx={{ width: 64, height: 64, mb: 2, bgcolor: 'primary.main' }}>
+          <UserCircleIcon className="h-10 w-10" />
+        </Avatar>
+        <Typography variant="subtitle1" sx={{ color: 'text.primary' }}>
+          {user?.email || 'Anonymous User'}
+        </Typography>
+        <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+          {user?.uid?.slice(0, 8) || 'Not Connected'}
+        </Typography>
+      </DrawerHeader>
+
+      <Divider />
+
+      <List sx={{ flex: 1, pt: 2 }}>
         {navigation.map((item) => {
-          const isActive = router.pathname === item.href
+          const isActive = isActivePath(item.path)
           return (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={clsx(
-                isActive
-                  ? 'bg-gray-800 text-white'
-                  : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                'group flex items-center rounded-md px-2 py-2 text-sm font-medium',
-              )}
-            >
-              <item.icon
-                className={clsx(
-                  isActive
-                    ? 'text-white'
-                    : 'text-gray-400 group-hover:text-white',
-                  'mr-3 h-6 w-6 flex-shrink-0',
-                )}
-                aria-hidden="true"
-              />
-              {item.name}
-            </Link>
+            <ListItem key={item.name} disablePadding>
+              <Link
+                href={item.path}
+                locale={router.locale}
+                style={{ width: '100%', textDecoration: 'none' }}
+                scroll={false}
+                shallow={true}
+                legacyBehavior={false}
+              >
+                <ListItemButton
+                  component="div"
+                  selected={isActive}
+                  sx={{
+                    '&.Mui-selected': {
+                      backgroundColor: 'action.selected',
+                    },
+                    '&:hover': {
+                      backgroundColor: 'action.hover',
+                    },
+                    transition: 'background-color 0.2s ease',
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      color: isActive ? 'primary.main' : 'text.secondary',
+                      transition: 'color 0.2s ease',
+                    }}
+                  >
+                    <item.icon className="h-6 w-6" />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.name}
+                    sx={{
+                      '& .MuiTypography-root': {
+                        color: isActive ? 'primary.main' : 'text.primary',
+                        transition: 'color 0.2s ease',
+                      },
+                    }}
+                  />
+                </ListItemButton>
+              </Link>
+            </ListItem>
           )
         })}
-      </nav>
+      </List>
 
-      {/* Sign Out Button */}
-      <div className="border-t border-gray-700 p-4">
-        <button
-          onClick={handleSignOut}
-          className="group flex w-full items-center rounded-md px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-        >
-          <ArrowRightOnRectangleIcon
-            className="mr-3 h-6 w-6 text-gray-400 group-hover:text-white"
-            aria-hidden="true"
-          />
-          Sign Out
-        </button>
-      </div>
-    </div>
+      <Divider />
+
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton
+            onClick={handleSignOut}
+            sx={{
+              transition: 'background-color 0.2s ease',
+            }}
+          >
+            <ListItemIcon sx={{ color: 'text.secondary' }}>
+              <ArrowRightOnRectangleIcon className="h-6 w-6" />
+            </ListItemIcon>
+            <ListItemText primary="Sign Out" />
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Box>
+  )
+
+  return (
+    <Box
+      component="nav"
+      sx={{
+        width: { sm: drawerWidth },
+        flexShrink: { sm: 0 },
+      }}
+    >
+      <Drawer
+        variant={isMobile ? 'temporary' : 'permanent'}
+        open={!isMobile}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        sx={{
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            width: drawerWidth,
+            borderRight: '1px solid',
+            borderColor: 'divider',
+            bgcolor: 'background.paper',
+          },
+        }}
+      >
+        {drawer}
+      </Drawer>
+    </Box>
   )
 }

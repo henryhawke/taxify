@@ -8,7 +8,19 @@ const nextConfig = {
   },
   reactStrictMode: true,
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-  transpilePackages: ['@solana/web3.js', '@solana/rpc'],
+  i18n: {
+    locales: ['en'],
+    defaultLocale: 'en',
+    localeDetection: false,
+  },
+  transpilePackages: [
+    '@solana/web3.js',
+    '@solana/rpc',
+    '@mui/material',
+    '@mui/icons-material',
+    '@emotion/react',
+    '@emotion/styled',
+  ],
 
   webpack: (config, { isServer }) => {
     config.resolve.alias = {
@@ -22,6 +34,7 @@ const nextConfig = {
         fs: false,
         path: false,
         crypto: false,
+        punycode: false,
       }
     }
 

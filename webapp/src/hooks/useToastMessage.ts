@@ -1,25 +1,24 @@
-import { Toast, toastsState } from '@/store/toasts'
-import { useRecoilState } from 'recoil'
 import { useCallback } from 'react'
-
-type ToastMessage = {
-  title: string
-  description: string
-  type: 'success' | 'error' | 'warning' | 'info'
-}
+import { useSetRecoilState } from 'recoil'
+import { Toast, getToastsState } from '@/store/toasts'
+import { v4 as uuidv4 } from 'uuid'
 
 export default function useToastMessage() {
-  const [toasts, setToasts] = useRecoilState(toastsState)
+  const setToasts = useSetRecoilState(getToastsState())
 
   const addToast = useCallback(
-    (toastMessage: ToastMessage) => {
-      const toast: Toast = {
-        ...toastMessage,
-        createdAt: Date.now(),
-      }
-      setToasts([...toasts, toast])
+    (toast: Omit<Toast, 'id'>) => {
+      const id = uuidv4()
+      setToasts((prev) => [...prev, { ...toast, id }])
+
+      // Auto remove toast after duration (default 5 seconds)
+      const duration = toast.duration || 5000
+      setTimeout(() => {
+        setToasts((prev) => prev.filter((t) => t.id !== id))
+      }, duration)
     },
-    [toasts, setToasts]
+    [setToasts]
   )
+
   return addToast
 }
