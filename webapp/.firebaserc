@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "default": "taxifyio"
+  },
+  "targets": {
+    "taxifyio": {
+      "hosting": {
+        "taxifyio": [
+          "taxifyio"
+        ],
+        "taxify-dev-38a8d": [
+          "webapp"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

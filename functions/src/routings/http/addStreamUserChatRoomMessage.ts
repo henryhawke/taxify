@@ -2,7 +2,7 @@ import { getFirestore } from 'firebase-admin/firestore'
 import { initializeApp, getApps } from 'firebase-admin/app'
 import { onRequest } from 'firebase-functions/v2/https'
 import { getUserAuth } from '../../lib'
-import { publicHttpOption } from '../../routings/options'
+import { publicHttpOption } from '../options'
 import { defineSecret } from 'firebase-functions/params'
 import {
   UserChatRoom,

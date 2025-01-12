@@ -18,7 +18,8 @@
     "typecheck": "tsc --noEmit",
     "update:packages": "ncu -u -x 'node-fetch,glob,remark,unified,remark-gfm,remark-rehype,remark-stringify,rehype-stringify,remark-parse,remark-directive' && pnpm install",
     "dev": "next dev -p 4200",
-    "build": "NEXT_TELEMETRY_DISABLED=1 next build"
+    "build": "NEXT_TELEMETRY_DISABLED=1 next build",
+    "deploy": "firebase deploy"
   },
   "dependencies": {
     "@babel/runtime": "^7.26.0",

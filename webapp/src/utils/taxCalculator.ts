@@ -35,6 +35,9 @@ export function calculateTaxSummary(events: TaxableEvent[]): TaxSummary {
         totalIncome: 0,
         totalFees: 0,
         taxableEvents: events,
+        stateTax: 0,
+        stateCode: '',
+        effectiveStateTaxRate: 0
     }
 
     events.forEach(event => {
