@@ -9,7 +9,9 @@ import { TaxTransaction } from '@/common/models/taxModels'
 import { Timestamp } from 'firebase/firestore'
 
 interface FunctionResponse {
-  data?: any
+  data?: {
+    body?: ReadableStream
+  }
   error?: {
     message: string
     code?: string

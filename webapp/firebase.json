@@ -32,7 +32,7 @@
   },
   "hosting": {
     "target": "taxifyio",
-    "public": "webapp/dist",
+    "public": "out",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -40,12 +40,18 @@
     ],
     "rewrites": [
       {
+        "source": "/api/**",
+        "function": "nextApi"
+      },
+      {
         "source": "**",
-        "destination": "/index.html"
+        "destination": "/404.html"
       }
     ],
+    "cleanUrls": true,
+    "trailingSlash": false,
     "predeploy": [
-      "npm --prefix webapp run build"
+      "pnpm run build"
     ]
   },
   "functions": [
@@ -60,8 +66,7 @@
         "*.local"
       ],
       "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint",
-        "npm --prefix \"$RESOURCE_DIR\" run build"
+        "cd functions && npm run build"
       ]
     }
   ]

@@ -1,7 +1,6 @@
-import * as functions from 'firebase-functions'
+import { onCall, HttpsError } from 'firebase-functions/v2/https'
 import * as admin from 'firebase-admin'
 import { WalletTaxInfo } from '../../../src/types/tax'
-import { onCall } from 'firebase-functions/v2/https'
 
 // Initialize Firebase Admin if not already initialized
 if (!admin.apps.length) {
@@ -26,14 +25,12 @@ interface ProcessTaxDataParams {
     createdAt: FirebaseFirestore.Timestamp
 }
 
-type AuthContext = { auth?: { uid: string } }
-
 export const saveTaxData = onCall<SaveTaxDataParams>(async (request) => {
     try {
         const { data, auth } = request
         // Verify authentication
         if (!auth) {
-            throw new functions.https.HttpsError(
+            throw new HttpsError(
                 'unauthenticated',
                 'User must be authenticated to save tax data'
             )
@@ -41,7 +38,7 @@ export const saveTaxData = onCall<SaveTaxDataParams>(async (request) => {
 
         // Verify user is saving their own data
         if (auth.uid !== data.userId) {
-            throw new functions.https.HttpsError(
+            throw new HttpsError(
                 'permission-denied',
                 'Users can only save their own tax data'
             )
@@ -49,7 +46,7 @@ export const saveTaxData = onCall<SaveTaxDataParams>(async (request) => {
 
         // Validate required data
         if (!data.taxData || !data.path) {
-            throw new functions.https.HttpsError(
+            throw new HttpsError(
                 'invalid-argument',
                 'Missing required tax data or path'
             )
@@ -67,10 +64,10 @@ export const saveTaxData = onCall<SaveTaxDataParams>(async (request) => {
         }
     } catch (error) {
         console.error('Error saving tax data:', error)
-        if (error instanceof functions.https.HttpsError) {
+        if (error instanceof HttpsError) {
             throw error
         }
-        throw new functions.https.HttpsError(
+        throw new HttpsError(
             'internal',
             'Failed to save tax data'
         )
@@ -82,7 +79,7 @@ export const processTaxData = onCall<ProcessTaxDataParams>(async (request) => {
         const { data, auth } = request
         // Verify authentication
         if (!auth) {
-            throw new functions.https.HttpsError(
+            throw new HttpsError(
                 'unauthenticated',
                 'User must be authenticated to process tax data'
             )
@@ -90,7 +87,7 @@ export const processTaxData = onCall<ProcessTaxDataParams>(async (request) => {
 
         // Verify user is processing their own data
         if (auth.uid !== data.userId) {
-            throw new functions.https.HttpsError(
+            throw new HttpsError(
                 'permission-denied',
                 'Users can only process their own tax data'
             )
@@ -98,7 +95,7 @@ export const processTaxData = onCall<ProcessTaxDataParams>(async (request) => {
 
         // Validate required data
         if (!data.transactions || !data.transactions.length || !data.path) {
-            throw new functions.https.HttpsError(
+            throw new HttpsError(
                 'invalid-argument',
                 'Missing required transactions or path'
             )
@@ -108,10 +105,9 @@ export const processTaxData = onCall<ProcessTaxDataParams>(async (request) => {
         const batch = db.batch()
         const transactionsRef = db.collection(data.path)
 
-        data.transactions.forEach((transaction, index) => {
+        data.transactions.forEach((transaction: any, index: number) => {
             // Create new batch every 500 operations (Firestore limit)
             if (index > 0 && index % 500 === 0) {
-                batch.commit()
                 batch.commit()
             }
 
@@ -131,10 +127,10 @@ export const processTaxData = onCall<ProcessTaxDataParams>(async (request) => {
         }
     } catch (error) {
         console.error('Error processing tax data:', error)
-        if (error instanceof functions.https.HttpsError) {
+        if (error instanceof HttpsError) {
             throw error
         }
-        throw new functions.https.HttpsError(
+        throw new HttpsError(
             'internal',
             'Failed to process tax data'
         )

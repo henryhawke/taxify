@@ -1,0 +1,51 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.admin == true;
+    }
+
+    function isValidImage() {
+      return request.resource.contentType.matches('image/.*')
+        && request.resource.size < 5 * 1024 * 1024; // 5MB max
+    }
+
+    // User photos rules
+    match /users/{userId}/photos/{photoId} {
+      // Allow read if authenticated and owner of the photos
+      allow read: if isOwner(userId);
+      
+      // Allow write if authenticated, owner, and uploading a valid image
+      allow create, update: if isOwner(userId) && isValidImage();
+      
+      // Allow delete if authenticated and owner
+      allow delete: if isOwner(userId);
+    }
+
+    // Profile photos rules (public read, private write)
+    match /users/{userId}/profile/{photoId} {
+      // Allow public read for profile photos
+      allow read: if true;
+      
+      // Allow write if authenticated, owner, and uploading a valid image
+      allow create, update: if isOwner(userId) && isValidImage();
+      
+      // Allow delete if authenticated and owner
+      allow delete: if isOwner(userId);
+    }
+
+    // Admin access to all photos
+    match /{allPaths=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+} 

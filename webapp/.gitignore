@@ -154,3 +154,4 @@ firebase-debug.log
 **/public/worker-*.js.map
 **/public/fallback-*.js
 dist
+out

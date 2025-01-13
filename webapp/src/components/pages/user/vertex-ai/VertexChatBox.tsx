@@ -13,7 +13,7 @@ import { useRecoilValue } from 'recoil'
 import { userState } from '@/store/user'
 
 import { chatContentSchema } from '@/utils/form'
-import { fetchTaxfyFunctions } from '@/lib/taxfy/functions'
+import { callTaxfyFunctions } from '@/lib/taxfy/functions'
 import Image from 'next/image'
 import { ChatRoom } from './VertexChatMenu'
 import { z } from 'zod'
@@ -208,7 +208,7 @@ export default function VertexChatBox({
               },
             ]
           })
-          const res = await fetchTaxfyFunctions<AddVertexMessageParams>(
+          const res = await callTaxfyFunctions<AddVertexMessageParams>(
             'taxfy',
             'addVertexMessage',
             {
@@ -216,10 +216,13 @@ export default function VertexChatBox({
               content: inputs.chatContent,
             },
           )
-          const reader = await res?.body?.getReader()
+          if (!res.data?.data?.body) {
+            throw new Error('No response body')
+          }
+          const reader = res.data.data.body.getReader()
           const decoder = new TextDecoder('utf-8')
 
-          while (true && reader) {
+          while (true) {
             const { value, done } = await reader.read()
             if (done) break
             try {
@@ -313,12 +316,12 @@ export default function VertexChatBox({
               chatContentLines > 4
                 ? 'chat-height-5'
                 : chatContentLines == 4
-                ? 'chat-height-4'
-                : chatContentLines == 3
-                ? 'chat-height-3'
-                : chatContentLines == 2
-                ? 'chat-height-2'
-                : 'chat-height-1',
+                  ? 'chat-height-4'
+                  : chatContentLines == 3
+                    ? 'chat-height-3'
+                    : chatContentLines == 2
+                      ? 'chat-height-2'
+                      : 'chat-height-1',
               'w-full overflow-y-auto pb-24',
             )}
           >
@@ -470,12 +473,12 @@ export default function VertexChatBox({
                         chatContentLines > 4
                           ? 'h-48'
                           : chatContentLines == 4
-                          ? 'h-36'
-                          : chatContentLines == 3
-                          ? 'h-28'
-                          : chatContentLines == 2
-                          ? 'h-20'
-                          : `h-10`,
+                            ? 'h-36'
+                            : chatContentLines == 3
+                              ? 'h-28'
+                              : chatContentLines == 2
+                                ? 'h-20'
+                                : `h-10`,
                         'flex-1 border-2 border-gray-900 p-1 font-normal text-gray-900 sm:text-lg dark:border-gray-50 dark:bg-gray-800 dark:text-white',
                       )}
                     />

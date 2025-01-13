@@ -37,6 +37,6 @@ module.exports = {
       rootDir: ['./'],
     },
   },
-  ignorePatterns: ['dist/**/*', 'node_modules/**/*'],
+  ignorePatterns: ['out/**/*', 'node_modules/**/*'],
   root: true,
 }
