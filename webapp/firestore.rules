@@ -11,10 +11,17 @@ service cloud.firestore {
       return isAuthenticated() && request.auth.uid == userId;
     }
 
+    // Helper function to check if request is from Firebase Function
+    function isServiceAccount() {
+      return request.auth.token.firebase.sign_in_provider == 'custom';
+    }
+
     // Match user documents
     match /users/{userId} {
-      // Allow users to read and write their own profile
-      allow read, write: if isOwner(userId);
+      // Allow users to create their initial profile and service account to update
+      allow create: if true;
+      allow update: if isOwner(userId) || isServiceAccount();
+      allow read, delete: if isOwner(userId);
 
       // Match tax data subcollection
       match /taxData/{document=**} {
@@ -27,6 +34,13 @@ service cloud.firestore {
         // Only allow users to read and write their own transactions
         allow read, write: if isOwner(userId);
       }
+    }
+
+    // Match auth_tokens collection
+    match /auth_tokens/{publicKey} {
+      // Allow service account to write tokens and users to read their own token
+      allow write: if isServiceAccount();
+      allow read: if true;
     }
 
     // Default deny all other access

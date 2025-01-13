@@ -155,3 +155,6 @@ firebase-debug.log
 **/public/fallback-*.js
 dist
 out
+
+# Firebase service account
+functions/service-account/service-account-key.json

@@ -32,7 +32,7 @@
   },
   "hosting": {
     "target": "taxifyio",
-    "public": "out",
+    "public": ".next",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -45,7 +45,18 @@
       },
       {
         "source": "**",
-        "destination": "/404.html"
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          }
+        ]
       }
     ],
     "cleanUrls": true,

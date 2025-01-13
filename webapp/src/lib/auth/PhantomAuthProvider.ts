@@ -14,7 +14,7 @@ export class PhantomAuthProvider {
         this.nonce = crypto.randomUUID()
     }
 
-    async authenticate(): Promise<string> {
+    async authenticate(): Promise<void> {
         try {
             if (!this.wallet.publicKey) {
                 throw new Error('Wallet not connected')
@@ -25,17 +25,14 @@ export class PhantomAuthProvider {
                 this.wallet.publicKey.toString(),
                 this.nonce
             )
+            console.log('Signing message:', message)
 
             // Request signature from wallet
             const encodedMessage = new TextEncoder().encode(message)
             const signedMessage = await this.wallet.signMessage(encodedMessage, 'utf8')
+            console.log('Signature received, length:', signedMessage.length)
 
-            // Verify the signature
-            if (!this.verifySignature(signedMessage, this.wallet.publicKey)) {
-                throw new Error('Invalid signature')
-            }
-
-            // Get Firebase custom token from your backend
+            // Send authentication request to API
             const response = await fetch('/api/auth/phantom', {
                 method: 'POST',
                 headers: {
@@ -49,15 +46,14 @@ export class PhantomAuthProvider {
             })
 
             if (!response.ok) {
-                throw new Error('Failed to authenticate with backend')
+                const error = await response.json()
+                throw new Error(error.error || 'Failed to authenticate')
             }
 
             const { token } = await response.json()
 
-            // Sign in to Firebase with custom token
+            // Sign in with the custom token
             await signInWithCustomToken(auth, token)
-
-            return token
         } catch (error) {
             console.error('Authentication error:', error)
             throw error
@@ -66,15 +62,5 @@ export class PhantomAuthProvider {
 
     private createSignMessage(publicKey: string, nonce: string): string {
         return `Sign this message for authenticating with Taxify.\n\nPublic Key: ${publicKey}\nNonce: ${nonce}`
-    }
-
-    private verifySignature(signature: Uint8Array, publicKey: PublicKey): boolean {
-        try {
-            // Basic length checks for signature and public key
-            return signature.length === 64 && publicKey.toString().length === 44
-        } catch (error) {
-            console.error('Signature verification error:', error)
-            return false
-        }
     }
 } 
