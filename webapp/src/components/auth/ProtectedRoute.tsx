@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { usePhantomAuth } from '@/hooks/usePhantomAuth'
+import { useAuth } from '@/hooks/useAuth'
 import LoadingScreen from '@/components/common/LoadingScreen'
 
 interface ProtectedRouteProps {
@@ -8,18 +8,18 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { user, loading, error } = usePhantomAuth()
+  const { user, status, error } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
-    if (!loading && !user) {
+    if (status === 'unauthenticated') {
       router.push('/auth/login')
     } else if (user && router.pathname === '/') {
       router.push('/tax-calculator')
     }
-  }, [loading, user, router])
+  }, [status, user, router])
 
-  if (loading) {
+  if (status === 'loading' || status === 'idle') {
     return <LoadingScreen />
   }
 
