@@ -4,7 +4,6 @@ import { Transition, Dialog, Menu } from '@headlessui/react'
 import { XMarkIcon, Bars3BottomLeftIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import { userHeaderNav, userMenuNav } from '@/config/navs'
-import { useTranslation } from 'next-i18next'
 import Link from '@/components/routing/Link'
 import { User as FirebaseUser, signOut } from 'firebase/auth'
 import { useRecoilState } from 'recoil'
@@ -13,7 +12,7 @@ import { auth } from '@/lib/firebase'
 import LogoHorizontal from '@/components/common/atoms/LogoHorizontal'
 import Image from 'next/image'
 import { User } from '@/common/models'
-import useI18nRouter from '@/hooks/useI18nRouter'
+import { useRouter } from 'next/router'
 
 interface UserLayoutProps {
   children: ReactNode
@@ -23,13 +22,12 @@ interface UserLayoutProps {
 const mainContentId = 'userMainContent'
 
 export default function UserLayout({ children }: UserLayoutProps) {
-  const { router, routerPush } = useI18nRouter()
+  const router = useRouter()
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const { t } = useTranslation()
   const [user, setUser] = useRecoilState(userState)
 
   const asPathWithoutLang = useMemo(() => {
-    return router.asPath.replace('/ja/', '/').replace('/en/', '/')
+    return router.asPath
   }, [router.asPath])
 
   const resetWindowScrollPosition = useCallback(() => {
@@ -70,15 +68,15 @@ export default function UserLayout({ children }: UserLayoutProps) {
           console.error(e)
           setUser(defaultUser)
           if (auth) await signOut(auth)
-          await routerPush('/auth/login')
+          await router.push('/auth/login')
         }
       } else {
         setUser(defaultUser)
         if (auth) await signOut(auth)
-        await routerPush('/auth/login')
+        await router.push('/auth/login')
       }
     },
-    [setUser, routerPush],
+    [setUser, router],
   )
 
   useEffect(() => {
@@ -169,7 +167,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
                               aria-hidden="true"
                             />
                           )}
-                          {t(item.name)}
+                          {item.name}
                         </Link>
                       ))}
                     </nav>
@@ -203,14 +201,14 @@ export default function UserLayout({ children }: UserLayoutProps) {
                       <item.icon
                         className={clsx(
                           asPathWithoutLang === item.href
-                            ? 'text-gray-900  dark:text-white'
+                            ? 'text-gray-900 dark:text-white'
                             : 'text-gray-700 dark:text-gray-50',
                           'mr-3 h-6 w-6 flex-shrink-0',
                         )}
                         aria-hidden="true"
                       />
                     )}
-                    {t(item.name)}
+                    {item.name}
                   </Link>
                 ))}
               </nav>
@@ -272,7 +270,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
                               'block px-4 py-2 text-sm text-gray-700 dark:text-gray-50',
                             )}
                           >
-                            {t(item.name)}
+                            {item.name}
                           </Link>
                         )}
                       </Menu.Item>
@@ -293,7 +291,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
                             'block px-4 py-2 text-sm text-gray-700 hover:cursor-pointer dark:text-gray-50',
                           )}
                         >
-                          {t('logout')}
+                          Logout
                         </p>
                       )}
                     </Menu.Item>

@@ -7,8 +7,7 @@ import { auth } from '@/lib/firebase'
 import { useToastMessage } from '@/hooks/useToastMessage'
 import SolanaLogoHorizontal from '@/components/common/atoms/SolanaLogoHorizontal'
 
-export default function LoginScreen() {
-  const [mounted, setMounted] = useState(false)
+export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [authError, setAuthError] = useState<Error | null>(null)
   const { connected, connecting } = useWallet()
@@ -54,8 +53,6 @@ export default function LoginScreen() {
       setIsLoading(false)
     }
   }
-
-  if (!mounted) return null
 
   return (
     <Box
@@ -126,4 +123,4 @@ export default function LoginScreen() {
       </Paper>
     </Box>
   )
-}
+} 

@@ -49,17 +49,19 @@ export function usePhantomAuth() {
             }
         } catch (error) {
             console.error('Sign out error:', error)
+            setAuthError(error instanceof Error ? error : new Error('Sign out failed'))
             throw error
         }
     }, [wallet])
 
     return {
         user,
-        loading: loading || isAuthenticating,
+        loading,
         error: authError,
         signIn,
         signOut,
         isAuthenticated: !!user,
         wallet,
+        isPhantomConnected: wallet.connected
     }
 } 

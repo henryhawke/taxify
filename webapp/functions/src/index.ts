@@ -1,27 +1,33 @@
 import * as admin from 'firebase-admin'
 import * as taxFunctions from './tax'
-import * as functions from 'firebase-functions/v1'
+import { onRequest } from 'firebase-functions/v2/https'
 import { PublicKey } from '@solana/web3.js'
 import * as nacl from 'tweetnacl'
 import bs58 from 'bs58'
-import * as path from 'path'
+import { https } from 'firebase-functions'
 
-// Initialize Firebase Admin with service account
+// Initialize Firebase Admin
 if (!admin.apps.length) {
-    const serviceAccount = require(path.join(__dirname, '../service-account/service-account-key.json'))
-    admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-        projectId: 'taxifyio',
-        databaseURL: `https://taxifyio.firebaseio.com`
-    })
+    try {
+        admin.initializeApp()
+    } catch (error) {
+        console.error('Error initializing Firebase Admin:', error)
+    }
 }
 
 // Export tax functions with correct prefixes
 export const taxSaveTaxData = taxFunctions.saveTaxData
 export const taxProcessTaxData = taxFunctions.processTaxData
 
+// Next.js Server Handler
+export const nextServer = https.onRequest((req, res) => {
+    // Forward the request to Next.js server
+    const server = require(`${process.cwd()}/.next/standalone/server.js`)
+    return server.default(req, res)
+})
+
 // Handle API routes
-export const nextApi = functions.https.onRequest(async (req, res) => {
+export const nextApi = onRequest(async (req, res) => {
     // Enable CORS
     res.set('Access-Control-Allow-Origin', '*')
     res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')

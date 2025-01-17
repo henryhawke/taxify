@@ -1,53 +1,56 @@
 import '@/lib/firebase'
-import type { ReactElement, ReactNode } from 'react'
-import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
-import { appWithTranslation } from 'next-i18next'
-import { RecoilRoot } from 'recoil'
-import Head from 'next/head'
-import type { SeoData } from '@/lib/getStatic'
-import '@solana/wallet-adapter-react-ui/styles.css'
-import '@/assets/styles/globals.css'
-import { ThemeProvider } from '@/components/providers/ThemeProvider'
-import SolanaWalletProvider from '@/components/providers/SolanaWalletProvider'
-import Layout from '@/layouts/Layout'
+import { ThemeProvider } from '@mui/material/styles'
+import { StyledEngineProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import { CacheProvider, EmotionCache } from '@emotion/react'
+import createEmotionCache from '@/lib/createEmotionCache'
+import { theme } from '@/lib/theme'
 import { AuthProvider } from '@/contexts/AuthContext'
-import ToastContainer from '@/components/common/ToastContainer'
+import ToastProvider from '@/hooks/useToastMessage'
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from '@solana/wallet-adapter-react'
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets'
+import { useMemo } from 'react'
 
-export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
-  P,
-  IP
-> & {
-  getLayout?: (page: ReactElement) => ReactNode
+require('@solana/wallet-adapter-react-ui/styles.css')
+
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache()
+
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache
 }
 
-export type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout
-}
+export default function App({
+  Component,
+  pageProps,
+  emotionCache = clientSideEmotionCache,
+}: MyAppProps) {
+  const wallets = useMemo(() => [new PhantomWalletAdapter()], [])
+  const endpoint = process.env.NEXT_PUBLIC_SOLANA_RPC_URL || ''
 
-function App({ Component, pageProps, router }: AppPropsWithLayout) {
   return (
-    <RecoilRoot>
-      <AuthProvider>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <SolanaWalletProvider>
-            <Head>
-              <title>{pageProps?.title || 'Taxfy'}</title>
-              {pageProps?.seoData?.map((seo: SeoData, index: number) => (
-                <meta {...seo} key={`metaSeo${index}`} />
-              ))}
-            </Head>
-            <Layout
-              Component={Component}
-              pageProps={pageProps}
-              router={router}
-            />
-            <ToastContainer />
-          </SolanaWalletProvider>
+    <CacheProvider value={emotionCache}>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <ToastProvider>
+            <AuthProvider>
+              <ConnectionProvider endpoint={endpoint}>
+                <WalletProvider wallets={wallets} autoConnect>
+                  <WalletModalProvider>
+                    <Component {...pageProps} />
+                  </WalletModalProvider>
+                </WalletProvider>
+              </ConnectionProvider>
+            </AuthProvider>
+          </ToastProvider>
         </ThemeProvider>
-      </AuthProvider>
-    </RecoilRoot>
+      </StyledEngineProvider>
+    </CacheProvider>
   )
 }
-
-export default appWithTranslation(App)

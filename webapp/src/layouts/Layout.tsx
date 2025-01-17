@@ -5,7 +5,7 @@ import type { Router } from 'next/router'
 import { useAuthContext } from '@/contexts/AuthContext'
 import Sidebar from '@/components/layout/Sidebar'
 import { Box, Container } from '@mui/material'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 
 interface Props {
@@ -65,25 +65,23 @@ export default function Layout({
             flexDirection: 'column',
           }}
         >
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={router.pathname}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{
-                duration: 0.15,
-                ease: 'easeInOut',
-              }}
-              style={{
-                flex: 1,
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              <Component {...pageProps} />
-            </motion.div>
-          </AnimatePresence>
+          <motion.div
+            key={router.pathname}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              duration: 0.15,
+              ease: 'easeInOut',
+            }}
+            style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <Component {...pageProps} />
+          </motion.div>
         </Container>
       </Box>
     </Box>

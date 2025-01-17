@@ -4,7 +4,7 @@
         "projectId": "taxfy",
         "fbProjectId": "taxifyio",
         "region": "nam5",
-        "template": "Taxfy Mobile Stack (Expo) + Web (Next.js) - Firestore",
+        "template": "taxfy-webapp",
         "appDomain": "taxfy.io",
         "lbDomain": "taxfy.io",
         "secretKeys": [],

@@ -1,5 +1,6 @@
-import useRedirect from '@/hooks/useRedirect'
+import { useRedirect } from '@/hooks/useRedirect'
+
 export default function Redirect() {
-  useRedirect()
+  useRedirect('/')
   return <></>
 }

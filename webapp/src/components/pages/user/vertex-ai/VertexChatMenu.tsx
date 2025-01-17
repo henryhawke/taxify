@@ -28,13 +28,13 @@ import {
 } from '@/utils/form'
 
 import { format } from 'date-fns'
-import useToastMessage from '@/hooks/useToastMessage'
+import { useRecoilValue } from 'recoil'
+import { userState } from '@/store/user'
+import { useToastMessage } from '@/hooks/useToastMessage'
 import { Dialog, Transition } from '@headlessui/react'
 import { z } from 'zod'
 import { useForm, Controller, Resolver } from 'react-hook-form'
 // import { zodResolver } from '@hookform/resolvers/zod'
-import { useRecoilValue } from 'recoil'
-import { userState } from '@/store/user'
 import { Timestamp } from '@skeet-framework/firestore'
 import {
   DocumentData,
@@ -105,7 +105,6 @@ export default function VertexChatMenu({
   const { t, i18n } = useTranslation()
   const isJapanese = useMemo(() => i18n.language === 'ja', [i18n])
   const user = useRecoilValue(userState)
-
   const [isCreateLoading, setCreateLoading] = useState(false)
   const [isChatListModalOpen, setChatListModalOpen] = useState(false)
   const addToast = useToastMessage()

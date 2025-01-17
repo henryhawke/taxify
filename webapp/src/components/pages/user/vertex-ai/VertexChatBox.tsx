@@ -19,7 +19,7 @@ import { ChatRoom } from './VertexChatMenu'
 import { z } from 'zod'
 import { useForm, Controller, Resolver } from 'react-hook-form'
 import { TextDecoder } from 'text-encoding'
-import useToastMessage from '@/hooks/useToastMessage'
+import { useToastMessage } from '@/hooks/useToastMessage'
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
 import remark2Rehype from 'remark-rehype'
@@ -59,28 +59,29 @@ const schema = z.object({
 type Inputs = z.infer<typeof schema>
 
 type Props = {
-  setNewChatModalOpen: (_value: boolean) => void
-  getChatRooms: () => void
-  currentChatRoomId: string
+  _setNewChatModalOpen: (_value: boolean) => void
+  _currentChatRoomId: string | null
+  _getChatRooms: () => void
 }
 
 export default function VertexChatBox({
-  currentChatRoomId,
-  // setNewChatModalOpen,
-  getChatRooms,
+  _setNewChatModalOpen,
+  _currentChatRoomId,
+  _getChatRooms,
 }: Props) {
   const { t } = useTranslation()
   const user = useRecoilValue(userState)
+  const [isLoading, setLoading] = useState(false)
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([])
   const [chatRoom, setChatRoom] = useState<ChatRoom | null>(null)
   const addToast = useToastMessage()
 
   const chatContentRef = useRef<HTMLDivElement>(null)
   const scrollToEnd = useCallback(() => {
-    if (currentChatRoomId && chatContentRef.current) {
+    if (_currentChatRoomId && chatContentRef.current) {
       chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight
     }
-  }, [chatContentRef, currentChatRoomId])
+  }, [chatContentRef, _currentChatRoomId])
 
   const {
     handleSubmit,
@@ -101,12 +102,12 @@ export default function VertexChatBox({
   }, [chatContent])
 
   const getChatRoom = useCallback(async () => {
-    if (db && user.uid && currentChatRoomId) {
+    if (db && user.uid && _currentChatRoomId) {
       try {
         const data = await get<VertexChatRoom>(
           db,
           genVertexChatRoomPath(user.uid),
-          currentChatRoomId,
+          _currentChatRoomId,
         )
         if (!data) throw new Error('Chat room not found')
         setChatRoom(data as ChatRoom)
@@ -114,7 +115,7 @@ export default function VertexChatBox({
         console.error(e)
       }
     }
-  }, [currentChatRoomId, user.uid])
+  }, [_currentChatRoomId, user.uid])
 
   useEffect(() => {
     void (async () => {
@@ -129,10 +130,10 @@ export default function VertexChatBox({
   const [isSending, setSending] = useState(false)
 
   const getUserChatRoomMessage = useCallback(async () => {
-    if (db && user.uid && currentChatRoomId) {
+    if (db && user.uid && _currentChatRoomId) {
       const querySnapshot = await query<VertexChatRoomMessage>(
         db,
-        genVertexChatRoomMessagePath(user.uid, currentChatRoomId),
+        genVertexChatRoomMessagePath(user.uid, _currentChatRoomId),
         [orderBy('createdAt', 'asc')],
       )
       const messages: ChatMessage[] = []
@@ -162,7 +163,7 @@ export default function VertexChatBox({
 
       setChatMessages(messages)
     }
-  }, [currentChatRoomId, user.uid])
+  }, [_currentChatRoomId, user.uid])
 
   useEffect(() => {
     void (async () => {
@@ -188,7 +189,7 @@ export default function VertexChatBox({
     async (inputs: Inputs) => {
       try {
         setSending(true)
-        if (!isDisabled && user.uid && currentChatRoomId) {
+        if (!isDisabled && user.uid && _currentChatRoomId) {
           setChatMessages((prev) => {
             return [
               ...prev,
@@ -212,7 +213,7 @@ export default function VertexChatBox({
             'taxfy',
             'addVertexMessage',
             {
-              vertexChatRoomId: currentChatRoomId,
+              vertexChatRoomId: _currentChatRoomId,
               content: inputs.chatContent,
             },
           )
@@ -255,7 +256,7 @@ export default function VertexChatBox({
           if (chatRoom && chatRoom.title == '') {
             await sleep(200)
             await getChatRoom()
-            await getChatRooms()
+            await _getChatRooms()
           }
           await getUserChatRoomMessage()
           reset()
@@ -286,13 +287,13 @@ export default function VertexChatBox({
     [
       isDisabled,
       t,
-      currentChatRoomId,
+      _currentChatRoomId,
       user.uid,
       chatRoom,
       addToast,
       reset,
       getChatRoom,
-      getChatRooms,
+      _getChatRooms,
       getUserChatRoomMessage,
     ],
   )
@@ -371,9 +372,9 @@ export default function VertexChatBox({
                     </p>
                   </div>
                   <div className="pt-4">
-                    {chatRoom && (
+                    {chatRoom && _currentChatRoomId && (
                       <VertexChatExamples
-                        currentChatRoomId={currentChatRoomId}
+                        currentChatRoomId={_currentChatRoomId}
                         chatRoom={chatRoom}
                         getChatRoom={getChatRoom}
                       />

@@ -1,17 +1,15 @@
-import { ReactNode } from 'react'
-import Header from '@/layouts/auth/AuthHeader'
-import Footer from '@/layouts/common/CommonFooter'
+import { Box } from '@mui/material'
+import DefaultHeader from './DefaultHeader'
 
-type DefaultLayoutProps = {
-  children: ReactNode
+interface DefaultLayoutProps {
+  children: React.ReactNode
 }
 
 export default function DefaultLayout({ children }: DefaultLayoutProps) {
   return (
-    <div className="relative min-h-screen bg-white dark:bg-gray-900">
-      <Header />
+    <Box>
+      <DefaultHeader />
       <main>{children}</main>
-      <Footer />
-    </div>
+    </Box>
   )
 }

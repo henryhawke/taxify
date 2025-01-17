@@ -7,7 +7,7 @@ import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets'
 import { WalletError } from '@solana/wallet-adapter-base'
 import { clusterApiUrl } from '@solana/web3.js'
-import useToastMessage from '@/hooks/useToastMessage'
+import { useToastMessage } from '@/hooks/useToastMessage'
 import dynamic from 'next/dynamic'
 
 require('@solana/wallet-adapter-react-ui/styles.css')

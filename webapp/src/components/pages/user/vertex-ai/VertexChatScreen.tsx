@@ -7,7 +7,7 @@ import UserScreenLoading from '@/components/loading/UserScreenLoading'
 import clsx from 'clsx'
 import { PlusCircleIcon } from '@heroicons/react/24/outline'
 import { useTranslation } from 'next-i18next'
-import useToastMessage from '@/hooks/useToastMessage'
+import { useToastMessage } from '@/hooks/useToastMessage'
 import {
   DocumentData,
   QueryDocumentSnapshot,
@@ -129,9 +129,9 @@ export default function VertexChatScreen() {
           <>
             <Suspense fallback={<UserScreenLoading />}>
               <VertexChatBox
-                setNewChatModalOpen={setNewChatModalOpen}
-                currentChatRoomId={currentChatRoomId}
-                getChatRooms={getChatRooms}
+                _setNewChatModalOpen={setNewChatModalOpen}
+                _currentChatRoomId={currentChatRoomId}
+                _getChatRooms={getChatRooms}
               />
             </Suspense>
           </>

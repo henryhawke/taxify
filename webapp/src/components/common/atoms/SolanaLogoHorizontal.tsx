@@ -1,31 +1,22 @@
-import Image from 'next/image'
-import logoHorizontal from '@/assets/img/logo/projects/SolanaLogoHorizontal.svg'
-import logoHorizontalInvert from '@/assets/img/logo/projects/SolanaLogoWhite.svg'
-import clsx from 'clsx'
+import { Typography } from '@mui/material'
 
-type Props = {
+interface Props {
   className?: string
-  onClick?: () => void
 }
 
-export default function SolanaLogoHorizontal({ className, ...rest }: Props) {
+export default function SolanaLogoHorizontal({ className }: Props) {
   return (
-    <>
-      <div {...rest}>
-        <span className="sr-only">Solana</span>
-        <Image
-          src={logoHorizontal}
-          alt="Solana"
-          className={clsx('dark:hidden ', className)}
-          unoptimized
-        />
-        <Image
-          src={logoHorizontalInvert}
-          alt="Solana"
-          className={clsx('hidden dark:block', className)}
-          unoptimized
-        />
-      </div>
-    </>
+    <Typography 
+      variant="h4" 
+      component="div" 
+      className={className}
+      sx={{ 
+        fontWeight: 'bold',
+        color: '#14F195', // Solana's brand green
+        letterSpacing: '-0.5px'
+      }}
+    >
+      Solana
+    </Typography>
   )
 }

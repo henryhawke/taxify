@@ -13,7 +13,6 @@ import clsx from 'clsx'
 import { docHeaderNav, docMenuNav } from '@/config/navs'
 import { useTranslation } from 'next-i18next'
 import Link from '@/components/routing/Link'
-import LanguageChanger from '@/components/utils/LanguageChanger'
 import ColorModeChanger from '@/components/utils/ColorModeChanger'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons'
@@ -60,7 +59,7 @@ export default function DocLayout({ children }: Props) {
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            className="relative z-40 bg-white dark:bg-gray-900 lg:hidden"
+            className="relative z-40 bg-white lg:hidden dark:bg-gray-900"
             onClose={setSidebarOpen}
           >
             <Transition.Child
@@ -137,7 +136,7 @@ export default function DocLayout({ children }: Props) {
                                 <nav.icon
                                   className={clsx(
                                     asPathWithoutLang === nav.href
-                                      ? 'text-gray-900  dark:text-white'
+                                      ? 'text-gray-900 dark:text-white'
                                       : 'text-gray-700 dark:text-gray-50',
                                     'mr-3 h-6 w-6 flex-shrink-0',
                                   )}
@@ -209,7 +208,7 @@ export default function DocLayout({ children }: Props) {
                           <nav.icon
                             className={clsx(
                               asPathWithoutLang === nav.href
-                                ? 'text-gray-900  dark:text-white'
+                                ? 'text-gray-900 dark:text-white'
                                 : 'text-gray-700 dark:text-gray-50',
                               'mr-3 h-6 w-6 flex-shrink-0',
                             )}
@@ -234,7 +233,7 @@ export default function DocLayout({ children }: Props) {
                         <item.icon
                           className={clsx(
                             asPathWithoutLang === item.href
-                              ? 'text-gray-900  dark:text-white'
+                              ? 'text-gray-900 dark:text-white'
                               : 'text-gray-700 dark:text-gray-50',
                             'mr-3 h-6 w-6 flex-shrink-0',
                           )}
@@ -253,7 +252,7 @@ export default function DocLayout({ children }: Props) {
           <div className="flex-shrink- sticky top-0 z-10 flex h-16 bg-white bg-opacity-90 dark:bg-gray-900 dark:bg-opacity-90">
             <button
               type="button"
-              className="px-4 text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 dark:text-gray-50 dark:hover:text-gray-200 lg:hidden"
+              className="px-4 text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 lg:hidden dark:text-gray-50 dark:hover:text-gray-200"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
@@ -263,7 +262,6 @@ export default function DocLayout({ children }: Props) {
               <div className="flex flex-1"></div>
 
               <div className="ml-4 flex items-center gap-3 lg:ml-6">
-                <LanguageChanger />
                 <ColorModeChanger />
                 <a
                   href={`https://github.com/henryhawke/taxfy-cli`}
@@ -295,7 +293,7 @@ export default function DocLayout({ children }: Props) {
                 </a>
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="flex max-w-xs items-center text-sm text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:text-gray-50 dark:hover:text-gray-200 dark:hover:text-gray-200">
+                    <Menu.Button className="flex max-w-xs items-center text-sm text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:text-gray-50 dark:hover:text-gray-200">
                       <span className="sr-only">Open other menu</span>
                       <EllipsisVerticalIcon className="h-8 w-8" />
                     </Menu.Button>

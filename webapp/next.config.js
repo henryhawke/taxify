@@ -2,10 +2,15 @@ const path = require('path')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
+  reactStrictMode: true,
+  experimental: {
+    forceSwcTransforms: true,
+  },
   images: {
     unoptimized: true,
+    domains: ['firebasestorage.googleapis.com'],
   },
-  reactStrictMode: true,
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
   transpilePackages: [
     '@solana/web3.js',
@@ -37,11 +42,6 @@ const nextConfig = {
 
     return config
   },
-
-  experimental: {
-    forceSwcTransforms: false,
-  },
-  swcMinify: false,
 }
 
 module.exports = nextConfig

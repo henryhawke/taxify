@@ -1,6 +1,4 @@
-import LanguageChanger from '@/components/utils/LanguageChanger'
 import ColorModeChanger from '@/components/utils/ColorModeChanger'
-import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 import Button from '@/components/common/atoms/Button'
 
@@ -8,7 +6,6 @@ import EditUserIconUrl from '@/components/pages/user/settings/EditUserIconUrl'
 import EditUserProfile from '@/components/pages/user/settings/EditUserProfile'
 
 export default function SettingsScreen() {
-  const { t } = useTranslation()
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false)
 
   return (
@@ -17,20 +14,17 @@ export default function SettingsScreen() {
         <div className="flex flex-row items-center justify-between p-6 md:justify-start md:gap-10">
           <div className="flex flex-1">
             <div className="flex items-center justify-between">
-              <h1 className="text-foreground text-2xl font-bold">
-                {t('settings:title')}
-              </h1>
+              <h1 className="text-foreground text-2xl font-bold">Settings</h1>
               <Button
                 variant="solid"
                 onClick={() => setIsEditProfileOpen(true)}
                 className="ml-4"
               >
-                {t('settings:editProfile')}
+                Edit Profile
               </Button>
             </div>
           </div>
           <div className="flex flex-row items-center justify-end gap-6">
-            <LanguageChanger />
             <ColorModeChanger />
           </div>
         </div>

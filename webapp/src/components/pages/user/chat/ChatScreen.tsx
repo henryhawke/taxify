@@ -3,7 +3,7 @@ import ChatBox from '@/components/pages/user/chat/ChatBox'
 import { useCallback, useEffect, useState } from 'react'
 import { userState } from '@/store/user'
 import { useRecoilValue } from 'recoil'
-import useToastMessage from '@/hooks/useToastMessage'
+import { useToastMessage } from '@/hooks/useToastMessage'
 import {
   DocumentData,
   QueryDocumentSnapshot,

@@ -22,10 +22,6 @@ export const defaultMainNav = [
 
 export const commonFooterNav = [
   {
-    name: 'navs.commonFooterNav.news',
-    href: '/news/',
-  },
-  {
     name: 'navs.commonFooterNav.doc',
     href: '/doc/',
   },

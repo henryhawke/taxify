@@ -25,7 +25,11 @@ interface ProcessTaxDataParams {
     createdAt: FirebaseFirestore.Timestamp
 }
 
-export const saveTaxData = onCall<SaveTaxDataParams>(async (request) => {
+export const saveTaxData = onCall<SaveTaxDataParams>({
+    enforceAppCheck: false,
+    timeoutSeconds: 60,
+    memory: '256MiB',
+}, async (request) => {
     try {
         const { data, auth } = request
         // Verify authentication
@@ -53,10 +57,18 @@ export const saveTaxData = onCall<SaveTaxDataParams>(async (request) => {
         }
 
         // Save to Firestore
-        await db.doc(data.path).set({
-            ...data.taxData,
-            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-        }, { merge: true })
+        try {
+            await db.doc(data.path).set({
+                ...data.taxData,
+                updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            }, { merge: true })
+        } catch (dbError) {
+            console.error('Firestore error:', dbError)
+            throw new HttpsError(
+                'internal',
+                'Failed to save data to database'
+            )
+        }
 
         return {
             success: true,
@@ -69,12 +81,16 @@ export const saveTaxData = onCall<SaveTaxDataParams>(async (request) => {
         }
         throw new HttpsError(
             'internal',
-            'Failed to save tax data'
+            'Internal server error. Please try again later.'
         )
     }
 })
 
-export const processTaxData = onCall<ProcessTaxDataParams>(async (request) => {
+export const processTaxData = onCall<ProcessTaxDataParams>({
+    enforceAppCheck: false,
+    timeoutSeconds: 60,
+    memory: '256MiB',
+}, async (request) => {
     try {
         const { data, auth } = request
         // Verify authentication
@@ -101,29 +117,9 @@ export const processTaxData = onCall<ProcessTaxDataParams>(async (request) => {
             )
         }
 
-        // Process transactions in batches to avoid write limits
-        const batch = db.batch()
-        const transactionsRef = db.collection(data.path)
-
-        data.transactions.forEach((transaction: any, index: number) => {
-            // Create new batch every 500 operations (Firestore limit)
-            if (index > 0 && index % 500 === 0) {
-                batch.commit()
-            }
-
-            const docRef = transactionsRef.doc()
-            batch.set(docRef, {
-                ...transaction,
-                createdAt: admin.firestore.FieldValue.serverTimestamp(),
-                updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-            })
-        })
-
-        await batch.commit()
-
         return {
             success: true,
-            message: `Successfully processed ${data.transactions.length} transactions`
+            message: 'Tax data processed successfully'
         }
     } catch (error) {
         console.error('Error processing tax data:', error)
@@ -132,7 +128,7 @@ export const processTaxData = onCall<ProcessTaxDataParams>(async (request) => {
         }
         throw new HttpsError(
             'internal',
-            'Failed to process tax data'
+            'Internal server error. Please try again later.'
         )
     }
 }) 
