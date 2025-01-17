@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Box, Button, Paper, Typography, CircularProgress } from '@mui/material'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
@@ -7,12 +7,24 @@ import { auth } from '@/lib/firebase'
 import { useToastMessage } from '@/hooks/useToastMessage'
 import Image from 'next/image'
 import TaxfyLogo from '/logo.png'
+import dynamic from 'next/dynamic'
+
+// Dynamically import WalletMultiButton with no SSR
+const WalletMultiButtonDynamic = dynamic(
+  () => import('@solana/wallet-adapter-react-ui').then((mod) => mod.WalletMultiButton),
+  { ssr: false }
+)
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [authError, setAuthError] = useState<Error | null>(null)
+  const [mounted, setMounted] = useState(false)
   const { connected, connecting } = useWallet()
   const addToast = useToastMessage()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleSignIn = async () => {
     try {
@@ -48,6 +60,10 @@ export default function LoginForm() {
     }
   }
 
+  if (!mounted) {
+    return null
+  }
+
   return (
     <Box
       sx={{
@@ -73,7 +89,7 @@ export default function LoginForm() {
           borderRadius: 3,
         }}
       >
-        <Image src={TaxfyLogo} alt="Taxfy Logo" width={120} height={40} priority />
+        <Image src="/logo.png" alt="Taxfy Logo" width={120} height={40} priority />
         
         <Typography variant="h5" component="h1" align="center" gutterBottom>
           Welcome to Taxfy
@@ -84,7 +100,7 @@ export default function LoginForm() {
         </Typography>
 
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <WalletMultiButton 
+          <WalletMultiButtonDynamic 
             style={{
               width: '100%',
               height: '48px',
