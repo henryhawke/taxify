@@ -1,4 +1,6 @@
-import '@/lib/firebase'
+import '@/assets/styles/globals.css'
+import '@/styles/globals.css'
+import '@solana/wallet-adapter-react-ui/styles.css'
 import type { AppProps } from 'next/app'
 import { ThemeProvider } from '@mui/material/styles'
 import { StyledEngineProvider } from '@mui/material/styles'
@@ -15,8 +17,7 @@ import {
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets'
 import { useMemo } from 'react'
-
-require('@solana/wallet-adapter-react-ui/styles.css')
+import Layout from '@/layouts/Layout'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -28,6 +29,7 @@ interface MyAppProps extends AppProps {
 export default function App({
   Component,
   pageProps,
+  router,
   emotionCache = clientSideEmotionCache,
 }: MyAppProps) {
   const wallets = useMemo(() => [new PhantomWalletAdapter()], [])
@@ -43,7 +45,7 @@ export default function App({
               <ConnectionProvider endpoint={endpoint}>
                 <WalletProvider wallets={wallets} autoConnect>
                   <WalletModalProvider>
-                    <Component {...pageProps} />
+                    <Layout Component={Component} pageProps={pageProps} router={router} />
                   </WalletModalProvider>
                 </WalletProvider>
               </ConnectionProvider>

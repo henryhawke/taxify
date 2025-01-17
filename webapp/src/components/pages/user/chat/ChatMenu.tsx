@@ -13,10 +13,10 @@ export default function ChatMenu({ onCreateChat }: ChatMenuProps) {
 
   const handleSubmit = useCallback(async () => {
     if (!title.trim()) {
-      addToast({
+          addToast({
         title: 'Error',
         description: 'Please enter a title',
-        type: 'error',
+            type: 'error',
       })
       return
     }
@@ -25,10 +25,10 @@ export default function ChatMenu({ onCreateChat }: ChatMenuProps) {
       setIsLoading(true)
       await onCreateChat(title)
       setTitle('')
-      addToast({
+          addToast({
         title: 'Success',
         description: 'Chat created successfully',
-        type: 'success',
+            type: 'success',
       })
     } catch (error) {
           addToast({

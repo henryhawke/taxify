@@ -5,7 +5,8 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import { signInWithCustomToken } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
 import { useToastMessage } from '@/hooks/useToastMessage'
-import SolanaLogoHorizontal from '@/components/common/atoms/SolanaLogoHorizontal'
+import Image from 'next/image'
+import TaxfyLogo from '/logo.png'
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
@@ -17,13 +18,6 @@ export default function LoginForm() {
     try {
       setIsLoading(true)
       setAuthError(null)
-
-      // Here you would typically:
-      // 1. Get a message to sign from your backend
-      // 2. Sign it with the wallet
-      // 3. Send the signature to your backend
-      // 4. Get a Firebase custom token
-      // 5. Sign in with that token
 
       const response = await fetch('/api/auth/login', {
         method: 'POST',
@@ -75,37 +69,46 @@ export default function LoginForm() {
           flexDirection: 'column',
           alignItems: 'center',
           gap: 3,
+          bgcolor: 'background.paper',
+          borderRadius: 3,
         }}
       >
-        <SolanaLogoHorizontal className="h-12" />
+        <Image src={TaxfyLogo} alt="Taxfy Logo" width={120} height={40} priority />
+        
         <Typography variant="h5" component="h1" align="center" gutterBottom>
           Welcome to Taxfy
         </Typography>
-        <Typography
-          variant="body1"
-          align="center"
-          color="text.secondary"
-          paragraph
-        >
+        
+        <Typography variant="body1" align="center" color="text.secondary" sx={{ maxWidth: 300 }}>
           Connect your Phantom wallet to calculate your crypto taxes
         </Typography>
 
-        <Box
-          sx={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-          }}
-        >
-          <WalletMultiButton className="phantom-button" />
+        <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <WalletMultiButton 
+            style={{
+              width: '100%',
+              height: '48px',
+              justifyContent: 'center',
+              backgroundColor: '#1e293b',
+              border: '1px solid #334155',
+              transition: 'all 0.2s ease',
+              color: '#f1f5f9',
+            }}
+          />
+          
           <Button
             variant="contained"
             color="primary"
             fullWidth
             onClick={handleSignIn}
             disabled={!connected || connecting || isLoading}
-            sx={{ height: 48 }}
+            sx={{ 
+              height: 48,
+              bgcolor: 'primary.main',
+              '&:hover': {
+                bgcolor: 'primary.dark',
+              },
+            }}
           >
             {isLoading ? (
               <CircularProgress size={24} color="inherit" />

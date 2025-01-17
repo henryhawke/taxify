@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles'
 
 export const theme = createTheme({
     palette: {
-        mode: 'light',
+        mode: 'dark',
         primary: {
             main: '#7c3aed',
             light: '#9d5cf5',
@@ -14,12 +14,12 @@ export const theme = createTheme({
             dark: '#059669',
         },
         background: {
-            default: '#ffffff',
-            paper: '#f8fafc',
+            default: '#0f172a',
+            paper: '#1e293b',
         },
         text: {
-            primary: '#0f172a',
-            secondary: '#475569',
+            primary: '#f1f5f9',
+            secondary: '#94a3b8',
         },
     },
     typography: {
@@ -55,25 +55,25 @@ export const theme = createTheme({
                 body: {
                     scrollbarColor: "#6b6b6b #2b2b2b",
                     "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
-                        backgroundColor: "#f8fafc",
+                        backgroundColor: "#1e293b",
                     },
                     "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
                         borderRadius: 8,
-                        backgroundColor: "#6b6b6b",
+                        backgroundColor: "#475569",
                         minHeight: 24,
-                        border: "3px solid #f8fafc",
+                        border: "3px solid #1e293b",
                     },
                     "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus": {
-                        backgroundColor: "#959595",
+                        backgroundColor: "#64748b",
                     },
                     "&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active": {
-                        backgroundColor: "#959595",
+                        backgroundColor: "#64748b",
                     },
                     "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover": {
-                        backgroundColor: "#959595",
+                        backgroundColor: "#64748b",
                     },
                     "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
-                        backgroundColor: "#2b2b2b",
+                        backgroundColor: "#1e293b",
                     },
                 },
             },
@@ -91,8 +91,8 @@ export const theme = createTheme({
             styleOverrides: {
                 paper: {
                     backgroundImage: 'none',
-                    backgroundColor: '#f8fafc',
-                    borderRight: '1px solid #e2e8f0',
+                    backgroundColor: '#1e293b',
+                    borderRight: '1px solid #334155',
                 },
             },
         },
@@ -100,7 +100,7 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: 12,
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05)',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
                 },
             },
         },
