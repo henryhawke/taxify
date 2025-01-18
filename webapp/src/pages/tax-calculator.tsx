@@ -113,9 +113,15 @@ export default function TaxCalculator() {
 
           // Add state tax information to the summary
           const updatedInfo = {
-            ...info,
+            address: publicKey.toString(),
+            year: selectedYear,
+            transactions: info.transactions || [],
             summary: {
-              ...info.summary,
+              shortTermGains: info.summary.shortTermGains || 0,
+              longTermGains: info.summary.longTermGains || 0,
+              totalIncome: info.summary.totalIncome || 0,
+              totalFees: info.summary.totalFees || 0,
+              taxableEvents: info.summary.taxableEvents || [],
               stateTax,
               stateCode: selectedState,
               effectiveStateTaxRate,
@@ -135,30 +141,10 @@ export default function TaxCalculator() {
               throw new Error('Please sign in to save your tax information')
             }
 
-            // Validate tax info structure
-            if (!updatedInfo.address) {
-              throw new Error('Missing wallet address in tax information')
-            }
-            if (!updatedInfo.year) {
-              throw new Error('Missing year in tax information')
-            }
-            if (!updatedInfo.summary) {
-              throw new Error('Missing summary in tax information')
-            }
-            if (!updatedInfo.transactions) {
-              throw new Error('Missing transactions in tax information')
-            }
-            if (!Array.isArray(updatedInfo.transactions)) {
-              throw new Error('Transactions must be an array')
-            }
-
             // Log the data being sent for debugging
             console.log('Saving tax data:', {
               userId: user.uid,
-              address: updatedInfo.address,
-              year: updatedInfo.year,
-              summaryKeys: Object.keys(updatedInfo.summary),
-              transactionsLength: updatedInfo.transactions.length
+              taxInfo: updatedInfo
             })
 
             await taxifyFunctions.saveTaxData(user.uid, updatedInfo)

@@ -1,76 +1,69 @@
 import * as admin from 'firebase-admin'
-import { Request, Response } from 'express'
+import { onCall } from 'firebase-functions/v2/https'
 
-export async function saveTaxData(req: Request, res: Response) {
+export const saveTaxData = onCall(async (request) => {
     try {
-        const { userId, taxInfo } = req.body
+        const { userId, taxInfo } = request.data
+
+        console.log('Received data:', JSON.stringify(request.data, null, 2))
+
+        // Check if the user is trying to save their own data
+        if (!request.auth) {
+            throw new Error('Authentication required')
+        }
+
+        if (request.auth.uid !== userId) {
+            throw new Error('Users can only save their own tax data')
+        }
 
         // Validate request data
         if (!userId || typeof userId !== 'string') {
-            return res.status(400).json({
-                error: {
-                    code: 'invalid-argument',
-                    message: 'Missing or invalid userId'
-                }
-            })
+            throw new Error('Missing or invalid userId')
         }
 
         if (!taxInfo || typeof taxInfo !== 'object') {
-            return res.status(400).json({
-                error: {
-                    code: 'invalid-argument',
-                    message: 'Missing or invalid taxInfo'
-                }
-            })
+            throw new Error('Missing or invalid taxInfo')
         }
 
         // Validate required tax info fields
         const requiredFields = ['address', 'year', 'summary', 'transactions']
         for (const field of requiredFields) {
             if (!(field in taxInfo)) {
-                return res.status(400).json({
-                    error: {
-                        code: 'invalid-argument',
-                        message: `Missing required field: ${field}`
-                    }
-                })
+                throw new Error(`Missing required field: ${field}`)
             }
         }
 
         // Validate summary fields
-        const requiredSummaryFields = ['shortTermGains', 'longTermGains', 'totalIncome', 'totalFees', 'stateTax', 'stateCode', 'effectiveStateTaxRate']
+        const requiredSummaryFields = [
+            'shortTermGains',
+            'longTermGains',
+            'totalIncome',
+            'totalFees',
+            'stateTax',
+            'stateCode',
+            'effectiveStateTaxRate',
+            'taxableEvents'
+        ]
+
         for (const field of requiredSummaryFields) {
             if (!(field in taxInfo.summary)) {
-                return res.status(400).json({
-                    error: {
-                        code: 'invalid-argument',
-                        message: `Missing required summary field: ${field}`
-                    }
-                })
+                throw new Error(`Missing required summary field: ${field}`)
             }
         }
 
         // Validate transactions array
         if (!Array.isArray(taxInfo.transactions)) {
-            return res.status(400).json({
-                error: {
-                    code: 'invalid-argument',
-                    message: 'Transactions must be an array'
-                }
-            })
+            throw new Error('Transactions must be an array')
         }
 
-        // Validate transaction fields
-        const requiredTransactionFields = ['type', 'timestamp', 'amount', 'price']
-        for (const transaction of taxInfo.transactions) {
-            for (const field of requiredTransactionFields) {
-                if (!(field in transaction)) {
-                    return res.status(400).json({
-                        error: {
-                            code: 'invalid-argument',
-                            message: `Missing required transaction field: ${field}`
-                        }
-                    })
+        // Validate transaction fields if there are any transactions
+        if (taxInfo.transactions.length > 0) {
+            const requiredTransactionFields = ['type', 'timestamp', 'amount', 'price']
+            for (const transaction of taxInfo.transactions) {
+                for (const field of requiredTransactionFields) {
+                    if (!(field in transaction)) {
+                        throw new Error(`Missing required transaction field: ${field}`)
+                    }
                 }
             }
         }
@@ -83,7 +76,7 @@ export async function saveTaxData(req: Request, res: Response) {
             ...taxInfo,
             createdAt: timestamp,
             updatedAt: timestamp,
-            userId: userId, // Add userId to the document for reference
+            userId: userId,
             lastModified: timestamp,
             status: 'completed'
         }
@@ -91,46 +84,31 @@ export async function saveTaxData(req: Request, res: Response) {
         // Save tax data to Firestore
         await db.collection('User').doc(userId).collection('TaxData').doc(taxInfo.year.toString()).set(taxData)
 
-        return res.status(200).json({
+        return {
             success: true,
             message: 'Tax data saved successfully',
             data: {
                 year: taxInfo.year,
                 timestamp: timestamp.toDate()
             }
-        })
+        }
     } catch (error) {
         console.error('Error saving tax data:', error)
-        return res.status(500).json({
-            error: {
-                code: 'internal',
-                message: error instanceof Error ? error.message : 'Failed to save data to database'
-            }
-        })
+        throw new Error(error instanceof Error ? error.message : 'Failed to save data to database')
     }
-}
+})
 
-export async function processTaxData(req: Request, res: Response) {
+export const processTaxData = onCall(async (request) => {
     try {
-        const { userId, year } = req.body
+        const { userId, year } = request.data
 
         // Validate request data
         if (!userId || typeof userId !== 'string') {
-            return res.status(400).json({
-                error: {
-                    code: 'invalid-argument',
-                    message: 'Missing or invalid userId'
-                }
-            })
+            throw new Error('Missing or invalid userId')
         }
 
         if (!year || typeof year !== 'number') {
-            return res.status(400).json({
-                error: {
-                    code: 'invalid-argument',
-                    message: 'Missing or invalid year'
-                }
-            })
+            throw new Error('Missing or invalid year')
         }
 
         const db = admin.firestore()
@@ -138,22 +116,15 @@ export async function processTaxData(req: Request, res: Response) {
         const taxData = await taxDataRef.get()
 
         if (!taxData.exists) {
-            return res.status(404).json({
-                error: {
-                    code: 'not-found',
-                    message: 'Tax data not found'
-                }
-            })
+            throw new Error('Tax data not found')
         }
 
-        return res.status(200).json({ success: true, data: taxData.data() })
+        return {
+            success: true,
+            data: taxData.data()
+        }
     } catch (error) {
         console.error('Error processing tax data:', error)
-        return res.status(500).json({
-            error: {
-                code: 'internal',
-                message: error instanceof Error ? error.message : 'Failed to process tax data'
-            }
-        })
+        throw new Error(error instanceof Error ? error.message : 'Failed to process tax data')
     }
-} 
+}) 

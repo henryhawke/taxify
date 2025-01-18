@@ -1,6 +1,7 @@
+import { AuthProvider } from '@/contexts/AuthContext'
 import DefaultLayout from '@/layouts/default/DefaultLayout'
 
-export default function ContactPage() {
+function ContactPageContent() {
   return (
     <DefaultLayout>
       <div className="container mx-auto px-4 py-8">
@@ -8,5 +9,13 @@ export default function ContactPage() {
         <p className="mt-4">Contact page content goes here.</p>
       </div>
     </DefaultLayout>
+  )
+}
+
+export default function ContactPage() {
+  return (
+    <AuthProvider>
+      <ContactPageContent />
+    </AuthProvider>
   )
 }

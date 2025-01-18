@@ -1,11 +1,12 @@
 import * as admin from 'firebase-admin'
 import * as taxFunctions from './tax'
-import { onRequest } from 'firebase-functions/v2/https'
+import { onCall, onRequest } from 'firebase-functions/v2/https'
 import { PublicKey } from '@solana/web3.js'
 import * as nacl from 'tweetnacl'
 import bs58 from 'bs58'
 import { https } from 'firebase-functions'
 import cors from 'cors'
+import { response } from 'express'
 // import { Response } from 'express'
 
 // Initialize Firebase Admin
@@ -20,39 +21,19 @@ if (!admin.apps.length) {
 // Simplified CORS configuration
 const corsHandler = cors({ origin: true })
 
-// Export tax functions with correct prefixes and CORS handling
-export const taxSaveTaxData = https.onRequest((req, res) => {
-    return corsHandler(req, res, async () => {
-        try {
-            const result = await taxFunctions.saveTaxData(req, res)
-            return res.status(200).json(result)
-        } catch (error) {
-            console.error('Error in taxSaveTaxData:', error)
-            return res.status(500).json({
-                error: {
-                    code: 'internal',
-                    message: error instanceof Error ? error.message : 'Internal server error'
-                }
-            })
-        }
-    })
+// Export tax functions with v2
+export const saveTaxData = onCall({
+    cors: ['http://localhost:4200', 'https://taxifyio.web.app'],
+    region: 'us-central1'
+}, async (request) => {
+    return taxFunctions.saveTaxData(request.data, response)
 })
 
-export const taxProcessTaxData = https.onRequest((req, res) => {
-    return corsHandler(req, res, async () => {
-        try {
-            const result = await taxFunctions.processTaxData(req, res)
-            return res.status(200).json(result)
-        } catch (error) {
-            console.error('Error in taxProcessTaxData:', error)
-            return res.status(500).json({
-                error: {
-                    code: 'internal',
-                    message: error instanceof Error ? error.message : 'Internal server error'
-                }
-            })
-        }
-    })
+export const processTaxData = onCall({
+    cors: ['http://localhost:4200', 'https://taxifyio.web.app'],
+    region: 'us-central1'
+}, async (request) => {
+    return taxFunctions.processTaxData(request.data, response)
 })
 
 // Next.js Server Handler
