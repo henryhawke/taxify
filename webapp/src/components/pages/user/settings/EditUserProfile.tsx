@@ -1,6 +1,6 @@
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { useTranslation } from 'next-i18next'
-import { Fragment, useState, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { useRecoilState } from 'recoil'
 import { userState } from '@/store/user'
 import { usernameSchema } from '@/utils/form'

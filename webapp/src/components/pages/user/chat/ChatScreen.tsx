@@ -25,7 +25,7 @@ export default function ChatScreen() {
   const user = useRecoilValue(userState)
 
   const [chatList, setChatList] = useState<ChatRoom[]>([])
-  const [lastChat, setLastChat] =
+  const [_lastChat, setLastChat] =
     useState<QueryDocumentSnapshot<DocumentData> | null>(null)
   const [isDataLoading, setDataLoading] = useState(false)
   const addToast = useToastMessage()
@@ -87,13 +87,15 @@ export default function ChatScreen() {
           setNewChatModalOpen={setNewChatModalOpen}
           currentChatRoomId={currentChatRoomId}
           setCurrentChatRoomId={setCurrentChatRoomId}
-          chatList={chatList}
-          setChatList={setChatList}
-          lastChat={lastChat}
-          setLastChat={setLastChat}
-          isDataLoading={isDataLoading}
-          setDataLoading={setDataLoading}
+          chatRooms={chatList}
+          setChatRooms={setChatList}
+          loading={isDataLoading}
+          error={null}
           getChatRooms={getChatRooms}
+          onCreateChat={async (title: string) => {
+            // TODO: Implement chat creation
+            console.log('Creating chat with title:', title)
+          }}
         />
         <ChatBox
           _setNewChatModalOpen={setNewChatModalOpen}

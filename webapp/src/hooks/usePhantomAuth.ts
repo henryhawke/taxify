@@ -8,7 +8,7 @@ export function usePhantomAuth() {
     const wallet = useWallet()
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState(true)
-    const [isAuthenticating, setIsAuthenticating] = useState(false)
+    const [_isAuthenticating, setIsAuthenticating] = useState(false)
     const [authError, setAuthError] = useState<Error | null>(null)
 
     useEffect(() => {

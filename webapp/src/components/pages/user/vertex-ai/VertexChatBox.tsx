@@ -13,12 +13,12 @@ import { useRecoilValue } from 'recoil'
 import { userState } from '@/store/user'
 
 import { chatContentSchema } from '@/utils/form'
-import { callTaxfyFunctions } from '@/lib/taxfy/functions'
+// import { taxifyFunctions } from '@/lib/taxfy/functions'
 import Image from 'next/image'
 import { ChatRoom } from './VertexChatMenu'
 import { z } from 'zod'
 import { useForm, Controller, Resolver } from 'react-hook-form'
-import { TextDecoder } from 'text-encoding'
+// import { TextDecoder } from 'text-encoding'
 import { useToastMessage } from '@/hooks/useToastMessage'
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
@@ -30,7 +30,7 @@ import remarkGfm from 'remark-gfm'
 import remarkDirective from 'remark-directive'
 import { sleep } from '@/utils/time'
 import VertexChatExamples from './VertexChatExamples'
-import { AddVertexMessageParams } from '../../../../../../common/types/http/addVertexMessageParams'
+// import { AddVertexMessageParams } from '../../../../../../common/types/http/addVertexMessageParams'
 import { db } from '@/lib/firebase'
 import { orderBy } from 'firebase/firestore'
 import {
@@ -71,7 +71,6 @@ export default function VertexChatBox({
 }: Props) {
   const { t } = useTranslation()
   const user = useRecoilValue(userState)
-  const [isLoading, setLoading] = useState(false)
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([])
   const [chatRoom, setChatRoom] = useState<ChatRoom | null>(null)
   const addToast = useToastMessage()
@@ -209,49 +208,49 @@ export default function VertexChatBox({
               },
             ]
           })
-          const res = await callTaxfyFunctions<AddVertexMessageParams>(
-            'taxfy',
-            'addVertexMessage',
-            {
-              vertexChatRoomId: _currentChatRoomId,
-              content: inputs.chatContent,
-            },
-          )
-          if (!res.data?.data?.body) {
-            throw new Error('No response body')
-          }
-          const reader = res.data.data.body.getReader()
-          const decoder = new TextDecoder('utf-8')
+          // const res = await Functions<AddVertexMessageParams>(
+          //   'taxfy',
+          //   'addVertexMessage',
+          //   {
+          //     vertexChatRoomId: _currentChatRoomId,
+          //     content: inputs.chatContent,
+          //   },
+          // )
+          // if (!res.data?.data?.body) {
+          //   throw new Error('No response body')
+          // }
+          // const reader = res.data.data.body.getReader()
+          // const decoder = new TextDecoder('utf-8')
 
-          while (true) {
-            const { value, done } = await reader.read()
-            if (done) break
-            try {
-              const dataString = decoder.decode(value)
-              if (dataString != 'Stream done') {
-                const data = JSON.parse(dataString)
-                setChatMessages((prev) => {
-                  const chunkSize = data?.text?.length
-                  if (prev[prev.length - 1].content.length === 0) {
-                    prev[prev.length - 1].content =
-                      prev[prev.length - 1].content + data.text
-                  }
-                  if (
-                    !prev[prev.length - 1].content
-                      .slice(chunkSize * -1)
-                      .includes(data.text)
-                  ) {
-                    prev[prev.length - 1].content =
-                      prev[prev.length - 1].content + data.text
-                  }
+          // while (true) {
+          //   const { value, done } = await reader.read()
+          //   if (done) break
+          //   try {
+          //     const dataString = decoder.decode(value)
+          //     if (dataString != 'Stream done') {
+          //       const data = JSON.parse(dataString)
+          //       setChatMessages((prev) => {
+          //         const chunkSize = data?.text?.length
+          //         if (prev[prev.length - 1].content.length === 0) {
+          //           prev[prev.length - 1].content =
+          //             prev[prev.length - 1].content + data.text
+          //         }
+          //         if (
+          //           !prev[prev.length - 1].content
+          //             .slice(chunkSize * -1)
+          //             .includes(data.text)
+          //         ) {
+          //           prev[prev.length - 1].content =
+          //             prev[prev.length - 1].content + data.text
+          //         }
 
-                  return [...prev]
-                })
-              }
-            } catch (e) {
-              console.warn(e)
-            }
-          }
+          //         return [...prev]
+          //       })
+          //     }
+          //   } catch (e) {
+          //     console.warn(e)
+          //   }
+          // }
 
           if (chatRoom && chatRoom.title == '') {
             await sleep(200)

@@ -1,134 +1,75 @@
-import { onCall, HttpsError } from 'firebase-functions/v2/https'
 import * as admin from 'firebase-admin'
-import { WalletTaxInfo } from '../../../src/types/tax'
+import { Request, Response } from 'express'
 
-// Initialize Firebase Admin if not already initialized
-if (!admin.apps.length) {
-    admin.initializeApp()
-}
-
-const db = admin.firestore()
-
-interface SaveTaxDataParams {
-    userId: string
-    taxData: WalletTaxInfo & {
-        createdAt: FirebaseFirestore.Timestamp
-        updatedAt: FirebaseFirestore.Timestamp
-    }
-    path: string
-}
-
-interface ProcessTaxDataParams {
-    userId: string
-    transactions: any[]
-    path: string
-    createdAt: FirebaseFirestore.Timestamp
-}
-
-export const saveTaxData = onCall<SaveTaxDataParams>({
-    enforceAppCheck: false,
-    timeoutSeconds: 60,
-    memory: '256MiB',
-}, async (request) => {
+export async function saveTaxData(req: Request, res: Response) {
     try {
-        const { data, auth } = request
-        // Verify authentication
-        if (!auth) {
-            throw new HttpsError(
-                'unauthenticated',
-                'User must be authenticated to save tax data'
-            )
+        const { userId, taxInfo } = req.body
+
+        if (!userId || !taxInfo) {
+            return res.status(400).json({
+                error: {
+                    code: 'invalid-argument',
+                    message: 'Missing required fields: userId and taxInfo'
+                }
+            })
         }
 
-        // Verify user is saving their own data
-        if (auth.uid !== data.userId) {
-            throw new HttpsError(
-                'permission-denied',
-                'Users can only save their own tax data'
-            )
-        }
+        const db = admin.firestore()
+        const timestamp = admin.firestore.Timestamp.now()
 
-        // Validate required data
-        if (!data.taxData || !data.path) {
-            throw new HttpsError(
-                'invalid-argument',
-                'Missing required tax data or path'
-            )
-        }
+        // Save tax data to Firestore
+        await db.collection('User').doc(userId).collection('TaxData').doc(taxInfo.year.toString()).set({
+            ...taxInfo,
+            createdAt: timestamp,
+            updatedAt: timestamp
+        })
 
-        // Save to Firestore
-        try {
-            await db.doc(data.path).set({
-                ...data.taxData,
-                updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-            }, { merge: true })
-        } catch (dbError) {
-            console.error('Firestore error:', dbError)
-            throw new HttpsError(
-                'internal',
-                'Failed to save data to database'
-            )
-        }
-
-        return {
-            success: true,
-            message: 'Tax data saved successfully'
-        }
+        return res.status(200).json({ success: true, message: 'Tax data saved successfully' })
     } catch (error) {
         console.error('Error saving tax data:', error)
-        if (error instanceof HttpsError) {
-            throw error
-        }
-        throw new HttpsError(
-            'internal',
-            'Internal server error. Please try again later.'
-        )
+        return res.status(500).json({
+            error: {
+                code: 'internal',
+                message: error instanceof Error ? error.message : 'Failed to save data to database'
+            }
+        })
     }
-})
+}
 
-export const processTaxData = onCall<ProcessTaxDataParams>({
-    enforceAppCheck: false,
-    timeoutSeconds: 60,
-    memory: '256MiB',
-}, async (request) => {
+export async function processTaxData(req: Request, res: Response) {
     try {
-        const { data, auth } = request
-        // Verify authentication
-        if (!auth) {
-            throw new HttpsError(
-                'unauthenticated',
-                'User must be authenticated to process tax data'
-            )
+        const { userId, year } = req.body
+
+        if (!userId || !year) {
+            return res.status(400).json({
+                error: {
+                    code: 'invalid-argument',
+                    message: 'Missing required fields: userId and year'
+                }
+            })
         }
 
-        // Verify user is processing their own data
-        if (auth.uid !== data.userId) {
-            throw new HttpsError(
-                'permission-denied',
-                'Users can only process their own tax data'
-            )
+        const db = admin.firestore()
+        const taxDataRef = db.collection('User').doc(userId).collection('TaxData').doc(year.toString())
+        const taxData = await taxDataRef.get()
+
+        if (!taxData.exists) {
+            return res.status(404).json({
+                error: {
+                    code: 'not-found',
+                    message: 'Tax data not found'
+                }
+            })
         }
 
-        // Validate required data
-        if (!data.transactions || !data.transactions.length || !data.path) {
-            throw new HttpsError(
-                'invalid-argument',
-                'Missing required transactions or path'
-            )
-        }
-
-        return {
-            success: true,
-            message: 'Tax data processed successfully'
-        }
+        return res.status(200).json({ success: true, data: taxData.data() })
     } catch (error) {
         console.error('Error processing tax data:', error)
-        if (error instanceof HttpsError) {
-            throw error
-        }
-        throw new HttpsError(
-            'internal',
-            'Internal server error. Please try again later.'
-        )
+        return res.status(500).json({
+            error: {
+                code: 'internal',
+                message: error instanceof Error ? error.message : 'Failed to process tax data'
+            }
+        })
     }
-}) 
+} 

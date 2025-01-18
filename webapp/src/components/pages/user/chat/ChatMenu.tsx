@@ -1,8 +1,30 @@
-import { useState, useCallback } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useCallback, Dispatch, SetStateAction } from 'react'
 import { Box, Button, TextField } from '@mui/material'
 import { useToastMessage } from '@/hooks/useToastMessage'
 
-interface ChatMenuProps {
+export interface ChatRoom {
+  id: string
+  title: string
+  model: string
+  context: string
+  maxTokens: number
+  temperature: number
+  createdAt?: Date
+  updatedAt?: Date
+  messages?: any[]
+}
+
+export interface ChatMenuProps {
+  isNewChatModalOpen: boolean
+  setNewChatModalOpen: Dispatch<SetStateAction<boolean>>
+  currentChatRoomId: string | null
+  setCurrentChatRoomId: Dispatch<SetStateAction<string | null>>
+  chatRooms: ChatRoom[]
+  setChatRooms: Dispatch<SetStateAction<ChatRoom[]>>
+  loading: boolean
+  error: string | null
+  getChatRooms: () => Promise<void>
   onCreateChat: (title: string) => Promise<void>
 }
 

@@ -1,128 +1,62 @@
-import { functions } from '@/lib/firebase'
-import { httpsCallable, HttpsCallableResult } from 'firebase/functions'
-import { FirebaseError } from 'firebase/app'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { WalletTaxInfo } from '@/types/tax'
-//import { TaxTransaction } from '@/common/models/taxModels'
-import { Timestamp } from 'firebase/firestore'
 
-interface FunctionResponse {
-  data?: {
-    body?: ReadableStream
-  }
+interface FunctionResponse<T = any> {
+  success: boolean
+  data?: T
   error?: {
+    code: string
     message: string
-    code?: string
   }
-  success?: boolean
-  message?: string
 }
 
-export const callTaxfyFunctions = async <T>(
-  category: string,
-  methodName: string,
-  params: T,
-): Promise<HttpsCallableResult<FunctionResponse>> => {
+export async function callTaxfyFunctions<T>(path: string, data: any): Promise<FunctionResponse<T>> {
   try {
-    if (!functions) {
-      throw new Error('Firebase Functions not initialized')
+    const response = await fetch(`http://localhost:5001/taxifyio/us-central1/${path}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+
+    if (!response.ok) {
+      const errorData = await response.json()
+      throw new Error(errorData.error?.message || 'Function call failed')
     }
 
-    // Format the function name correctly: categoryMethodName
-    const functionName = `${category}${methodName.charAt(0).toUpperCase()}${methodName.slice(1)}`
-    const callableFunction = httpsCallable(functions, functionName)
-
-    const res = await callableFunction(params) as HttpsCallableResult<FunctionResponse>
-
-    if (!res.data) {
-      throw new Error('No data returned from function')
-    }
-
-    // Check for error in response data
-    if (res.data.error) {
-      throw new FirebaseError(
-        res.data.error.code || 'functions/internal',
-        res.data.error.message || 'Internal server error'
-      )
-    }
-
-    return res
-  } catch (err) {
-    console.error('callTaxfyFunctions error:', err)
-    if (err instanceof FirebaseError) {
-      throw err // Re-throw Firebase errors as is
-    }
-    if (err instanceof Error) {
-      throw new FirebaseError(
-        'functions/internal',
-        err.message || 'Function call failed'
-      )
-    }
-    throw new FirebaseError(
-      'functions/unknown',
-      'An unexpected error occurred'
-    )
+    return await response.json()
+  } catch (error) {
+    console.error(`Error calling ${path}:`, error)
+    throw error
   }
 }
 
 export const taxifyFunctions = {
-  async saveTaxData(userId: string, taxInfo: WalletTaxInfo) {
+  saveTaxData: async (userId: string, taxInfo: WalletTaxInfo) => {
     if (!userId || !taxInfo) {
-      throw new Error('Missing required parameters')
+      throw new Error('Missing required parameters: userId and taxInfo')
     }
 
-    try {
-      // Validate tax info structure
-      if (!taxInfo.address || !taxInfo.year || !taxInfo.summary || !taxInfo.transactions) {
-        throw new Error('Invalid tax information structure')
-      }
+    console.log('Saving tax data:', {
+      userId,
+      taxInfo
+    })
 
-      // Structure the data according to Firestore rules
-      const taxData = {
-        userId,
-        walletAddress: taxInfo.address,
-        year: taxInfo.year,
-        summary: taxInfo.summary,
-        transactions: taxInfo.transactions,
-        createdAt: Timestamp.now(),
-        updatedAt: Timestamp.now(),
-      }
+    return callTaxfyFunctions('taxSaveTaxData', {
+      userId,
+      taxInfo
+    })
+  },
 
-      const result = await callTaxfyFunctions('tax', 'saveTaxData', {
-        userId,
-        taxData,
-        path: `users/${userId}/taxData/${taxInfo.year}`
-      })
-
-      if (!result.data) {
-        throw new Error('No data returned from function')
-      }
-
-      // Check for success flag in response
-      if (!result.data.success) {
-        throw new Error(result.data.message || 'Failed to save tax data')
-      }
-
-      return result.data
-    } catch (err) {
-      console.error('Error saving tax data:', err)
-
-      if (err instanceof FirebaseError) {
-        // Re-throw Firebase errors with proper error code
-        throw err
-      }
-
-      // Convert other errors to Firebase errors
-      if (err instanceof Error) {
-        throw new FirebaseError(
-          'internal',
-          `Failed to save tax data: ${err.message}`
-        )
-      }
-
-      throw new FirebaseError(
-        'unknown',
-        'An unexpected error occurred while saving tax data'
-      )
+  processTaxData: async (userId: string, year: number) => {
+    if (!userId || !year) {
+      throw new Error('Missing required parameters: userId and year')
     }
+
+    return callTaxfyFunctions('taxProcessTaxData', {
+      userId,
+      year
+    })
   }
 }

@@ -23,7 +23,7 @@ export default async function handler(
 
         // Generate a random nonce
         const nonce = randomBytes(32).toString('base64')
-        
+
         // Store the nonce using Admin SDK
         const db = getFirestore()
         await db.collection('nonces').doc(publicKey).set({

@@ -8,7 +8,7 @@ import { useToastMessage } from '@/hooks/useToastMessage'
 import SolanaLogoHorizontal from '@/components/common/atoms/SolanaLogoHorizontal'
 
 export default function LoginScreen() {
-  const [mounted, setMounted] = useState(false)
+  const [mounted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [authError, setAuthError] = useState<Error | null>(null)
   const { connected, connecting } = useWallet()

@@ -54,11 +54,11 @@ const WalletMultiButton = dynamic(
 
 export default function TaxCalculator() {
   const { connected, publicKey } = useWallet()
-  const { user } = useAuth()
+  const { user, isAuthenticated } = useAuth()
   const [loading, setLoading] = useState(false)
   const [taxInfo, setTaxInfo] = useState<WalletTaxInfo | null>(null)
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
-  const [selectedState, setSelectedState] = useState('CA')
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear() - 1)
+  const [selectedState, setSelectedState] = useState('North Carolina')
   const [error, setError] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
   const addToast = useToastMessage()
@@ -70,7 +70,7 @@ export default function TaxCalculator() {
 
   useEffect(() => {
     async function fetchTaxInfo() {
-      if (connected && publicKey && user) {
+      if (connected && publicKey && user && isAuthenticated) {
         setLoading(true)
         setError(null)
         try {
@@ -129,6 +129,37 @@ export default function TaxCalculator() {
               throw new Error('User not authenticated')
             }
 
+            // Ensure we have a valid auth state
+            if (!isAuthenticated) {
+              throw new Error('Please sign in to save your tax information')
+            }
+
+            // Validate tax info structure
+            if (!updatedInfo.address) {
+              throw new Error('Missing wallet address in tax information')
+            }
+            if (!updatedInfo.year) {
+              throw new Error('Missing year in tax information')
+            }
+            if (!updatedInfo.summary) {
+              throw new Error('Missing summary in tax information')
+            }
+            if (!updatedInfo.transactions) {
+              throw new Error('Missing transactions in tax information')
+            }
+            if (!Array.isArray(updatedInfo.transactions)) {
+              throw new Error('Transactions must be an array')
+            }
+
+            // Log the data being sent for debugging
+            console.log('Saving tax data:', {
+              userId: user.uid,
+              address: updatedInfo.address,
+              year: updatedInfo.year,
+              summaryKeys: Object.keys(updatedInfo.summary),
+              transactionsLength: updatedInfo.transactions.length
+            })
+
             await taxifyFunctions.saveTaxData(user.uid, updatedInfo)
             addToast({
               title: 'Success',
@@ -137,15 +168,18 @@ export default function TaxCalculator() {
             })
           } catch (error) {
             console.error('Error saving tax data:', error)
-            let errorMessage =
-              'Failed to save tax information. Please try again later.'
+            let errorMessage = 'Failed to save tax information. Please try again later.'
 
             if (error instanceof FirebaseError) {
+              console.error('Firebase Error Details:', {
+                code: error.code,
+                message: error.message
+              })
+
               switch (error.code) {
                 case 'functions/internal':
                 case 'internal':
-                  errorMessage =
-                    'Internal server error. Please try again later.'
+                  errorMessage = 'Server error while saving tax data. Please try again later.'
                   break
                 case 'functions/unauthenticated':
                 case 'unauthenticated':
@@ -153,14 +187,22 @@ export default function TaxCalculator() {
                   break
                 case 'functions/permission-denied':
                 case 'permission-denied':
-                  errorMessage =
-                    'You do not have permission to save this tax information.'
+                  errorMessage = 'You do not have permission to save this tax information.'
+                  break
+                case 'functions/invalid-argument':
+                  errorMessage = 'Invalid tax data format. Please try again.'
+                  break
+                case 'functions/unavailable':
+                  errorMessage = 'Service is temporarily unavailable. Please try again later.'
+                  break
+                case 'functions/deadline-exceeded':
+                  errorMessage = 'Request timed out. Please try again.'
                   break
                 default:
-                  errorMessage = error.message || errorMessage
+                  errorMessage = `Error: ${error.message || 'Unknown error occurred'}`
               }
             } else if (error instanceof Error) {
-              errorMessage = error.message
+              errorMessage = `Error: ${error.message}`
             }
 
             setError(errorMessage)
@@ -169,7 +211,6 @@ export default function TaxCalculator() {
               description: errorMessage,
               type: 'error',
             })
-            return
           }
         } catch (error) {
           console.error('Error in tax calculator:', error)
@@ -200,6 +241,7 @@ export default function TaxCalculator() {
     addToast,
     mounted,
     user,
+    isAuthenticated,
   ])
 
   if (!mounted) {
@@ -278,9 +320,9 @@ export default function TaxCalculator() {
                     label="State"
                     onChange={(e) => setSelectedState(e.target.value as string)}
                   >
-                    {Object.keys(STATE_TAX_RATES).map((state) => (
+                    {Object.entries(STATE_TAX_RATES).map(([state, info]) => (
                       <MenuItem key={state} value={state}>
-                        {state}
+                        {info}
                       </MenuItem>
                     ))}
                   </Select>

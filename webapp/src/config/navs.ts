@@ -7,6 +7,7 @@ import {
   HomeIcon,
   RocketLaunchIcon,
   WalletIcon,
+  UserIcon,
 } from '@heroicons/react/24/outline'
 
 export const defaultMainNav = [
@@ -67,6 +68,11 @@ export const docHeaderNav = [
 ]
 
 export const userMenuNav = [
+  {
+    name: 'user:menuNav.profile',
+    href: '/user/profile/',
+    icon: UserIcon,
+  },
   {
     name: 'user:menuNav.vertexAi',
     href: '/user/vertex-ai/',

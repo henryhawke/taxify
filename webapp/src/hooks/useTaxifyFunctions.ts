@@ -6,32 +6,12 @@ type SignInData = {
     password: string
 }
 
-type ChatMessage = {
-    content: string
-    roomId: string
-}
-
-type VertexMessage = {
-    content: string
-    roomId: string
-}
-
 export function useTaxifyFunctions() {
-    const createSignInData = useCallback(async (data: SignInData) => {
-        return await callTaxfyFunctions('taxfy', 'createSignInData', data)
-    }, [])
-
-    const createChatMessage = useCallback(async (data: ChatMessage) => {
-        return await callTaxfyFunctions('taxfy', 'createChatMessage', data)
-    }, [])
-
-    const createVertexMessage = useCallback(async (data: VertexMessage) => {
-        return await callTaxfyFunctions('taxfy', 'createVertexMessage', data)
+    const signIn = useCallback(async (data: SignInData) => {
+        return callTaxfyFunctions<{ token: string }>('auth/signIn', data)
     }, [])
 
     return {
-        createSignInData,
-        createChatMessage,
-        createVertexMessage,
+        signIn
     }
 } 

@@ -1,5 +1,6 @@
 {
   "menuNav": {
+    "profile": "Profile",
     "chat": "Open AI Chat",
     "vertexAi": "Vertex AI Chat",
     "solana-nft": "SOLANA NFT",

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PublicKey } from '@solana/web3.js'
+// import { PublicKey } from '@solana/web3.js'
 import { auth } from '@/lib/firebase'
 import { signInWithCustomToken } from 'firebase/auth'
 import bs58 from 'bs58'
