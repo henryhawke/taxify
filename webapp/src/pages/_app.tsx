@@ -8,6 +8,7 @@ import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets'
 import { MuiThemeProvider } from '@/components/providers/MuiThemeProvider'
 import { ToastProvider } from '@/hooks/useToastMessage'
+import { AuthProvider } from '@/contexts/AuthContext'
 import { useMemo } from 'react'
 import '@/styles/globals.css'
 import '../lib/i18n' // Import i18n configuration
@@ -23,7 +24,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} autoConnect>
               <WalletModalProvider>
-                <Component {...pageProps} />
+                <AuthProvider>
+                  <Component {...pageProps} />
+                </AuthProvider>
               </WalletModalProvider>
             </WalletProvider>
           </ConnectionProvider>

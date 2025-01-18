@@ -8,6 +8,7 @@ import {
   RocketLaunchIcon,
   WalletIcon,
   UserIcon,
+  CurrencyDollarIcon,
 } from '@heroicons/react/24/outline'
 
 export const defaultMainNav = [
@@ -69,25 +70,30 @@ export const docHeaderNav = [
 
 export const userMenuNav = [
   {
+    name: 'Tax Calculator',
+    href: '/console/calculator',
+    icon: CurrencyDollarIcon,
+  },
+  {
     name: 'Tax Chat Assistant',
-    href: '/user/chat/',
+    href: '/console/chat',
     icon: ChatBubbleLeftRightIcon,
   },
   {
     name: 'NFT Portfolio',
-    href: '/user/solana-nft/',
+    href: '/console/portfolio',
     icon: WalletIcon,
   },
   {
     name: 'Account Settings',
-    href: '/user/settings/',
+    href: '/console/settings',
     icon: Cog8ToothIcon,
   },
 ]
 
 export const userHeaderNav = [
   {
-    name: 'user:headerNav.settings',
-    href: '/user/settings/',
+    name: 'Account Settings',
+    href: '/console/settings',
   },
 ]

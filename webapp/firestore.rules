@@ -18,10 +18,10 @@ service cloud.firestore {
 
     // Match user documents
     match /users/{userId} {
-      // Allow users to create their initial profile and service account to update
-      allow create: if true;
-      allow update: if isOwner(userId) || isServiceAccount();
-      allow read, delete: if isOwner(userId);
+      // Allow authenticated users to read profiles and owners to write
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isOwner(userId) || isServiceAccount();
 
       // Match tax data subcollection
       match /taxData/{document=**} {
@@ -33,6 +33,13 @@ service cloud.firestore {
       match /transactions/{document=**} {
         // Only allow users to read and write their own transactions
         allow read, write: if isOwner(userId);
+      }
+
+      // Match profile subcollection
+      match /profile/{document=**} {
+        // Allow authenticated users to read profiles, but only owners can write
+        allow read: if isAuthenticated();
+        allow write: if isOwner(userId);
       }
     }
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useRouter } from 'next/router'
 import DefaultLayout from '@/layouts/default/DefaultLayout'
 import HeroRow from '@/components/pages/home/HeroRow'
@@ -6,18 +6,15 @@ import StatsRow from '@/components/pages/home/StatsRow'
 import FeaturesRow from '@/components/pages/home/FeaturesRow'
 import ServiceOverview from '@/components/pages/home/ServiceOverview'
 import DiscordRow from '@/components/pages/common/DiscordRow'
-import { useAuth } from '@/hooks/useAuth'
-import { AuthProvider } from '@/contexts/AuthContext'
+import { useAuthContext } from '@/contexts/AuthContext'
 
-function HomePageContent() {
-  const router = useRouter()
-  const { user } = useAuth()
+export default function HomePage() {
+  const { status } = useAuthContext()
 
-  useEffect(() => {
-    if (user) {
-      router.push('/tax-calculator')
-    }
-  }, [user, router])
+  // Don't render anything while checking auth status
+  if (status === 'loading') {
+    return null
+  }
 
   return (
     <DefaultLayout>
@@ -27,13 +24,5 @@ function HomePageContent() {
       <ServiceOverview />
       <DiscordRow />
     </DefaultLayout>
-  )
-}
-
-export default function HomePage() {
-  return (
-    <AuthProvider>
-      <HomePageContent />
-    </AuthProvider>
   )
 }

@@ -8,6 +8,7 @@ import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import bs58 from 'bs58'
+import { useAuthContext } from '@/contexts/AuthContext'
 
 // Dynamically import WalletMultiButton with no SSR
 const WalletMultiButtonDynamic = dynamic(
@@ -22,10 +23,18 @@ export default function LoginForm() {
   const { connected, connecting, publicKey, signMessage } = useWallet()
   const addToast = useToastMessage()
   const router = useRouter()
+  const { status } = useAuthContext()
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  // Handle auth state changes
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.push('/console/calculator')
+    }
+  }, [status, router])
 
   const handleSignIn = async () => {
     if (!publicKey || !signMessage) {
@@ -36,6 +45,9 @@ export default function LoginForm() {
       })
       return
     }
+
+    // Prevent double sign-in
+    if (isLoading) return
 
     try {
       setIsLoading(true)
@@ -93,8 +105,7 @@ export default function LoginForm() {
         type: 'success',
       })
 
-      // Update redirect path to tax-calculator
-      router.push('/tax-calculator')
+      // Redirect is now handled by the useEffect above
     } catch (error) {
       console.error('Authentication error:', error)
       setAuthError(error instanceof Error ? error : new Error('Authentication failed'))
