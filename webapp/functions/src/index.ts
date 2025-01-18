@@ -18,20 +18,51 @@ if (!admin.apps.length) {
     }
 }
 
+// Initialize Firestore
+const db = admin.firestore()
+
 // Simplified CORS configuration
 const corsHandler = cors({ origin: true })
 
 // Export tax functions with v2
-export const saveTaxData = onCall({
-    cors: ['http://localhost:4200', 'https://taxifyio.web.app'],
-    region: 'us-central1'
-}, async (request) => {
-    return taxFunctions.saveTaxData(request.data, response)
-})
+export const saveTaxData = onRequest((req, res) => {
+    return corsHandler(req, res, async () => {
+        try {
+            // Handle preflight request
+            if (req.method === 'OPTIONS') {
+                res.set('Access-Control-Allow-Methods', 'POST');
+                res.set('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+                res.set('Access-Control-Max-Age', '3600');
+                return res.status(204).send('');
+            }
+
+            if (req.method !== 'POST') {
+                return res.status(405).json({ error: 'Method not allowed' });
+            }
+
+            // Log the request for debugging
+            console.log('Received request:', {
+                method: req.method,
+                headers: req.headers,
+                body: req.body
+            });
+
+            const result = await taxFunctions.saveTaxData(req.body, res);
+            return res.status(200).json(result);
+        } catch (error) {
+            console.error('Error in saveTaxData:', error);
+            return res.status(500).json({
+                error: 'Internal server error',
+                details: error instanceof Error ? error.message : 'Unknown error'
+            });
+        }
+    });
+});
 
 export const processTaxData = onCall({
-    cors: ['http://localhost:4200', 'https://taxifyio.web.app'],
-    region: 'us-central1'
+    cors: true,
+    region: 'us-central1',
+    maxInstances: 10
 }, async (request) => {
     return taxFunctions.processTaxData(request.data, response)
 })
@@ -52,7 +83,33 @@ export const nextServer = https.onRequest((req, res) => {
 // Handle API routes
 export const nextApi = onRequest((req, res) => {
     return corsHandler(req, res, async () => {
-        // Only handle /api/auth/phantom endpoint
+        // Handle nonce endpoint
+        if (req.path === '/api/auth/nonce') {
+            if (req.method !== 'GET') {
+                return res.status(405).json({ error: 'Method not allowed' })
+            }
+
+            try {
+                // Generate a random nonce
+                const nonce = Math.random().toString(36).substring(2, 15)
+
+                // Store the nonce in Firestore with a timestamp
+                const timestamp = admin.firestore.FieldValue.serverTimestamp()
+
+                await db.collection('nonces').add({
+                    nonce,
+                    createdAt: timestamp,
+                    used: false
+                })
+
+                return res.status(200).json({ nonce })
+            } catch (error) {
+                console.error('Error generating nonce:', error)
+                return res.status(500).json({ error: 'Failed to generate authentication nonce' })
+            }
+        }
+
+        // Handle phantom endpoint
         if (req.path === '/api/auth/phantom') {
             if (req.method !== 'POST') {
                 return res.status(405).json({ error: 'Method not allowed' })
@@ -64,6 +121,18 @@ export const nextApi = onRequest((req, res) => {
                 if (!publicKey || !signature || !nonce) {
                     return res.status(400).json({ error: 'Missing required fields' })
                 }
+
+                // Verify nonce exists and hasn't been used
+                const noncesRef = db.collection('nonces')
+                const nonceQuery = await noncesRef.where('nonce', '==', nonce).where('used', '==', false).get()
+
+                if (nonceQuery.empty) {
+                    return res.status(401).json({ error: 'Invalid or expired nonce' })
+                }
+
+                // Mark nonce as used
+                const nonceDoc = nonceQuery.docs[0]
+                await nonceDoc.ref.update({ used: true })
 
                 // Verify the public key is valid
                 let pubKey: PublicKey
@@ -94,7 +163,6 @@ export const nextApi = onRequest((req, res) => {
                 }
 
                 // Get or create user in Firestore
-                const db = admin.firestore()
                 const userRef = db.collection('users').doc(publicKey)
                 const userDoc = await userRef.get()
 

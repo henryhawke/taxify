@@ -1,15 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { WalletTaxInfo } from '@/types/tax'
-import { httpsCallable } from 'firebase/functions'
+import { httpsCallable, connectFunctionsEmulator } from 'firebase/functions'
 import { functions } from '@/lib/firebase'
 
-interface FunctionResponse<T = any> {
+// Initialize functions
+if (process.env.NODE_ENV === 'development') {
+  connectFunctionsEmulator(functions, 'localhost', 5001)
+}
+
+interface TaxData {
+  year: number
+  timestamp: Date
+}
+
+interface TaxFunctionResponse {
   success: boolean
+  message?: string
+  data?: TaxData
+  error?: string
+}
+
+export interface FunctionResponse<T> {
+  success: boolean
+  message?: string
   data?: T
-  error?: {
-    code: string
-    message: string
-  }
+  error?: string
+}
+
+interface TaxRequest {
+  userId: string
+  taxInfo?: any
+  year?: number
 }
 
 export interface ChatMessage {
@@ -20,96 +40,68 @@ export interface ChatMessage {
 }
 
 export const taxifyFunctions = {
-  saveTaxData: async (userId: string, taxInfo: WalletTaxInfo) => {
-    if (!userId || !taxInfo) {
-      throw new Error('Missing required parameters: userId and taxInfo')
-    }
-
-    // Validate required fields
-    if (!taxInfo.address || !taxInfo.year || !taxInfo.summary || !Array.isArray(taxInfo.transactions)) {
-      throw new Error('Invalid tax info structure. Missing required fields.')
-    }
-
-    // Validate summary fields
-    const requiredSummaryFields = [
-      'shortTermGains',
-      'longTermGains',
-      'totalIncome',
-      'totalFees',
-      'stateTax',
-      'stateCode',
-      'effectiveStateTaxRate',
-      'taxableEvents'
-    ]
-
-    for (const field of requiredSummaryFields) {
-      if (!(field in taxInfo.summary)) {
-        throw new Error(`Missing required summary field: ${field}`)
-      }
-    }
-
-    console.log('Saving tax data:', {
-      userId,
-      taxInfo
-    })
-
+  saveTaxData: async (userId: string, taxInfo: any): Promise<FunctionResponse<TaxData>> => {
     try {
-      const saveTaxDataFn = httpsCallable<{ userId: string; taxInfo: WalletTaxInfo }, FunctionResponse>(
-        functions,
-        'saveTaxData'
-      )
+      const saveTaxDataFn = httpsCallable<TaxRequest, TaxFunctionResponse>(functions, 'saveTaxData')
       const result = await saveTaxDataFn({ userId, taxInfo })
-
-      if (!result.data.success) {
-        throw new Error(result.data.error?.message || 'Failed to save tax data')
+      return {
+        success: result.data.success,
+        data: result.data.data,
+        message: result.data.message,
+        error: result.data.error
       }
-
-      return result.data
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error saving tax data:', error)
-      throw new Error(error.message || 'Failed to save tax data')
+      throw error
     }
   },
 
-  processTaxData: async (userId: string, year: number) => {
-    if (!userId || !year) {
-      throw new Error('Missing required parameters: userId and year')
-    }
-
+  processTaxData: async (userId: string, year: number): Promise<FunctionResponse<TaxData>> => {
     try {
-      const processTaxDataFn = httpsCallable(functions, 'taxProcessTaxData')
+      const processTaxDataFn = httpsCallable<TaxRequest, TaxFunctionResponse>(functions, 'processTaxData')
       const result = await processTaxDataFn({ userId, year })
-      return result.data as FunctionResponse
-    } catch (error: any) {
+      return {
+        success: result.data.success,
+        data: result.data.data,
+        message: result.data.message,
+        error: result.data.error
+      }
+    } catch (error) {
       console.error('Error processing tax data:', error)
-      throw new Error(error.message || 'Failed to process tax data')
+      throw error
     }
   },
 
-  createChatMessage: async (message: ChatMessage) => {
+  createChatMessage: async (message: ChatMessage): Promise<FunctionResponse<void>> => {
     if (!message.content || !message.roomId || !message.userId) {
       throw new Error('Missing required parameters: content, roomId, or userId')
     }
 
     try {
       const createChatMessageFn = httpsCallable(functions, 'chat-createMessage')
-      const result = await createChatMessageFn({ ...message, timestamp: new Date() })
-      return result.data as FunctionResponse
+      await createChatMessageFn({ ...message, timestamp: new Date() })
+      return {
+        success: true,
+        message: 'Chat message created successfully'
+      }
     } catch (error: any) {
       console.error('Error creating chat message:', error)
       throw new Error(error.message || 'Failed to create chat message')
     }
   },
 
-  createVertexMessage: async (message: ChatMessage) => {
+  createVertexMessage: async (message: ChatMessage): Promise<FunctionResponse<void>> => {
     if (!message.content || !message.roomId || !message.userId) {
       throw new Error('Missing required parameters: content, roomId, or userId')
     }
 
     try {
       const createVertexMessageFn = httpsCallable(functions, 'vertex-createMessage')
-      const result = await createVertexMessageFn({ ...message, timestamp: new Date() })
-      return result.data as FunctionResponse
+      await createVertexMessageFn({ ...message, timestamp: new Date() })
+      return {
+        success: true,
+        message: 'Vertex message created successfully'
+      }
     } catch (error: any) {
       console.error('Error creating vertex message:', error)
       throw new Error(error.message || 'Failed to create vertex message')

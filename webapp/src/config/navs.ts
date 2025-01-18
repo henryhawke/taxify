@@ -69,27 +69,17 @@ export const docHeaderNav = [
 
 export const userMenuNav = [
   {
-    name: 'user:menuNav.profile',
-    href: '/user/profile/',
-    icon: UserIcon,
-  },
-  {
-    name: 'user:menuNav.vertexAi',
-    href: '/user/vertex-ai/',
-    icon: AcademicCapIcon,
-  },
-  {
-    name: 'user:menuNav.chat',
+    name: 'Tax Chat Assistant',
     href: '/user/chat/',
     icon: ChatBubbleLeftRightIcon,
   },
   {
-    name: 'user:menuNav.solana-nft',
+    name: 'NFT Portfolio',
     href: '/user/solana-nft/',
     icon: WalletIcon,
   },
   {
-    name: 'user:menuNav.settings',
+    name: 'Account Settings',
     href: '/user/settings/',
     icon: Cog8ToothIcon,
   },

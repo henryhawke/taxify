@@ -57,7 +57,7 @@ export default function ChatBox({
       if (response) {
         const assistantMessage: ChatMessage = {
           id: `assistant-${Date.now()}`,
-          content: response.data as string,
+          content: response.data as unknown as string,
           role: 'assistant',
           timestamp: Date.now(),
         }

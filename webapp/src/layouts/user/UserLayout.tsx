@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { useMemo, useCallback, useEffect, useState, Fragment } from 'react'
 import { Transition, Dialog, Menu } from '@headlessui/react'
-import { XMarkIcon, Bars3BottomLeftIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon, Bars3BottomLeftIcon, UserIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import { userHeaderNav, userMenuNav } from '@/config/navs'
 import Link from '@/components/routing/Link'
@@ -154,30 +154,30 @@ export default function UserLayout({ children }: UserLayoutProps) {
         </Transition.Root>
 
         <div className="z-10 hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-          <div className="scrollbar-hide flex flex-grow flex-col overflow-y-auto break-words bg-white pt-5 dark:bg-gray-900">
-            <div className="flex flex-shrink-0 items-center px-4">
-              <LogoHorizontal className="h-8 w-auto sm:h-10" />
+          <div className="scrollbar-hide flex flex-grow flex-col overflow-y-auto break-words bg-gray-800 pt-5 dark:bg-gray-900">
+            <div className="flex flex-shrink-0 items-center justify-center px-4 pb-6">
+              <LogoHorizontal className="h-12 w-auto sm:h-14" />
             </div>
-            <div className="mt-5 flex flex-1 flex-col">
-              <nav className="flex-1 space-y-1 px-2 pb-4">
+            <div className="flex flex-1 flex-col justify-between">
+              <nav className="flex-1 space-y-2 px-3">
                 {userMenuNav.map((item) => (
                   <Link
                     key={`UserLayout Menu ${item.name}`}
                     href={item.href ?? ''}
                     className={clsx(
                       asPathWithoutLang === item.href
-                        ? 'bg-gray-50 text-gray-900 dark:bg-gray-700 dark:text-white'
-                        : 'text-gray-700 hover:bg-gray-50 dark:text-gray-50 dark:hover:bg-gray-800',
-                      'group flex items-center px-2 py-2 text-sm font-medium',
+                        ? 'bg-gray-700 text-white dark:bg-gray-700 dark:text-white'
+                        : 'text-gray-200 hover:bg-gray-700 hover:text-white dark:text-gray-100 dark:hover:bg-gray-800',
+                      'group flex items-center rounded-md px-3 py-2.5 text-sm font-medium',
                     )}
                   >
                     {item.icon && (
                       <item.icon
                         className={clsx(
                           asPathWithoutLang === item.href
-                            ? 'text-gray-900 dark:text-white'
-                            : 'text-gray-700 dark:text-gray-50',
-                          'mr-3 h-6 w-6 flex-shrink-0',
+                            ? 'text-white dark:text-white'
+                            : 'text-gray-200 group-hover:text-white dark:text-gray-100',
+                          'mr-3 h-5 w-5 flex-shrink-0',
                         )}
                         aria-hidden="true"
                       />
@@ -186,6 +186,34 @@ export default function UserLayout({ children }: UserLayoutProps) {
                   </Link>
                 ))}
               </nav>
+              
+              <div className="border-t border-gray-700 pt-2 pb-3 px-3">
+                <Link
+                  href="/user/profile"
+                  className="group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-200 hover:bg-gray-700 hover:text-white"
+                >
+                  {user?.photoURL ? (
+                    <Image
+                      src={user.photoURL}
+                      className="mr-3 h-6 w-6 rounded-full"
+                      unoptimized
+                      alt="User icon"
+                      width={24}
+                      height={24}
+                    />
+                  ) : (
+                    <UserIcon className="mr-3 h-5 w-5 text-gray-200" />
+                  )}
+                  My Profile
+                </Link>
+                <button
+                  onClick={handleSignOut}
+                  className="mt-1 w-full group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-200 hover:bg-gray-700 hover:text-white"
+                >
+                  <XMarkIcon className="mr-3 h-5 w-5 text-gray-200" />
+                  Sign Out
+                </button>
+              </div>
             </div>
           </div>
         </div>

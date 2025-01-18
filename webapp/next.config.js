@@ -3,45 +3,11 @@ const path = require('path')
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
-  reactStrictMode: true,
-  experimental: {
-    forceSwcTransforms: true,
-  },
   images: {
     unoptimized: true,
-    domains: ['firebasestorage.googleapis.com'],
   },
-  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-  transpilePackages: [
-    '@solana/web3.js',
-    '@solana/rpc',
-    '@mui/material',
-    '@mui/icons-material',
-    '@emotion/react',
-    '@emotion/styled',
-  ],
-
-  webpack: (config, { isServer }) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': path.resolve(__dirname, 'src'),
-      '@common': path.resolve(__dirname, '../common'),
-    }
-
-    if (!isServer) {
-      config.resolve.fallback = {
-        fs: false,
-        path: false,
-        crypto: false,
-        punycode: false,
-      }
-    }
-
-    // Ignore punycode warning
-    config.ignoreWarnings = [{ module: /node_modules\/punycode/ }]
-
-    return config
-  },
+  trailingSlash: false,
+  reactStrictMode: true,
 }
 
 module.exports = nextConfig
