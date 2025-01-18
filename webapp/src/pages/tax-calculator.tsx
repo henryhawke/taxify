@@ -10,6 +10,7 @@ import { useToastMessage } from '@/hooks/useToastMessage'
 import { taxifyFunctions } from '@/lib/taxfy/functions'
 import { useAuth } from '@/hooks/useAuth'
 import { FirebaseError } from 'firebase/app'
+import UserLayout from '@/layouts/user/UserLayout'
 import {
   Box,
   Container,
@@ -249,192 +250,198 @@ export default function TaxCalculator() {
   }
 
   if (loading) {
-    return <LoadingScreen />
+    return (
+      <UserLayout>
+        <LoadingScreen />
+      </UserLayout>
+    )
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', py: 6 }}>
-      <Container maxWidth="lg">
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
-          <Typography
-            variant="h3"
-            component="h1"
-            gutterBottom
-            color="text.primary"
-          >
-            Solana Tax Calculator
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary" gutterBottom>
-            Calculate your crypto taxes based on your Phantom wallet
-            transactions
-          </Typography>
-        </Box>
-
-        {error && (
-          <Alert severity="error" sx={{ mb: 4 }}>
-            {error}
-          </Alert>
-        )}
-
-        {!connected ? (
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 2,
-              my: 4,
-            }}
-          >
-            <Typography variant="h6" color="text.secondary" gutterBottom>
-              Connect your wallet to view your tax information
+    <UserLayout>
+      <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', py: 6 }}>
+        <Container maxWidth="lg">
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Typography
+              variant="h3"
+              component="h1"
+              gutterBottom
+              color="text.primary"
+            >
+              Solana Tax Calculator
             </Typography>
-            <WalletMultiButton />
+            <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+              Calculate your crypto taxes based on your Phantom wallet
+              transactions
+            </Typography>
           </Box>
-        ) : (
-          <Box>
-            <Grid container spacing={3} sx={{ mb: 4 }}>
-              <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
-                  <InputLabel id="year-select-label">Tax Year</InputLabel>
-                  <Select
-                    labelId="year-select-label"
-                    value={selectedYear}
-                    label="Tax Year"
-                    onChange={(e) => setSelectedYear(Number(e.target.value))}
-                  >
-                    {[2024, 2023, 2022].map((year) => (
-                      <MenuItem key={year} value={year}>
-                        {year}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
-                  <InputLabel id="state-select-label">State</InputLabel>
-                  <Select
-                    labelId="state-select-label"
-                    value={selectedState}
-                    label="State"
-                    onChange={(e) => setSelectedState(e.target.value as string)}
-                  >
-                    {Object.entries(STATE_TAX_RATES).map(([state, info]) => (
-                      <MenuItem key={state} value={state}>
-                        {info}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
 
-            {taxInfo && (
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={6} md={3}>
-                  <Card>
-                    <CardContent>
-                      <Typography variant="h6" gutterBottom>
-                        Short-term Gains
-                      </Typography>
-                      <Typography variant="h4" color="primary.main">
-                        ${taxInfo.summary.shortTermGains.toFixed(2)}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <Card>
-                    <CardContent>
-                      <Typography variant="h6" gutterBottom>
-                        Long-term Gains
-                      </Typography>
-                      <Typography variant="h4" color="success.main">
-                        ${taxInfo.summary.longTermGains.toFixed(2)}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <Card>
-                    <CardContent>
-                      <Typography variant="h6" gutterBottom>
-                        Total Income
-                      </Typography>
-                      <Typography variant="h4" color="info.main">
-                        ${taxInfo.summary.totalIncome.toFixed(2)}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <Card>
-                    <CardContent>
-                      <Typography variant="h6" gutterBottom>
-                        Total Fees
-                      </Typography>
-                      <Typography variant="h4" color="error.main">
-                        ${taxInfo.summary.totalFees.toFixed(2)}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <Card>
-                    <CardContent>
-                      <Typography variant="h6" gutterBottom>
-                        State Tax
-                      </Typography>
-                      <Typography variant="h4" color="error.main">
-                        ${taxInfo.summary.stateTax.toFixed(2)}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Effective Rate:{' '}
-                        {taxInfo.summary.effectiveStateTaxRate.toFixed(2)}%
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              </Grid>
-            )}
+          {error && (
+            <Alert severity="error" sx={{ mb: 4 }}>
+              {error}
+            </Alert>
+          )}
 
-            {taxInfo && taxInfo.transactions.length > 0 && (
-              <Box sx={{ mt: 8 }}>
-                <Typography variant="h4" gutterBottom color="text.primary">
-                  Transaction History
-                </Typography>
-                <TableContainer component={Paper}>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Type</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Amount</TableCell>
-                        <TableCell>Price</TableCell>
-                        <TableCell>Fee</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {taxInfo.transactions.map((tx, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{tx.type}</TableCell>
-                          <TableCell>
-                            {new Date(tx.timestamp).toLocaleDateString()}
-                          </TableCell>
-                          <TableCell>{tx.amount}</TableCell>
-                          <TableCell>${tx.price}</TableCell>
-                          <TableCell>${tx.fee || 0}</TableCell>
-                        </TableRow>
+          {!connected ? (
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 2,
+                my: 4,
+              }}
+            >
+              <Typography variant="h6" color="text.secondary" gutterBottom>
+                Connect your wallet to view your tax information
+              </Typography>
+              <WalletMultiButton />
+            </Box>
+          ) : (
+            <Box>
+              <Grid container spacing={3} sx={{ mb: 4 }}>
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth>
+                    <InputLabel id="year-select-label">Tax Year</InputLabel>
+                    <Select
+                      labelId="year-select-label"
+                      value={selectedYear}
+                      label="Tax Year"
+                      onChange={(e) => setSelectedYear(Number(e.target.value))}
+                    >
+                      {[2024, 2023, 2022].map((year) => (
+                        <MenuItem key={year} value={year}>
+                          {year}
+                        </MenuItem>
                       ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Box>
-            )}
-          </Box>
-        )}
-      </Container>
-    </Box>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth>
+                    <InputLabel id="state-select-label">State</InputLabel>
+                    <Select
+                      labelId="state-select-label"
+                      value={selectedState}
+                      label="State"
+                      onChange={(e) => setSelectedState(e.target.value as string)}
+                    >
+                      {Object.keys(STATE_TAX_RATES).map((state) => (
+                        <MenuItem key={state} value={state}>
+                          {state}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Grid>
+
+              {taxInfo && (
+                <Grid container spacing={3}>
+                  <Grid item xs={12} sm={6} md={3}>
+                    <Card>
+                      <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                          Short-term Gains
+                        </Typography>
+                        <Typography variant="h4" color="primary.main">
+                          ${taxInfo.summary.shortTermGains.toFixed(2)}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                    <Card>
+                      <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                          Long-term Gains
+                        </Typography>
+                        <Typography variant="h4" color="success.main">
+                          ${taxInfo.summary.longTermGains.toFixed(2)}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                    <Card>
+                      <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                          Total Income
+                        </Typography>
+                        <Typography variant="h4" color="info.main">
+                          ${taxInfo.summary.totalIncome.toFixed(2)}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                    <Card>
+                      <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                          Total Fees
+                        </Typography>
+                        <Typography variant="h4" color="error.main">
+                          ${taxInfo.summary.totalFees.toFixed(2)}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                    <Card>
+                      <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                          State Tax
+                        </Typography>
+                        <Typography variant="h4" color="error.main">
+                          ${taxInfo.summary.stateTax.toFixed(2)}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Effective Rate:{' '}
+                          {taxInfo.summary.effectiveStateTaxRate.toFixed(2)}%
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+              )}
+
+              {taxInfo && taxInfo.transactions.length > 0 && (
+                <Box sx={{ mt: 8 }}>
+                  <Typography variant="h4" gutterBottom color="text.primary">
+                    Transaction History
+                  </Typography>
+                  <TableContainer component={Paper}>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Type</TableCell>
+                          <TableCell>Date</TableCell>
+                          <TableCell>Amount</TableCell>
+                          <TableCell>Price</TableCell>
+                          <TableCell>Fee</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {taxInfo.transactions.map((tx, index) => (
+                          <TableRow key={index}>
+                            <TableCell>{tx.type}</TableCell>
+                            <TableCell>
+                              {new Date(tx.timestamp).toLocaleDateString()}
+                            </TableCell>
+                            <TableCell>{tx.amount}</TableCell>
+                            <TableCell>${tx.price}</TableCell>
+                            <TableCell>${tx.fee || 0}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Box>
+              )}
+            </Box>
+          )}
+        </Container>
+      </Box>
+    </UserLayout>
   )
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '@/hooks/useAuth'
 import UserLayout from '@/layouts/user/UserLayout'
+import { RecoilRoot } from 'recoil'
 import {
   Box,
   Container,
@@ -48,6 +49,14 @@ interface ExtendedUserProfile extends Omit<User, 'createdAt' | 'updatedAt'> {
 }
 
 export default function UserProfilePage() {
+  return (
+    <RecoilRoot>
+      <ProfileContent />
+    </RecoilRoot>
+  )
+}
+
+function ProfileContent() {
   const { user } = useAuth()
   const addToast = useToastMessage()
   const [loading, setLoading] = useState(true)

@@ -5,14 +5,13 @@ import { XMarkIcon, Bars3BottomLeftIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import { userHeaderNav, userMenuNav } from '@/config/navs'
 import Link from '@/components/routing/Link'
-import { User as FirebaseUser, signOut } from 'firebase/auth'
-import { useRecoilState } from 'recoil'
-import { defaultUser, userState } from '@/store/user'
-import { auth } from '@/lib/firebase'
+// import { User as FirebaseUser, signOut } from 'firebase/auth'
+// import { auth } from '@/lib/firebase'
 import LogoHorizontal from '@/components/common/atoms/LogoHorizontal'
 import Image from 'next/image'
-import { User } from '@/common/models'
+import { User } from '@/common/models/userModels'
 import { useRouter } from 'next/router'
+import { useAuth } from '@/hooks/useAuth'
 
 interface UserLayoutProps {
   children: ReactNode
@@ -24,7 +23,7 @@ const mainContentId = 'userMainContent'
 export default function UserLayout({ children }: UserLayoutProps) {
   const router = useRouter()
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [user, setUser] = useRecoilState(userState)
+  const { user, signOut: authSignOut } = useAuth()
 
   const asPathWithoutLang = useMemo(() => {
     return router.asPath
@@ -51,39 +50,14 @@ export default function UserLayout({ children }: UserLayoutProps) {
     })()
   }, [router.asPath, resetWindowScrollPosition])
 
-  const onAuthStateChanged = useCallback(
-    async (fbUser: FirebaseUser | null) => {
-      if (fbUser) {
-        try {
-          setUser({
-            uid: fbUser.uid,
-            email: fbUser.email || '',
-            username: fbUser.displayName || '',
-            iconUrl: fbUser.photoURL || '',
-            id: fbUser.uid,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          })
-        } catch (e) {
-          console.error(e)
-          setUser(defaultUser)
-          if (auth) await signOut(auth)
-          await router.push('/auth/login')
-        }
-      } else {
-        setUser(defaultUser)
-        if (auth) await signOut(auth)
-        await router.push('/auth/login')
-      }
-    },
-    [setUser, router],
-  )
-
-  useEffect(() => {
-    if (!auth) return
-    const unsubscribe = auth.onAuthStateChanged(onAuthStateChanged)
-    return () => unsubscribe()
-  }, [onAuthStateChanged])
+  const handleSignOut = async () => {
+    try {
+      await authSignOut()
+      await router.push('/auth/login')
+    } catch (e) {
+      console.error('Error signing out:', e)
+    }
+  }
 
   return (
     <>
@@ -236,9 +210,9 @@ export default function UserLayout({ children }: UserLayoutProps) {
               <Menu as="div" className="lg:mt-2">
                 <Menu.Button className="flex max-w-xs items-center text-sm text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:text-gray-50 dark:hover:text-gray-200">
                   <span className="sr-only">Open other menu</span>
-                  {user.iconUrl && (
+                  {user?.photoURL && (
                     <Image
-                      src={user.iconUrl}
+                      src={user.photoURL}
                       className="h-8 w-8 rounded-full lg:h-10 lg:w-10"
                       unoptimized
                       alt="User icon"
@@ -278,12 +252,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
                     <Menu.Item>
                       {({ active }) => (
                         <p
-                          onClick={async () => {
-                            if (auth) {
-                              setUser(defaultUser)
-                              await signOut(auth)
-                            }
-                          }}
+                          onClick={handleSignOut}
                           className={clsx(
                             active
                               ? 'bg-gray-50 text-gray-900 dark:bg-gray-700 dark:text-white'

@@ -50,6 +50,7 @@ export default function ChatBox({
       const response = await createChatMessage({
         content: data.chatContent,
         roomId: user.uid,
+        userId: user.uid,
       })
 
       // Add assistant response

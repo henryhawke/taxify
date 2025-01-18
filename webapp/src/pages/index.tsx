@@ -7,8 +7,9 @@ import FeaturesRow from '@/components/pages/home/FeaturesRow'
 import ServiceOverview from '@/components/pages/home/ServiceOverview'
 import DiscordRow from '@/components/pages/common/DiscordRow'
 import { useAuth } from '@/hooks/useAuth'
+import { AuthProvider } from '@/contexts/AuthContext'
 
-export default function HomePage() {
+function HomePageContent() {
   const router = useRouter()
   const { user } = useAuth()
 
@@ -26,5 +27,13 @@ export default function HomePage() {
       <ServiceOverview />
       <DiscordRow />
     </DefaultLayout>
+  )
+}
+
+export default function HomePage() {
+  return (
+    <AuthProvider>
+      <HomePageContent />
+    </AuthProvider>
   )
 }
