@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getFirestore } from 'firebase-admin/firestore'
-import { PublicKey, nacl } from '@solana/web3.js'
+import { PublicKey } from '@solana/web3.js'
 import bs58 from 'bs58'
 import { getAuth } from 'firebase-admin/auth'
 import { initAdmin } from '@/lib/firebase-admin'

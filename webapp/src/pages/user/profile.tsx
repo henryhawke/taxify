@@ -9,7 +9,6 @@ import {
   Typography,
   Avatar,
   Button,
-  Divider,
   List,
   ListItem,
   ListItemText,
@@ -21,9 +20,8 @@ import {
   CircularProgress,
 } from '@mui/material'
 import {
-  UserIcon,
   EnvelopeIcon,
-  KeyIcon,
+
   ShieldCheckIcon,
   BellAlertIcon,
   DocumentTextIcon,

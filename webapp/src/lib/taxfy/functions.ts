@@ -10,6 +10,13 @@ interface FunctionResponse<T = any> {
   }
 }
 
+export interface ChatMessage {
+  content: string
+  roomId: string
+  userId: string
+  timestamp?: Date
+}
+
 export async function callTaxfyFunctions<T>(path: string, data: any): Promise<FunctionResponse<T>> {
   try {
     const response = await fetch(`http://localhost:5001/taxifyio/us-central1/${path}`, {
@@ -57,6 +64,28 @@ export const taxifyFunctions = {
     return callTaxfyFunctions('taxProcessTaxData', {
       userId,
       year
+    })
+  },
+
+  createChatMessage: async (message: ChatMessage) => {
+    if (!message.content || !message.roomId || !message.userId) {
+      throw new Error('Missing required parameters: content, roomId, or userId')
+    }
+
+    return callTaxfyFunctions('chat/createMessage', {
+      ...message,
+      timestamp: new Date()
+    })
+  },
+
+  createVertexMessage: async (message: ChatMessage) => {
+    if (!message.content || !message.roomId || !message.userId) {
+      throw new Error('Missing required parameters: content, roomId, or userId')
+    }
+
+    return callTaxfyFunctions('vertex/createMessage', {
+      ...message,
+      timestamp: new Date()
     })
   }
 }

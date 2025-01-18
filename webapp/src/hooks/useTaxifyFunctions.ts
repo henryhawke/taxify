@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { callTaxfyFunctions } from '@/lib/taxfy/functions'
+import { callTaxfyFunctions, ChatMessage } from '@/lib/taxfy/functions'
 
 type SignInData = {
     email: string
@@ -11,7 +11,17 @@ export function useTaxifyFunctions() {
         return callTaxfyFunctions<{ token: string }>('auth/signIn', data)
     }, [])
 
+    const createChatMessage = useCallback(async (data: ChatMessage) => {
+        return callTaxfyFunctions('chat/createMessage', data)
+    }, [])
+
+    const createVertexMessage = useCallback(async (data: ChatMessage) => {
+        return callTaxfyFunctions('vertex/createMessage', data)
+    }, [])
+
     return {
-        signIn
+        signIn,
+        createChatMessage,
+        createVertexMessage
     }
 } 

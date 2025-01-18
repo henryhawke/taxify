@@ -102,7 +102,7 @@ export function MuiThemeProvider({ children }: Props) {
           },
         },
       }),
-    [resolvedTheme],
+    [isDark],
   )
 
   return (

@@ -32,7 +32,7 @@ export default function LoadingScreen() {
       clearInterval(dotInterval)
       clearInterval(messageInterval)
     }
-  }, [])
+  }, [funMessages.length])
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
